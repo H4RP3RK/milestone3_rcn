@@ -1,3 +1,24 @@
+<h1 align="center">
+    <a href="https://h4rp3rk.github.io/milestone3_rcn/" target="_blank"><img src="/static/images/rcn-logo.png" style="center" alt="RCN Logo"></a>
+</h1>
+
+<div align="center">
+
+# The Royal College of Nursing Member Query Database
+
+[Open in GitHub](https://github.com/H4RP3RK/milestone3_rcn)
+
+</div>
+
+The Royal College of Nursing (RCN) is a professional body and trade union for nursing staff in the UK. It is a membership organisation that provides advice and support on workplace and professional nursing issues. 
+The RCN Member Query Database is a website/app created with the primary goal of improving communication and transparency between RCN staff and RCN members.
+
+The website/app features...
+
+The client requested this website to address a number of issues with their current methods of communication with its members. Up until now, RCN members have mainly used phone or email to contact the RCN. RCN staff would then respond by phone, email or, in some cases, a face-to-face meeting would be arranged.
+Queries could require only one response or more complicated matters could require ongoing correspondence for many weeks or months. It may also require the RCN contacting third parties on behalf of the member. RCN staff are responsible for keeping a record of all interactions with members and third parties on an internal database. 
+This database can be viewed by RCN staff but not by RCN members. 
+
 ******MY OWN NOTES - NOT PART OF FINAL README******
 
 ## Mandatory Requirements
