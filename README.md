@@ -51,7 +51,20 @@ The primary audience for the RCN Member Query Database are:
 A secondary audience to consider are RCN staff who provides the advice and support to the RCN member.
 They will be required to update the database with their advice.
 
+### User Journey
 
+An RCN member is expected to use the website/app in the following way:
+1. They encounter a workplace or professional nursing issue.
+2. They go to the website/app to write and submit their query.
+3. They receive a response to their query from the appropriate RCN department.
+4. They can choose to ask further questions by writing and submitting through the website/app or close their query.
+5. Their question and response is logged on their app, which allows them to read it at a later date, if they wish.
+
+An RCN staff member is expected to use the website/app in the following way:
+1. They receive a notification that a query has been asked by a member through the website/app.
+2. They provide a response to the query through the Member Query Database. 
+3. This database can be read by other RCN staff and the individual member so there is no need to keep a record of this contact anywhere else.
+4. If a member case requires further telephone conversations, face-to-face meetings or communication with third parties, these are all logged on the Member Query Database.
 
 ******MY OWN NOTES - NOT PART OF FINAL README******
 
