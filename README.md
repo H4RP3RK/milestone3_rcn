@@ -15,9 +15,43 @@ The RCN Member Query Database is a website/app created with the primary goal of 
 
 The website/app features...
 
-The client requested this website to address a number of issues with their current methods of communication with its members. Up until now, RCN members have mainly used phone or email to contact the RCN. RCN staff would then respond by phone, email or, in some cases, a face-to-face meeting would be arranged.
-Queries could require only one response or more complicated matters could require ongoing correspondence for many weeks or months. It may also require the RCN contacting third parties on behalf of the member. RCN staff are responsible for keeping a record of all interactions with members and third parties on an internal database. 
-This database can be viewed by RCN staff but not by RCN members. 
+The client requested this website to address issues with current methods of communication with its members. Up until now, RCN members have mainly used phone or email to contact the RCN. RCN staff would then respond by phone, email or, in some cases, a face-to-face meeting would be arranged.
+
+Member queries can differ greatly. Some matters can be resolved with only one response but more complicated matters could require ongoing correspondence for many weeks or months. It may also require the RCN contacting third parties on behalf of the member. 
+
+RCN staff are responsible for keeping a record of all interactions with members and third parties on an internal database. This database can be viewed by RCN staff but not by RCN members. It is expected that RCN members keep their own records of their ongoing cases or simply remember the information provided to them.
+This leaves room for misunderstandings and misinterpretation of information in what can often be complicated and high stakes matters. In order to reduce this risk, RCN staff are encouraged to follow up telephone calls and face-to-face meetings with an email that confirms the advice given and actions agreed. This approach is followed sporadically by RCN staff.
+
+The client goals for this new website/app are to:
+* Improve communication and transparency between RCN staff and RCN members.
+* Enhance the member experience in the hope of recruiting and retaining more members.
+* Mitigate the organisation against misinterpretation of advice.
+* Reduce the duplication of work and use of emails by RCN staff.
+* Increase the consistency of record keeping.
+
+The user goals for the new website/app are to:
+* Easily seek advice and support from the RCN.
+* Ensure that queries and advice are fully understood by both parties.
+* Keep a record of previous advice that can be readily accessed at a later date.
+* Track the progress of long-running cases.
+* Reduce the need for email correspondence.
+
+---
+
+## User experience
+
+### Target Audience
+
+The primary audience for the RCN Member Query Database are:
+* RCN members.
+* Nursing staff or nursing students.
+* Practicing or studying in the UK.
+* In need of advice or support with a workplace or professional nursing issue.
+
+A secondary audience to consider are RCN staff who provides the advice and support to the RCN member.
+They will be required to update the database with their advice.
+
+
 
 ******MY OWN NOTES - NOT PART OF FINAL README******
 
