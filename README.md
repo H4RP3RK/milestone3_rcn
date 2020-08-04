@@ -66,6 +66,10 @@ An RCN staff member is expected to use the website/app in the following way:
 3. This database can be read by other RCN staff and the individual member so there is no need to keep a record of this contact anywhere else.
 4. If a member case requires further telephone conversations, face-to-face meetings or communication with third parties, these are all logged on the Member Query Database.
 
+### User Aim 
+
+
+
 ******MY OWN NOTES - NOT PART OF FINAL README******
 
 ## Mandatory Requirements
