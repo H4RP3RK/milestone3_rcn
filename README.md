@@ -1,5 +1,5 @@
 <h1 align="center">
-    <a href="https://h4rp3rk.github.io/milestone3_rcn/" target="_blank"><img src="/static/images/rcn-logo.png" style="center" alt="RCN Logo"></a>
+    <a href="https://h4rp3rk.github.io/milestone3_rcn/" target="_blank"><img src="static/images/rcn-logo.jpg" style="center" alt="RCN Logo"></a>
 </h1>
 
 <div align="center">
@@ -59,6 +59,7 @@ An RCN member is expected to use the website/app in the following way:
 3. They receive a response to their query from the appropriate RCN department.
 4. They can choose to ask further questions by writing and submitting through the website/app or close their query.
 5. Their question and response is logged on their app, which allows them to read it at a later date, if they wish.
+6. If their case requires further investigation, they can keep updated with third party involvement through the database.
 
 An RCN staff member is expected to use the website/app in the following way:
 1. They receive a notification that a query has been asked by a member through the website/app.
@@ -68,7 +69,91 @@ An RCN staff member is expected to use the website/app in the following way:
 
 ### User Aim 
 
+RCN members visit this website/app because they want to:
+* Ask for advice and support from the RCN.
+* Remind themselves of previous advice given to them by the RCN.
+* Check the progress of their ongoing case.
 
+RCN staff use the database because they want to:
+* Respond to a member's query in writing.
+* Record a telephone or face-to-face meeting with the member or third party.
+* Check back on the details of a member's case.
+
+This website/app helps the users achieve these goals by providing:
+* An easily accessible way for RCN members to get in touch with the RCN.
+* An intuitive form of record keeping for both RCN staff and RCN members.
+* A place to store previous RCN advice and information.
+* A regularly updated log of ongoing cases.
+
+### User Stories
+
+### Wireframes
+
+---
+## Features 
+
+### Existing Features 
+
+### Features Left to Implement 
+
+
+---
+
+## Technologies Used 
+
+* [Gitpod](https://www.gitpod.io/)
+* [Github](https://github.com/)
+* HTML and CSS 
+
+---
+
+## Testing 
+
+### Tools 
+
+### User Testing 
+
+### User Feedback
+
+### Problem Solving 
+
+---
+## Deployment 
+
+To deploy this page to GitHub Pages from its [GitHub repository](https://github.com/H4RP3RK/milestone_2_rpoas), the following steps were taken: 
+
+1. From the menu items near the top of the page, select **Settings**.
+2. Scroll down to the **GitHub Pages** section.
+3. Under **Source** click the drop-down menu labelled **None** and select **Master Branch**
+4. On selecting Master Branch the page is automatically refreshed, the website is now deployed. 
+5. Scroll back down to the **GitHub Pages** section to retrieve the link to the deployed website.
+ 
+### How to run this project locally
+
+To clone this project from GitHub:
+
+1. Under the repository name, click "Clone or download".
+2. In the Clone with HTTPs section, copy the clone URL for the repository. 
+3. In your local IDE open Git Bash.
+4. Change the current working directory to the location where you want the cloned directory to be made.
+5. Type ```git clone```, and then paste the URL you copied in Step 3.
+```console
+git clone https://github.com/H4RP3RK/milestone3_rcn.git
+```
+6. Press Enter. Your local clone will be created.
+
+Further reading and troubleshooting on cloning a repository from GitHub [here](https://help.github.com/en/articles/cloning-a-repository).
+
+---
+## Credits 
+
+### Content
+
+### Media 
+
+### Code 
+
+### Acknowledgements 
 
 ******MY OWN NOTES - NOT PART OF FINAL README******
 
