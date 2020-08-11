@@ -1,4 +1,5 @@
-
+{% extends 'base.html' %}
+{% block content %}
         {% for query in queries %}
             {{query.query_type}}
             {{query.query_summary}}
@@ -6,3 +7,24 @@
             {{query.start_date}}
             {{query.end_date}}
         {% endfor %}
+
+
+    <table class="table table-hover table-striped">
+        <thead>
+            <tr>
+            <th scope="col">#</th>
+            <th scope="col">First</th>
+            <th scope="col">Last</th>
+            <th scope="col">Handle</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+            <th scope="row">1</th>
+            <td>Mark</td>
+            <td>Otto</td>
+            <td>@mdo</td>
+            </tr>
+        </tbody>
+    </table>    
+{% endblock %}
