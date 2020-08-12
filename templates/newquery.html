@@ -1,9 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
-<form>  
-  <div class="form-group" action="" method="POST">
+<form class="form-group" action="" method="POST">  
+  <div>
     <label for="queryTextArea">What is your new question?</label>
-    <textarea class="form-control" id="queryTextArea" rows="3" placeholder="Please provide as much detail as possible to allow us to fully answer your question"></textarea>
+    <textarea class="form-control" id="details" name="details" rows="3" placeholder="Please provide as much detail as possible to allow us to fully answer your question"></textarea>
+  </div>
+  <div>
+    <button type="submit" name="action" class="btn btn-primary">Submit</button>
   </div>
 </form>
 {% endblock %}
