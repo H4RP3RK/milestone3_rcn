@@ -20,8 +20,13 @@ def get_queries():
 
 @app.route('/new_query')
 def new_query():
-    return render_template("newquery.html",
-    )
+    return render_template("newquery.html")
+
+@app.route("/submit_query", methods=["POST"])
+def submit_query():
+    query = mongo.db.contacts
+    query.insert_one(request.form.to_dict())
+    return redirect(url_for('get_queries'))
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
