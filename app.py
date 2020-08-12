@@ -8,8 +8,8 @@ if path.exists("env.py"):
 
 app = Flask(__name__)
 
-app.config["MONGO_DBNAME"] = os.environ.get('MONGO_DBNAME')
-app.config["MONGO_URI"] = os.environ.get('MONGO_URI')
+app.config["MONGO_DBNAME"] = os.environ.get("MONGO_DBNAME")
+app.config["MONGO_URI"] = os.environ.get("MONGO_URI")
 
 mongo = PyMongo(app)
 
@@ -18,6 +18,9 @@ mongo = PyMongo(app)
 def get_queries():
     return render_template("queries.html", queries = mongo.db.queries.find())
 
+@app.route('/new_query')
+def new_query():
+    return render_template("newquery.html")
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
