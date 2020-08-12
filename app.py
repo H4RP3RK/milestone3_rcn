@@ -18,14 +18,14 @@ mongo = PyMongo(app)
 def get_queries():
     return render_template("queries.html", queries = mongo.db.queries.find())
 
-@app.route('/new_query')
+@app.route('/new_contact')
 def new_query():
-    return render_template("newquery.html")
+    return render_template("newcontact.html")
 
-@app.route("/submit_query", methods=["POST"])
-def submit_query():
-    query = mongo.db.queries
-    query.insert_one(request.form.to_dict())
+@app.route("/submit_contact", methods=["POST"])
+def submit_contact():
+    contact = mongo.db.contacts
+    contact.insert_one(request.form.to_dict())
     return redirect(url_for('get_queries'))
 
 if __name__ == '__main__':
