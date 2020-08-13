@@ -25,7 +25,9 @@ def new_query():
 @app.route("/submit_contact", methods=["POST"])
 def submit_contact():
     contact = mongo.db.contacts
+    query = mongo.db.queries
     contact.insert_one(request.form.to_dict())
+    query.insert_one(request.form.to_dict(['']))
     return redirect(url_for('get_queries'))
 
 if __name__ == '__main__':
