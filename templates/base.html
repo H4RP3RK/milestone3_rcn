@@ -8,18 +8,44 @@
     <title>RCN Database</title>
 </head>
 <body>
-<header class="container-fluid">
-    <div class="row">
-        <div class="col-6">
-            <a href=""><img class="logo" src="static/images/rcn_logo_header.png" alt="RCN logo"></a>
-        </div>
-        <div class="col-6">
-        
-        </div>
-    </div>
-</header>
+<!--Navbar-->
+    <header class="container-fluid">
+        <nav class="navbar navbar-light bg-light">
+            <a class="navbar-brand" href="#"><img class="logo" src="static/images/rcn_logo_header.png" alt="RCN logo"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Ask a new question</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">See ongoing cases</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Browse old questions</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+    <footer>
 
-    {% block content %}
-    {% endblock %}
+    </footer>
 </body>
+
+<!--JS Links-->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </html>
