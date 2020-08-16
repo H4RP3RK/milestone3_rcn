@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" type="text/css">
     <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}" type="text/css">
     <title>RCN Database</title>
 </head>
@@ -40,8 +41,24 @@
         {% block content %}
         {% endblock %}
     </main>
-    <footer>
-
+    <footer class="container-fluid">
+<!--Sister Sites-->
+        <div class="container-lg">
+            <div class="row justify-content-center text-center">
+                <div class="sister-sites rpoas col-3 col-xl-2">
+                    <a class="header-footer-text gold-hover" href="https://www.rpoas.org.uk/wp/" target="_blank"><img src="assets/images/rpoasbadge.png" alt="RPOAS Logo"><br><h5>RPOAS Scotland</h5></a>
+                </div>
+                <div class="sister-sites facebook col-3 col-xl-2">
+                    <a class="header-footer-text gold-hover" href="https://www.facebook.com/rpoas.lanarkshire" target="_blank"><i class="fab fa-facebook-square"></i><br><h5>RPOAS Lanarkshire Facebook</h5></a>
+                </div>
+                <div class="sister-sites facebook col-3 col-xl-2">
+                    <a class="header-footer-text gold-hover" href="contact.html" target="_blank"><i class="fas fa-envelope"></i><h5>RPOAS Lanarkshire Email</h5></a>
+                </div>                
+                <div class="sister-sites lphs col-3 col-xl-2">
+                    <a class="header-footer-text gold-hover" href="http://www.lphs.org.uk/" target="_blank"> <img src="assets/images/lphsbadge.png" alt="Lanarkshire Police Historical Society"><br><h5>Lanarkshire Police Historical Society</h5></a>
+                </div>
+            </div>
+        </div>
     </footer>
 </body>
 
