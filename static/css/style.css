@@ -4,9 +4,16 @@
 
 /*--Fonts--*/
 
-.font-heavy {
+.font {
     font-family: "PT Sans", Verdana;
+}
+
+.font-heavy {
     font-weight: 700;
+}
+
+.font-white {
+    color: #ffffff;
 }
 
 /*--Header--*/
@@ -19,6 +26,20 @@
     height: 15vh;
     margin: 2vh 2vw;
 }
+
+.navbar-toggler {
+    border-color: #023a70;
+    background-color: #0063a3;
+}
+
+.navbar-toggler i {
+    color: #ffffff;
+}
+
+.nav-item {
+    padding: 0.5vh 2vw;
+}
+
 
 /*--Main--*/
 
