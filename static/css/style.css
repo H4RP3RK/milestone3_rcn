@@ -40,6 +40,11 @@
     padding: 0.5vh 2vw;
 }
 
+/*--Banner--*/
+
+.banner {
+    background-color: 
+}
 
 /*--Main--*/
 
@@ -54,12 +59,13 @@ main {
 
 .background-blue {
     background-color: #0063a3;
+    color: #ffffff;
 }
 
 .background-blue a {
-    margin: 2vh 2vw;
     color: #ffffff;
     font-size: 3vh;
+    margin: 2vh 2vw;
 }
 
 .background-blue a:hover {
