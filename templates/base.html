@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" type="text/css">
     <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}" type="text/css">
     <title>RCN Database</title>
@@ -11,7 +12,7 @@
 <body>
 <!--Navbar-->
     <header class="container-fluid">
-        <nav class="navbar navbar-light bg-light">
+        <nav class="navbar navbar-light background-white">
             <a class="navbar-brand" href="#"><img src="static/images/rcn_logo_header.png" alt="RCN logo"></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -41,15 +42,15 @@
         {% block content %}
         {% endblock %}
     </main>
-    <footer class="container-fluid">
+    <footer class="container-fluid background-blue font-heavy">
 <!--Sister Sites-->
         <div class="row">
-            <div class="col-6">
+            <div class="col-6 d-flex justify-content-around">
                 <a href="https://www.rcn.org.uk/">RCN Website</a>
                 <a href="https://journals.rcni.com/home">RCNi</a>
                 <a href="https://my.rcn.org.uk/RCNXtra/login">RCNXtra</a>
             </div>
-            <div class="col-6">
+            <div class="col-6 d-flex justify-content-end">
                 <a href="https://twitter.com/thercn"><i class="fab fa-twitter"></i></a>
                 <a href="https://www.facebook.com/royalcollegeofnursing"><i class="fab fa-facebook-f"></i></a>
                 <a href="https://www.instagram.com/thercn/"><i class="fab fa-instagram"></i></a>

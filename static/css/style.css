@@ -1,13 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&display=swap');
+
 /*--BASE.HTML--*/
+
+/*--Fonts--*/
+
+.font-heavy {
+    font-family: "PT Sans", Verdana;
+    font-weight: 700;
+}
+
 /*--Header--*/
+
+.background-white {
+    background-color: #ffffff;
+}
 
 .navbar-brand img {
     height: 15vh;
+    margin: 2vh 2vw;
+}
+
+/*--Main--*/
+
+main {
+    position: relative;
+    min-height: 60vh;
+    padding-bottom: 2vh;
+    overflow: scroll;
 }
 
 /*--Footer--*/
 
-footer {
+.background-blue {
     background-color: #0063a3;
-    position: absolute;
+}
+
+.background-blue a {
+    margin: 2vh 2vw;
+    color: #ffffff;
+    font-size: 3vh;
+}
+
+.background-blue a:hover {
+    color: #f3f3f3;
 }
