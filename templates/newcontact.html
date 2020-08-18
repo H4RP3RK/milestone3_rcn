@@ -6,27 +6,33 @@
     </section>
 
     <form action="{{ url_for('submit_contact') }}" method="POST">  
-        <div class="form-group">
-            <label for="from">From</label>
-            <input type="text" readonly class="form-control" id="from" name="from" value="member">
+        <div class="form-row">
+            <div class="form-group col-5">
+                <label for="from">From</label>
+                <input type="text" readonly class="form-control" id="from" name="from" value="member">
+            </div>
+            <div class="form-group col-5">
+                <label for="to">To</label>
+                <input type="text" readonly class="form-control" id="to" name="to" value="RCN">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-5">
+                <label for="contact_type">Contact Type</label>
+                <input type="text" readonly class="form-control" id="contact_type" name="contact_type" value="database">
+            </div>
+            <div class="form-group col-5">
+                <label for="date">Date</label>
+                <input type="text" readonly class="form-control" id="date" name="date" value="">
+            </div>        
+        </div>
+        <div class="form-row">
+            <div class="form-group col-10">
+                <label for="details">What is your new question?</label>
+                <textarea class="form-control" id="details" name="details" rows="3" placeholder="Please provide as much detail as possible to allow us to fully answer your question"></textarea>
+            </div>       
         </div>
         <div class="form-group">
-            <label for="to">To</label>
-            <input type="text" readonly class="form-control" id="to" name="to" value="RCN">
-        </div>
-        <div class="form-group">
-            <label for="contact_type">Contact Type</label>
-            <input type="text" readonly class="form-control" id="contact_type" name="contact_type" value="database">
-        </div>
-        <div class="form-group">
-            <label for="date">Date</label>
-            <input type="text" readonly class="form-control" id="date" name="date" value="">
-        </div>
-        <div class="form-group">
-            <label for="details">What is your new question?</label>
-            <textarea class="form-control" id="details" name="details" rows="3" placeholder="Please provide as much detail as possible to allow us to fully answer your question"></textarea>
-        </div>
-        <div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </div>
     </form>
