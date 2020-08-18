@@ -55,6 +55,12 @@ main {
     overflow: scroll;
 }
 
+/*--Main--*/
+
+.form-group {
+    margin: 2vh 2vw;
+}
+
 /*--Footer--*/
 
 .background-blue {

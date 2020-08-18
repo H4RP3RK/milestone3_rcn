@@ -158,11 +158,12 @@ Further reading and troubleshooting on cloning a repository from GitHub [here](h
 ******MY OWN NOTES - NOT PART OF FINAL README******
 
 ## Questions 
-How do I set up so tables link with each other? 
 Queries.html 
 - Need to show RCN Lead Name rather than RCN Lead ID
+- How do I set up so tables link with each other? 
 App.py 
-- set up environ to protect password before pushing
+x set up environ to protect password before pushing
+- Can one @app.route send to two tables? Want to send to query and contact?
 
 ## Mandatory Requirements
 A project violating any of these requirements will FAIL

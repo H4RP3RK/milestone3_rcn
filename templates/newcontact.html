@@ -5,10 +5,7 @@
         <h2>Ask a New Question</h2>
     </section>
 
-    <form class="form-group" action="">
-        <input type=""><input type="submit" value="Submit">
-    </form>
-    <form class="form-group" action="{{url_for('submit_contact')}}" method="POST">  
+    <form action="{{url_for('submit_contact')}}" method="POST">  
         <div class="form-group row">
             <label for="from" class="col-sm-2 col-form-label">From: </label>
             <div class="col-sm-10">
