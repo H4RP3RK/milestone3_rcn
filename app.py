@@ -17,6 +17,11 @@ mongo = PyMongo(app)
 @app.route('/')
 
 
+@app.route('/new_contact')
+def new_contact():
+    return render_template('newcontact.html')
+
+
 @app.route('/signup')
 def signup():
     return render_template('signup.html')
@@ -32,11 +37,6 @@ def signup_send():
 @app.route('/get_queries')
 def get_queries():
     return render_template('queries.html', queries=mongo.db.queries.find())
-
-
-@app.route('/new_contact')
-def new_query():
-    return render_template('newcontact.html')
 
 
 @app.route('/submit_contact', methods=['POST'])
