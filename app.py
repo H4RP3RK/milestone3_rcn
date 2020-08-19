@@ -30,16 +30,21 @@ def signup():
     return render_template('signup.html')
 
 
-@app.route('/new_contact')
-def new_contact():
-    return render_template('newcontact.html')
-
-
 @app.route('/signup_send', methods=['POST'])
 def signup_send():
     member = mongo.db.members
     member.insert_one(request.form.to_dict())
-    return redirect(url_for('new_contact'))
+    return redirect(url_for('login'))
+
+
+@app.route('/login')
+def login():
+    return render_template('login.html')
+
+
+@app.route('/new_contact')
+def new_contact():
+    return render_template('newcontact.html')
 
 
 @app.route('/get_queries')
