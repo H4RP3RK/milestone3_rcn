@@ -69,7 +69,7 @@ main {
     padding-bottom: 3vh;
 }
 
-/*--Footer--*/
+/*--Links/Buttons--*/
 
 .blue-link a {
     color: #ffffff;
@@ -79,5 +79,16 @@ main {
 
 .blue-link a:hover {
     color: #f3f3f3;
+    text-decoration: underline;
+}
+
+.btn {
+    background-color: #0063a3;
+    color: #ffffff;
+}
+
+.btn:hover {
+    background-color: #008388;
+    color: #ffffff;
     text-decoration: underline;
 }
