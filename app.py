@@ -15,21 +15,24 @@ mongo = PyMongo(app)
 
 
 @app.route('/')
-
-
 @app.route('/welcome')
 def welcome():
     return render_template('welcome.html')
 
 
-@app.route('/new_contact')
-def new_contact():
-    return render_template('newcontact.html')
+@app.route('/welcome_member')
+def welcome_member():
+    return render_template('welcome_member.html')
 
 
 @app.route('/signup')
 def signup():
     return render_template('signup.html')
+
+
+@app.route('/new_contact')
+def new_contact():
+    return render_template('newcontact.html')
 
 
 @app.route('/signup_send', methods=['POST'])
