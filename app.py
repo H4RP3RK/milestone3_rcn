@@ -17,6 +17,11 @@ mongo = PyMongo(app)
 @app.route('/')
 
 
+@app.route('/welcome')
+def welcome():
+    return render_template('welcome.html')
+
+
 @app.route('/new_contact')
 def new_contact():
     return render_template('newcontact.html')

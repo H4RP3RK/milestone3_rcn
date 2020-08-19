@@ -16,11 +16,22 @@
     color: #ffffff;
 }
 
-/*--Header--*/
+.font-blue {
+    color: #023a70;
+}
+
+/*--Backgrounds--*/
 
 .background-white {
     background-color: #ffffff;
 }
+
+.background-blue {
+    background-color: #0063a3;
+    color: #ffffff;
+}
+
+/*--Header--*/
 
 .navbar-brand img {
     height: 15vh;
@@ -40,22 +51,25 @@
     padding: 0.5vh 2vw;
 }
 
-/*--Banner--*/
-
-.banner {
-    background-color: 
-}
-
 /*--Main--*/
 
 main {
     position: relative;
-    min-height: 60vh;
+    min-height: 70vh;
     padding-bottom: 2vh;
     overflow: scroll;
 }
 
-/*--Main--*/
+.banner {
+    padding: 1vh 1vw;
+}
+
+.question {
+    padding-top: 15vh;
+    padding-bottom: 3vh;
+}
+
+/*--Form--*/
 
 .form-group {
     margin: 2vh 2vw;
@@ -63,17 +77,13 @@ main {
 
 /*--Footer--*/
 
-.background-blue {
-    background-color: #0063a3;
-    color: #ffffff;
-}
-
-.background-blue a {
+.blue-link a {
     color: #ffffff;
     font-size: 3vh;
     margin: 2vh 2vw;
 }
 
-.background-blue a:hover {
+.blue-link a:hover {
     color: #f3f3f3;
+    text-decoration: underline;
 }
