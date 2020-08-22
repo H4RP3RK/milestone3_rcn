@@ -1,5 +1,6 @@
 import os
 from flask import Flask, render_template, redirect, request, url_for
+from forms import registrationForm, loginForm
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 from os import path
@@ -10,7 +11,7 @@ app = Flask(__name__)
 
 app.config['MONGO_DBNAME'] = os.environ.get('MONGO_DBNAME')
 app.config['MONGO_URI'] = os.environ.get('MONGO_URI')
-app.config['SECRET_KEY'] = ""
+app.config['SECRET_KEY'] = os.environ['SECRET_KEY']
 
 mongo = PyMongo(app)
 
@@ -28,7 +29,7 @@ def welcome_member():
 
 @app.route('/register')
 def register():
-    registrationForm = RegistrationForm()
+    registrationForm = registrationForm()
     return render_template('register.html', form=registrationForm)
 
 
