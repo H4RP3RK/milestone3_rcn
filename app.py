@@ -10,6 +10,7 @@ app = Flask(__name__)
 
 app.config['MONGO_DBNAME'] = os.environ.get('MONGO_DBNAME')
 app.config['MONGO_URI'] = os.environ.get('MONGO_URI')
+app.config['SECRET_KEY'] = ""
 
 mongo = PyMongo(app)
 
@@ -23,6 +24,18 @@ def welcome():
 @app.route('/welcome_member')
 def welcome_member():
     return render_template('welcome_member.html')
+
+
+@app.route('/register')
+def register():
+    registrationForm = RegistrationForm()
+    return render_template('register.html', form=registrationForm)
+
+
+@app.route('/log_in')
+def log_in():
+    loginForm = loginForm()
+    return render_template('log_in.html', form=loginForm)
 
 
 @app.route('/signup')
