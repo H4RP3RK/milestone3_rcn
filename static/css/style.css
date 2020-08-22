@@ -31,6 +31,13 @@
     color: #ffffff;
 }
 
+.welcome-background {
+    background-image: url("https://www.rcn.org.uk/magazines/-/media/royal-college-of-nursing/images/rcn-magazines/background-images/bulletin/2018/march/credentialing.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
 /*--Header--*/
 
 .navbar-brand img {
@@ -53,7 +60,7 @@
 
 /*--Main--*/
 
-main {
+.main {
     position: relative;
     min-height: 70vh;
     padding-bottom: 2vh;
@@ -62,6 +69,7 @@ main {
 
 .banner {
     padding: 1vh 1vw;
+    margin-bottom: 2vh;
 }
 
 .question {
