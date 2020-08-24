@@ -19,12 +19,12 @@ mongo = PyMongo(app)
 @app.route('/')
 @app.route('/welcome')
 def welcome():
-    return render_template('welcome.html')
+    return render_template('welcome.html', title="Welcome to the RCN Member Query Database")
 
 
 @app.route('/welcome_member')
 def welcome_member():
-    return render_template('welcome_member.html')
+    return render_template('welcome_member.html', )
 
 
 @app.route('/register', methods=['GET', 'POST'])
