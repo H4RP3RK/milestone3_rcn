@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, redirect, request, url_for
+from flask import Flask, render_template, redirect, request, url_for, flash
 from forms import registrationForm, loginForm
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
@@ -11,7 +11,7 @@ app = Flask(__name__)
 
 app.config['MONGO_DBNAME'] = os.environ.get('MONGO_DBNAME')
 app.config['MONGO_URI'] = os.environ.get('MONGO_URI')
-app.config['SECRET_KEY'] = os.environ['SECRET_KEY']
+app.config['SECRET_KEY'] = " "
 
 mongo = PyMongo(app)
 
@@ -27,16 +27,25 @@ def welcome_member():
     return render_template('welcome_member.html')
 
 
-@app.route('/register')
+@app.route('/register', methods=['GET', 'POST'])
 def register():
-    registrationForm = registrationForm()
-    return render_template('register.html', form=registrationForm)
+    form = registrationForm()
+    if form.validate_on_submit():
+        flash(f'Account created for {form.first_name.data}', 'success')
+        return redirect(url_for('welcome_member'))
+    return render_template('register.html', form=form)
 
 
-@app.route('/log_in')
+@app.route('/log_in', methods=['GET', 'POST'])
 def log_in():
-    loginForm = loginForm()
-    return render_template('log_in.html', form=loginForm)
+    form = loginForm()
+    if form.validate_on_submit():
+        if form.email.data == 'kirsty.harper@zoho.com' and form.password.data == 'password':
+            flash('You have been loggin in!', 'success')
+            return redirect(url_for('welcome_member'))
+        else:
+            flash('Login unsuccessful', 'danger')
+    return render_template('log_in.html', form=form)
 
 
 @app.route('/signup')
