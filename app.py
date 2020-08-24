@@ -40,7 +40,7 @@ def log_in():
             return redirect(url_for('welcome_member'))
         else:
             flash('Login unsuccessful', 'danger')
-    return render_template('log_in.html', form=form)
+    return render_template('log_in.html', form=form, title="Login")
 
 
 @app.route('/signup')
