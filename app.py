@@ -25,13 +25,31 @@ def welcome():
 @app.route('/log_in', methods=['GET', 'POST'])
 def log_in():
     form = loginForm()
-    if form.validate_on_submit():
-        if form.email.data == 'kirsty.harper@zoho.com' and form.password.data == 'password':
-            flash('You are been logged in!', 'success')
-            return redirect(url_for('welcome_member'))
+    members = mongo.db.members
+#!!Does not work!!
+    member = members.find_one({'email': form.email.data})
+
+    if member:
+        if member.password == form.password.data:
+#!!Does not work!!
+            session['email'] = form.email.data
+            flash('You are logged in!', 'success')
+            return redirect(url_for('welcome'))
         else:
-            flash('Login unsuccessful', 'danger')
-    return render_template('log_in.html', form=form, title="Member Login")
+            flash('Email/password combination is not recognised', 'danger')
+            return render_template('log_in.html', form=form, title="Member Login")
+    else:
+        flash('Email/password combination is not recognised', 'danger')
+        return render_template('log_in.html', form=form, title="Member Login")
+            
+
+#    if form.validate_on_submit():
+#        if form.email.data == 'kirsty.harper@zoho.com' and form.password.data == 'password':
+#            flash('You are logged in!', 'success')
+#            return redirect(url_for('welcome_member'))
+#        else:
+#            flash('Login unsuccessful', 'danger')
+#    return render_template('log_in.html', form=form, title="Member Login")
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -50,13 +68,6 @@ def register():
             flash(f'{form.email.data} is already registered. Reset your password', 'danger')
             return render_template('register.html', form=form, title='Sign Up')
     return render_template('register.html', form=form, title='Sign Up')
-
-#
-#@app.route('/signup_send', methods=['POST'])
-#def signup_send():
-#    member = mongo.db.members
-#    member.insert_one(request.form.to_dict())
-#    return redirect(url_for('log_in'))
 
 
 @app.route('/new_contact')
