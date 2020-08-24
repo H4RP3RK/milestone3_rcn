@@ -1,18 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
     <!--Banner-->
-    {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            {% for category, message in messages %}
-                <section class="container-fluid banner text-center background-blue font font-heavy">
-                    <h2>Welcome RCN Member</h2>
-                </section>
-                    <div class="text-center alert alert-{{ category }}">
-                        {{ message }}
-                    </div>
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
+    <section class="container-fluid banner text-center background-blue font font-heavy">
+        <h2>Welcome RCN Member</h2>
+    </section>
     <section class="font text-center blue-link">
         <h3 class="question font-blue font-heavy">Would you like to:</h3>
         <a class="btn background-blue" href="login" role="button"><h4>Login?</h4></a>

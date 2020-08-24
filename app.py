@@ -41,7 +41,7 @@ def log_in():
     form = loginForm()
     if form.validate_on_submit():
         if form.email.data == 'kirsty.harper@zoho.com' and form.password.data == 'password':
-            flash('You have been loggin in!', 'success')
+            flash('You are been logged in!', 'success')
             return redirect(url_for('welcome_member'))
         else:
             flash('Login unsuccessful', 'danger')
