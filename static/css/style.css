@@ -36,6 +36,7 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+    padding: 0;
 }
 
 /*--Header--*/
@@ -69,12 +70,15 @@
 
 .banner {
     padding: 1vh 1vw;
-    margin-bottom: 2vh;
 }
 
 .question {
     padding-top: 15vh;
     padding-bottom: 3vh;
+}
+
+.alert {
+    margin: 0;
 }
 
 /*--Links/Buttons--*/

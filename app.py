@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, redirect, request, url_for, flash
+from flask import Flask, render_template, redirect, request, url_for, flash, session
 from forms import registrationForm, loginForm
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
@@ -22,15 +22,6 @@ def welcome():
     return render_template('welcome.html', title="Welcome to the RCN Member Query Database")
 
 
-@app.route('/register', methods=['GET', 'POST'])
-def register():
-    form = registrationForm()
-    if form.validate_on_submit():
-        flash(f'Account created for {form.first_name.data}', 'success')
-        return redirect(url_for('welcome_member'))
-    return render_template('register.html', form=form)
-
-
 @app.route('/log_in', methods=['GET', 'POST'])
 def log_in():
     form = loginForm()
@@ -43,21 +34,29 @@ def log_in():
     return render_template('log_in.html', form=form, title="Member Login")
 
 
-@app.route('/signup')
-def signup():
-    return render_template('signup.html', title="Sign Up")
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    form = registrationForm()
+    if request.method == 'POST':
+        members = mongo.db.members
+        current_member = members.find_one({'email': request.form['email']})
 
+        if current_member is None:
+            members.insert_one(request.form.to_dict())
+            session['email'] = request.form['email']
+            flash(f'Account created for {form.first_name.data}', 'success')
+            return redirect(url_for('welcome'))
+        else:
+            flash(f'{form.email.data} is already registered. Reset your password', 'danger')
+            return render_template('register.html', form=form, title='Sign Up')
+    return render_template('register.html', form=form, title='Sign Up')
 
-@app.route('/signup_send', methods=['POST'])
-def signup_send():
-    member = mongo.db.members
-    member.insert_one(request.form.to_dict())
-    return redirect(url_for('login'))
-
-
-@app.route('/login')
-def login():
-    return render_template('login.html')
+#
+#@app.route('/signup_send', methods=['POST'])
+#def signup_send():
+#    member = mongo.db.members
+#    member.insert_one(request.form.to_dict())
+#    return redirect(url_for('log_in'))
 
 
 @app.route('/new_contact')
