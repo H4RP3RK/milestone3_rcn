@@ -72,7 +72,7 @@ def member_home(email):
 
 @app.route('/new_contact')
 def new_contact():
-    return render_template('newcontact.html')
+    return render_template('newcontact.html', title='Ask a New Question')
 
 
 @app.route('/get_queries/<email>')

@@ -1,10 +1,5 @@
 {% extends 'base.html' %}
 {% block content %}
-<!--Banner-->
-    <section class="container-fluid banner text-center background-blue font font-heavy">
-        <h2>Ask a New Question</h2>
-    </section>
-
     <form action="{{ url_for('submit_contact') }}" method="POST">  
         <div class="form-row">
             <div class="form-group col-5">

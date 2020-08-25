@@ -165,6 +165,7 @@ x If user exists with email address, can you send error?
 Queries.html 
 - Need to show RCN Lead Name rather than RCN Lead ID
 - How do I set up so tables link with each other? 
+- Why is logo image not showing?
 Newcontact.html
 - How do I timestamp contact? - default=datetime.utcnow
 App.py 
