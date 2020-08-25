@@ -26,30 +26,20 @@ def welcome():
 def log_in():
     form = loginForm()
     members = mongo.db.members
-#!!Does not work!!
     member = members.find_one({'email': form.email.data})
-
-    if member:
-        if member.password == form.password.data:
-#!!Does not work!!
-            session['email'] = form.email.data
-            flash('You are logged in!', 'success')
-            return redirect(url_for('welcome'))
+    if request.method == 'POST':
+        if member:
+            if member['password'] == form.password.data:
+                session['email'] = form.email.data
+                flash(f'You are logged in, {member["first_name"]}!', 'success')
+                return redirect(url_for('member_home', username=session['email']))
+            else:
+                flash('Email/password combination is not recognised', 'danger')
+                return render_template('log_in.html', form=form, title="Member Login")
         else:
             flash('Email/password combination is not recognised', 'danger')
             return render_template('log_in.html', form=form, title="Member Login")
-    else:
-        flash('Email/password combination is not recognised', 'danger')
-        return render_template('log_in.html', form=form, title="Member Login")
-            
-
-#    if form.validate_on_submit():
-#        if form.email.data == 'kirsty.harper@zoho.com' and form.password.data == 'password':
-#            flash('You are logged in!', 'success')
-#            return redirect(url_for('welcome_member'))
-#        else:
-#            flash('Login unsuccessful', 'danger')
-#    return render_template('log_in.html', form=form, title="Member Login")
+    return render_template('log_in.html', form=form)
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -68,6 +58,11 @@ def register():
             flash(f'{form.email.data} is already registered. Reset your password', 'danger')
             return render_template('register.html', form=form, title='Sign Up')
     return render_template('register.html', form=form, title='Sign Up')
+
+
+@app.route('/member_home')
+def member_home():
+    return render_template('member_home.html', title="Member Home Page")
 
 
 @app.route('/new_contact')
