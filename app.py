@@ -28,7 +28,6 @@ def log_in():
     if request.method == 'POST':
         members = mongo.db.members
         member = members.find_one({'email': form.email.data})
-        
         if member:
             if member['password'] == form.password.data:
                 session['email'] = form.email.data
@@ -63,7 +62,9 @@ def register():
 
 @app.route('/member_home')
 def member_home():
-    return render_template('member_home.html', username=session['email'], title='Member Home Page')
+    members = mongo.db.members
+    member = members.find_one({'email': session['email']})
+    return render_template('member_home.html', username=session['email'], member_name=member['first_name'], title=f"{member['first_name']}'s Home Page")
 
 
 @app.route('/new_contact')

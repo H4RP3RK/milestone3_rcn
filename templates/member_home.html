@@ -3,7 +3,9 @@
     <!--Banner-->
     <div class="main welcome-background">
         <section class="font text-center blue-link">
-            <h3 class="question font-blue font-heavy">Hello. Would you like to...</h3>
+            {% if member_name %}
+            <h3 class="question font-blue font-heavy">Hello {{ member_name }}. Would you like to...</h3>
+            {% endif %}
             <a class="btn background-blue" href="#" role="button"><h4>Ask a new question?</h4></a>
             <a class="btn background-blue" href="#" role="button"><h4>See your current/old queries?</h4></a>        
         </section>    
