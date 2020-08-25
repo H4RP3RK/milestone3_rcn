@@ -11,7 +11,7 @@ app = Flask(__name__)
 
 app.config['MONGO_DBNAME'] = os.environ.get('MONGO_DBNAME')
 app.config['MONGO_URI'] = os.environ.get('MONGO_URI')
-app.config['SECRET_KEY'] = " "
+app.config['SECRET_KEY'] = ' '
 
 mongo = PyMongo(app)
 
@@ -19,15 +19,16 @@ mongo = PyMongo(app)
 @app.route('/')
 @app.route('/welcome')
 def welcome():
-    return render_template('welcome.html', title="Welcome to the RCN Member Query Database")
+    return render_template('welcome.html', title='Welcome to the RCN Member Query Database')
 
 
 @app.route('/log_in', methods=['GET', 'POST'])
 def log_in():
     form = loginForm()
-    members = mongo.db.members
-    member = members.find_one({'email': form.email.data})
     if request.method == 'POST':
+        members = mongo.db.members
+        member = members.find_one({'email': form.email.data})
+        
         if member:
             if member['password'] == form.password.data:
                 session['email'] = form.email.data
@@ -35,10 +36,10 @@ def log_in():
                 return redirect(url_for('member_home', username=session['email']))
             else:
                 flash('Email/password combination is not recognised', 'danger')
-                return render_template('log_in.html', form=form, title="Member Login")
+                return render_template('log_in.html', form=form, title='Member Login')
         else:
             flash('Email/password combination is not recognised', 'danger')
-            return render_template('log_in.html', form=form, title="Member Login")
+            return render_template('log_in.html', form=form, title='Member Login')
     return render_template('log_in.html', form=form)
 
 
@@ -51,9 +52,9 @@ def register():
 
         if current_member is None:
             members.insert_one(request.form.to_dict())
-            session['email'] = request.form['email']
+            session['email'] = form.email.data
             flash(f'Account created for {form.first_name.data}', 'success')
-            return redirect(url_for('welcome'))
+            return redirect(url_for('member_home', username=session['email']))
         else:
             flash(f'{form.email.data} is already registered. Reset your password', 'danger')
             return render_template('register.html', form=form, title='Sign Up')
@@ -62,7 +63,7 @@ def register():
 
 @app.route('/member_home')
 def member_home():
-    return render_template('member_home.html', title="Member Home Page")
+    return render_template('member_home.html', username=session['email'], title='Member Home Page')
 
 
 @app.route('/new_contact')
