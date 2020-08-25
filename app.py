@@ -32,7 +32,7 @@ def log_in():
             if member['password'] == form.password.data:
                 session['email'] = form.email.data
                 flash(f'You are logged in, {member["first_name"]}!', 'success')
-                return redirect(url_for('member_home', username=session['email']))
+                return redirect(url_for('member_home', email=session['email']))
             else:
                 flash('Email/password combination is not recognised', 'danger')
                 return render_template('log_in.html', form=form, title='Member Login')
@@ -53,18 +53,21 @@ def register():
             members.insert_one(request.form.to_dict())
             session['email'] = form.email.data
             flash(f'Account created for {form.first_name.data}', 'success')
-            return redirect(url_for('member_home', username=session['email']))
+            return redirect(url_for('member_home', email=session['email']))
         else:
             flash(f'{form.email.data} is already registered. Reset your password', 'danger')
             return render_template('register.html', form=form, title='Sign Up')
     return render_template('register.html', form=form, title='Sign Up')
 
 
-@app.route('/member_home')
-def member_home():
+@app.route('/member_home/<email>')
+def member_home(email):
     members = mongo.db.members
-    member = members.find_one({'email': session['email']})
-    return render_template('member_home.html', username=session['email'], member_name=member['first_name'], title=f"{member['first_name']}'s Home Page")
+    member = members.find_one({'email': email})
+    return render_template('member_home.html', 
+                            member=member, 
+                            member_name=member['first_name'], 
+                            title=f"{member['first_name']}'s Home Page")
 
 
 @app.route('/new_contact')
@@ -72,9 +75,9 @@ def new_contact():
     return render_template('newcontact.html')
 
 
-@app.route('/get_queries')
-def get_queries():
-    return render_template('queries.html', queries=mongo.db.queries.find())
+@app.route('/get_queries/<email>')
+def get_queries(email):
+    return render_template('queries.html', queries=mongo.db.queries.find({'email': email}), title='Your Current/Old Questions')
 
 
 @app.route('/submit_contact', methods=['POST'])

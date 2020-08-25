@@ -158,8 +158,10 @@ Further reading and troubleshooting on cloning a repository from GitHub [here](h
 ******MY OWN NOTES - NOT PART OF FINAL README******
 
 ## Questions 
-Signup.html
-- If user exists with email address, can you send error?
+Welcome.html
+- If session exists, take to member_home rather than log_in
+Register.html
+x If user exists with email address, can you send error?
 Queries.html 
 - Need to show RCN Lead Name rather than RCN Lead ID
 - How do I set up so tables link with each other? 
