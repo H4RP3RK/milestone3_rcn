@@ -77,7 +77,11 @@ def new_contact():
 
 @app.route('/get_queries/<email>')
 def get_queries(email):
-    return render_template('queries.html', queries=mongo.db.queries.find({'email': email}), title='Your Current/Old Questions')
+    members = mongo.db.members
+    member = members.find_one({'email': email})
+    return render_template('queries.html', 
+                            queries=mongo.db.queries.find({'email': email}), 
+                            title=f"{member['first_name']}'s Current/Old Questions")
 
 
 @app.route('/submit_contact', methods=['POST'])

@@ -39,6 +39,10 @@
     padding: 0;
 }
 
+.opaque-white {
+    background-color: rgba(255, 255, 255, 0.6);
+}
+
 /*--Header--*/
 
 .navbar-brand img {
@@ -63,8 +67,7 @@
 
 .main {
     position: relative;
-    min-height: 70vh;
-    padding-bottom: 2vh;
+    min-height: 62vh;
     overflow: scroll;
 }
 

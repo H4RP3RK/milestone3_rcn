@@ -169,6 +169,7 @@ Newcontact.html
 - How do I timestamp contact? - default=datetime.utcnow
 App.py 
 x set up environ to protect password before pushing
+- Can the members.queries.find_one be simplified so it's not duplicated
 - Can one @app.route send to two tables? Want to send to query and contact?
 
 ## Mandatory Requirements
