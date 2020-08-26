@@ -2,6 +2,7 @@ import os
 from flask import Flask, render_template, redirect, request, url_for, flash, session
 from forms import registrationForm, loginForm
 from flask_pymongo import PyMongo
+from flask_bcrypt import Bcrypt
 from bson.objectid import ObjectId
 from os import path
 if path.exists('env.py'):
@@ -14,6 +15,7 @@ app.config['MONGO_URI'] = os.environ.get('MONGO_URI')
 app.config['SECRET_KEY'] = ' '
 
 mongo = PyMongo(app)
+bcrypt = Bcrypt(app)
 
 
 @app.route('/')
