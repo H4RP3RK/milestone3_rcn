@@ -68,7 +68,6 @@ def register():
             return redirect(url_for('member_home', email=session['email']))
         else:
             flash(f'{form.email.data} is already registered. You can login by clicking the link below', 'danger')
-            return render_template('register.html', form=form, title='Sign Up')
     return render_template('register.html', form=form, title='Sign Up')
 
 
