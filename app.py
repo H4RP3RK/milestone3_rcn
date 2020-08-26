@@ -52,12 +52,22 @@ def register():
         current_member = members.find_one({'email': request.form['email']})
 
         if current_member is None:
-            members.insert_one(request.form.to_dict())
+            hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+            new_member = {
+                'first_name': form.first_name.data,
+                'last_name': form.last_name.data,
+                'email': form.email.data,
+                'telephone': form.telephone.data,
+                'employer': form.employer.data,
+                'job_title': form.job_title.data,
+                'password': hashed_password
+            }
+            members.insert_one(new_member)
             session['email'] = form.email.data
             flash(f'Account created for {form.first_name.data}', 'success')
             return redirect(url_for('member_home', email=session['email']))
         else:
-            flash(f'{form.email.data} is already registered. Reset your password', 'danger')
+            flash(f'{form.email.data} is already registered. You can login by clicking the link below', 'danger')
             return render_template('register.html', form=form, title='Sign Up')
     return render_template('register.html', form=form, title='Sign Up')
 
