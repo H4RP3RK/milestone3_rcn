@@ -102,6 +102,12 @@ def submit_contact():
     return redirect(url_for('get_queries'))
 
 
+@app.route(/log_out)
+def log_out():
+    session.pop('email', None)
+    return redirect(url_for('welcome'))
+
+
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
             port=int(os.environ.get('PORT')),
