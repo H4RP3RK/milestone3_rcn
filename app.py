@@ -26,6 +26,8 @@ def welcome():
 
 @app.route('/log_in', methods=['GET', 'POST'])
 def log_in():
+    if 'email' in session:
+        return redirect(url_for('member_home', email=session['email']))
     form = loginForm()
     if request.method == 'POST':
         members = mongo.db.members
@@ -46,6 +48,8 @@ def log_in():
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
+    if 'email' in session:
+        return redirect(url_for('member_home', email=session['email']))
     form = registrationForm()
     if request.method == 'POST':
         members = mongo.db.members
