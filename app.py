@@ -31,7 +31,7 @@ def log_in():
         members = mongo.db.members
         member = members.find_one({'email': form.email.data})
         if member:
-            if member['password'] == form.password.data:
+            if bcrypt.check_password_hash(member['password'], form.password.data):
                 session['email'] = form.email.data
                 flash(f'You are logged in, {member["first_name"]}!', 'success')
                 return redirect(url_for('member_home', email=session['email']))
@@ -102,7 +102,7 @@ def submit_contact():
     return redirect(url_for('get_queries'))
 
 
-@app.route(/log_out)
+@app.route('/log_out')
 def log_out():
     session.pop('email', None)
     return redirect(url_for('welcome'))
