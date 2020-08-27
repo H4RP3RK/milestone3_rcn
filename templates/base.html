@@ -24,7 +24,11 @@
                             <a class="nav-link" href="{{ url_for('welcome') }}">Home <span class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ url_for('log_in') }}">Login</a>
+                            {% if 'email' in session %}
+                                <a class="nav-link" href="{{ url_for('log_out') }}">Logout</a>
+                            {% else %}
+                                <a class="nav-link" href="{{ url_for('log_in') }}">Login</a>
+                            {% endif %}
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Ask a new question</a>
