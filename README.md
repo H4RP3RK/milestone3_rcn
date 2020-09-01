@@ -157,6 +157,15 @@ Further reading and troubleshooting on cloning a repository from GitHub [here](h
 
 ******MY OWN NOTES - NOT PART OF FINAL README******
 
+## To Do
+* Create account page
+* Allow member to edit their account details
+* Link contacts to particular query
+* Show photo of RCN staff dealing with query 
+* Create member login 
+* Create view so member can see all members and search through them 
+
+
 ## Questions 
 Welcome.html
 - If session exists, take to member_home rather than log_in

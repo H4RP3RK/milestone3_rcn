@@ -90,6 +90,15 @@ def new_contact():
     return render_template('newcontact.html', title='Ask a New Question')
 
 
+@app.route('/account/<email>')
+def account(email):
+    members = mongo.db.members
+    member = members.find_one({'email': email})
+    return render_template('account.html', 
+                            member=member,
+                            title=f"{member['first_name']}'s Account")
+
+
 @app.route('/get_queries/<email>')
 def get_queries(email):
     members = mongo.db.members
@@ -109,6 +118,7 @@ def submit_contact():
 @app.route('/log_out')
 def log_out():
     session.pop('email', None)
+    flash('You are now logged out', 'success')
     return redirect(url_for('welcome'))
 
 

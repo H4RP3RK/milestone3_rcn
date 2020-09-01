@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+    <section class="container-md main font font-blue">
+        <div class="form-row">
+            <div class="form-group">
+                <label for="name" class="form-control-label">Name: </label>
+                <input type="text" readonly class="form-control" id="name" name="name" value="{{ member.first_name}} {{ member.last_name }}">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label for="name" class="form-control-label">Email: </label>
+                <input type="text" readonly class="form-control" id="name" name="name" value="{{ member.email }}">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label for="name" class="form-control-label">Telephone: </label>
+                <input type="text" readonly class="form-control" id="name" name="name" value="{{ member.telephone }}">
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
