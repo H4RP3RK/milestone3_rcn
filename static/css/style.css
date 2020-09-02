@@ -31,12 +31,19 @@
     color: #ffffff;
 }
 
-.welcome-background {
-    background-image: url("https://www.rcn.org.uk/magazines/-/media/royal-college-of-nursing/images/rcn-magazines/background-images/bulletin/2018/march/credentialing.jpg");
+.background-picture {
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
     padding: 0;
+}
+
+.welcome-background {
+    background-image: url("https://www.rcn.org.uk/magazines/-/media/royal-college-of-nursing/images/rcn-magazines/background-images/bulletin/2018/march/credentialing.jpg");
+}
+
+.login-background {
+    background-image: url("https://www.rcn.org.uk/-/media/royal-college-of-nursing/images/rcn-magazines/background-images/bulletin/2018/november/nursing-voices-needed.jpg?la=en")
 }
 
 .opaque-white {

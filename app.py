@@ -43,7 +43,7 @@ def log_in():
         else:
             flash('Email/password combination is not recognised', 'danger')
             return render_template('log_in.html', form=form, title='Member Login')
-    return render_template('log_in.html', form=form)
+    return render_template('log_in.html', form=form, title='Member Login')
 
 
 @app.route('/register', methods=['GET', 'POST'])
