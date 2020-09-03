@@ -102,13 +102,13 @@ def account(email):
 @app.route('/edit_account/<email>', methods=['GET', 'POST'])
 def edit_account(email):
     members = mongo.db.members
-    members.update( {'email': email},
-    {
-        'email': request.form.get('email'),
-        'telephone': request.form.get('telephone'),
-        'employer': request.form.get('employer'),
-        'job_title': request.form.get('job_title')
-    })
+    members.update( 
+        {'email': email}, 
+        { $set: 
+            {
+                'telephone': request.form.get('telephone'),
+            }
+        })
     return redirect(url_for('account'))
 
 

@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
     <section class="container-md main font font-blue">
-        <form action="" method="POST">
+        <form action="{{ url_for('edit_account', email=member.email) }}" method="POST">
             <div class="form-group form-row justify-content-center">
                 <h3 class="col-md-8 question font-blue font-heavy text-center">Are your details up to date?</h3>        
             </div>
