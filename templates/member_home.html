@@ -1,12 +1,38 @@
 {% extends 'base.html' %}
 {% block content %}
     <div class="main">
-        <section class="font text-center blue-link">
-            {% if member_name %}
-            <h3 class="question font-blue font-heavy">Hello {{ member_name }}. Would you like to...</h3>
-            {% endif %}
-            <a class="btn background-blue" href="{{ url_for('account', email=member.email) }}" role="button"><h4>Ask a new question?</h4></a>
-            <a class="btn background-blue" href="{{ url_for('get_queries', email=member.email) }}" role="button"><h4>See your current/old queries?</h4></a>        
-        </section>    
+        <section class="row font text-center blue-link">
+            <div class="col-6">
+            
+            </div>
+            <div class="col-6">
+                <a class="btn background-blue" href="{{ url_for('account', email=member.email) }}" role="button"><h4>Ask a new question?</h4></a>
+                <a class="btn background-blue" href="{{ url_for('get_queries', email=member.email) }}" role="button"><h4>See your current/old queries?</h4></a>  
+            </div>
+        </section>
+        <section>
+            <table class="container-lg main table table-hover table-striped">
+                <thead>
+                    <tr>
+                    <th scope="col">Query Type</th>
+                    <th scope="col">Query Summary</th>
+                    <th scope="col">RCN Lead</th>
+                    <th scope="col">Start Date</th>
+                    <th scope="col">End Date</th>
+                    </tr>
+                </thead>
+            {% for query in queries %}
+                <tbody>
+                    <tr>
+                    <td>{{query.query_type}}</td>
+                    <td>{{query.query_summary}}</td>
+                    <td>{{query.rcn_lead_id}}</td>
+                    <td>{{query.start_date}}</td>
+                    <td>{{query.end_date}}</td>
+                    </tr>
+                </tbody>
+            {% endfor %}
+            </table> 
+        </section> 
     </div>
 {% endblock %}

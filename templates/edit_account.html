@@ -1,10 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
     <section class="container-md main font font-blue">
-        <form action="" method="POST">
-            <div class="form-group form-row justify-content-center">
-                <h3 class="col-md-8 question font-blue font-heavy text-center">Are your details up to date?</h3>        
-            </div>
+        <form>
             <div class="form-group form-row justify-content-center">
                 <label for="name" class="col-sm-4 col-form-label">Name: </label>
                 <div class="col-sm-4">
@@ -35,10 +32,10 @@
                     <input type="text" class="form-control" id="job_title" name="job_title" value="{{ member.job_title }}">
                 </div>
             </div>
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary">Submit Updated Details</button>
-            </div>
         </form>
+        <div class="text-center">
+            <a class="btn background-blue" href="#" role="button"><h4>Details Updated</h4></a>
+        </div>
     </section>
 {% endblock %}
 

@@ -99,6 +99,19 @@ def account(email):
                             title=f"{member['first_name']}'s Account")
 
 
+@app.route('/edit_account/<email>', methods=['GET', 'POST'])
+def edit_account(email):
+    members = mongo.db.members
+    members.update( {'email': email},
+    {
+        'email': request.form.get('email'),
+        'telephone': request.form.get('telephone'),
+        'employer': request.form.get('employer'),
+        'job_title': request.form.get('job_title')
+    })
+    return redirect(url_for('account'))
+
+
 @app.route('/get_queries/<email>')
 def get_queries(email):
     members = mongo.db.members
