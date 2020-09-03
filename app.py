@@ -1,4 +1,4 @@
-import os
+import os, datetime
 from flask import Flask, render_template, redirect, request, url_for, flash, session
 from forms import registrationForm, loginForm
 from flask_pymongo import PyMongo
@@ -127,6 +127,7 @@ def submit_question():
     new_question = {
         'member_id': session['email'],
         'question_type': request.form.get('question_type'),
+        'start_date': datetime.datetime.utcnow(),
         'summary': request.form.get('summary')
     }
     questions.insert_one(new_question)
