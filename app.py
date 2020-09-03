@@ -85,11 +85,6 @@ def member_home(email):
                             title=f"{member['first_name']}'s Home Page")
 
 
-@app.route('/new_contact')
-def new_contact():
-    return render_template('newcontact.html', title='Ask a New Question')
-
-
 @app.route('/account/<email>')
 def account(email):
     members = mongo.db.members
@@ -98,7 +93,7 @@ def account(email):
                             member=member,
                             title=f"{member['first_name']}'s Account")
 
-
+"""
 @app.route('/edit_account/<email>', methods=['GET', 'POST'])
 def edit_account(email):
     members = mongo.db.members
@@ -106,11 +101,11 @@ def edit_account(email):
         {'email': email}, 
         { $set: 
             {
-                'telephone': request.form.get('telephone'),
+                'telephone': request.form.get('telephone')
             }
         })
     return redirect(url_for('account'))
-
+"""
 
 @app.route('/get_queries/<email>')
 def get_queries(email):
@@ -119,6 +114,28 @@ def get_queries(email):
     return render_template('queries.html', 
                             queries=mongo.db.queries.find({'email': email}), 
                             title=f"{member['first_name']}'s Current/Old Questions")
+
+
+@app.route('/new_question')
+def new_question():
+    return render_template('new_question.html', title='Ask a New Question')
+
+
+@app.route('/submit_question/<email>')
+def submit_question(email):
+    questions = mongo.db.questions
+    new_question = {
+        'member_id': email,
+        'question_type': request.form.get('question_type'),
+        'startdate': ISODate(),
+        'summary': request.form.get('summary')
+    }
+    questions.insert_one(new_question)
+
+
+@app.route('/new_contact')
+def new_contact():
+    return render_template('newcontact.html', title='Ask a New Question')
 
 
 @app.route('/submit_contact', methods=['POST'])
