@@ -93,19 +93,19 @@ def account(email):
                             member=member,
                             title=f"{member['first_name']}'s Account")
 
-"""
+
 @app.route('/edit_account/<email>', methods=['GET', 'POST'])
 def edit_account(email):
     members = mongo.db.members
     members.update( 
         {'email': email}, 
-        { $set: 
+        { '$set': 
             {
                 'telephone': request.form.get('telephone')
             }
         })
     return redirect(url_for('account'))
-"""
+
 
 @app.route('/get_queries/<email>')
 def get_queries(email):
@@ -121,16 +121,16 @@ def new_question():
     return render_template('new_question.html', title='Ask a New Question')
 
 
-@app.route('/submit_question/<email>')
-def submit_question(email):
+@app.route('/submit_question', methods=['POST'])
+def submit_question():
     questions = mongo.db.questions
     new_question = {
-        'member_id': email,
+        'member_id': session['email'],
         'question_type': request.form.get('question_type'),
-        'startdate': ISODate(),
         'summary': request.form.get('summary')
     }
     questions.insert_one(new_question)
+    return redirect(url_for('member_home', email=session['email']))
 
 
 @app.route('/new_contact')
