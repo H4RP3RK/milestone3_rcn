@@ -131,6 +131,7 @@ def submit_question():
         'summary': request.form.get('summary')
     }
     questions.insert_one(new_question)
+    flash("Thanks for your question. We'll respond shortly. You can click on your question below for updates.", 'success')
     return redirect(url_for('member_home', email=session['email']))
 
 
