@@ -57,14 +57,14 @@
                     <th scope="col">End Date</th>
                     </tr>
                 </thead>
-            {% for query in queries %}
+            {% for question in questions %}
                 <tbody>
                     <tr>
-                    <td>{{query.query_type}}</td>
-                    <td>{{query.query_summary}}</td>
-                    <td>{{query.rcn_lead_id}}</td>
-                    <td>{{query.start_date}}</td>
-                    <td>{{query.end_date}}</td>
+                    <td>{{question.question_type}}</td>
+                    <td>{{question.summary}}</td>
+                    <td>{{question.rcn_lead}}</td>
+                    <td>{{question.start_date}}</td>
+                    <td>{{question.end_date}}</td>
                     </tr>
                 </tbody>
             {% endfor %}

@@ -81,7 +81,8 @@ def member_home(email):
     member = members.find_one({'email': email})
     return render_template('member_home.html', 
                             member=member, 
-                            member_name=member['first_name'], 
+                            member_name=member['first_name'],
+                            questions=mongo.db.questions.find({'member_id': email}), 
                             title=f"{member['first_name']}'s Home Page")
 
 
@@ -112,7 +113,7 @@ def get_queries(email):
     members = mongo.db.members
     member = members.find_one({'email': email})
     return render_template('queries.html', 
-                            queries=mongo.db.queries.find({'email': email}), 
+                            questions=mongo.db.questions.find({'email': email}), 
                             title=f"{member['first_name']}'s Current/Old Questions")
 
 
