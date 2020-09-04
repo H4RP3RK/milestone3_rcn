@@ -168,7 +168,7 @@ Further reading and troubleshooting on cloning a repository from GitHub [here](h
 
 ## Questions 
 Welcome.html
-- If session exists, take to member_home rather than log_in
+x If session exists, take to member_home rather than log_in
 Register.html
 x If user exists with email address, can you send error?
 Queries.html 
@@ -176,7 +176,7 @@ Queries.html
 - How do I set up so tables link with each other? 
 - Why is logo image not showing?
 Newcontact.html
-- How do I timestamp contact? - default=datetime.utcnow
+x How do I timestamp contact? - default=datetime.utcnow
 App.py 
 x set up environ to protect password before pushing
 - Can the members.queries.find_one be simplified so it's not duplicated

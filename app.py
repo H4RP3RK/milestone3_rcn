@@ -125,13 +125,13 @@ def new_question():
 @app.route('/submit_question', methods=['POST'])
 def submit_question():
     questions = mongo.db.questions
-    new_question = {
+    question = {
         'member_id': session['email'],
         'question_type': request.form.get('question_type'),
         'start_date': datetime.datetime.utcnow(),
         'summary': request.form.get('summary')
     }
-    questions.insert_one(new_question)
+    questions.insert_one(question)
     flash("Thanks for your question. We'll respond shortly. You can click on your question below for updates.", 'success')
     return redirect(url_for('member_home', email=session['email']))
 
@@ -143,16 +143,24 @@ def new_contact():
 
 @app.route('/submit_contact', methods=['POST'])
 def submit_contact():
-    contact = mongo.db.contacts
-    contact.insert_one(request.form.to_dict())
-    return redirect(url_for('get_queries'))
+    contacts = mongo.db.contacts
+    member = members.find_one({'email': session['email']})
+    contact = {
+        'member_id': session['email'],
+        'date': datetime.datetime.utcnow(),
+        'details': request.form.get('summary'),
+        'from': member['first_name'],
+        'to': 'RCN'
+    }
+    contacts.insert_one(contact)
+    return redirect(url_for('member_home', email=session['email']))
 
 
 @app.route('/log_out')
 def log_out():
     session.pop('email', None)
     flash('You are now logged out', 'success')
-    return redirect(url_for('welcome'))
+    return redirect(url_for('welcome', email=session['email']))
 
 
 if __name__ == '__main__':
