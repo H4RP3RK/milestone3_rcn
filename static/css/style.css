@@ -6,6 +6,11 @@
 
 .font {
     font-family: "PT Sans", Verdana;
+    font-size: 1em;
+}
+
+.form-control-plaintext {
+    font-size: 1em;
 }
 
 .font-heavy {
