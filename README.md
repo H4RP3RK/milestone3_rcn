@@ -167,6 +167,8 @@ Further reading and troubleshooting on cloning a repository from GitHub [here](h
 
 
 ## Questions 
+Base.html
+- restyle navbar dropdown
 Welcome.html
 x If session exists, take to member_home rather than log_in
 Register.html

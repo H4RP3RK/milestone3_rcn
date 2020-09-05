@@ -160,7 +160,7 @@ def submit_contact():
 def log_out():
     session.pop('email', None)
     flash('You are now logged out', 'success')
-    return redirect(url_for('welcome', email=session['email']))
+    return redirect(url_for('welcome'))
 
 
 if __name__ == '__main__':
