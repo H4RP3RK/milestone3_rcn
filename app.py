@@ -138,8 +138,8 @@ def submit_question():
 
 @app.route('/question_details/<question_id>')
 def question_details(question_id):
-    contacts = mongo.db.contacts.find()
-    return render_template('question.html')
+    contacts = mongo.db.contacts.find({'question_id': ObjectId(question_id)})
+    return render_template('question_details.html', contacts=contacts)
 
 
 @app.route('/new_contact')
