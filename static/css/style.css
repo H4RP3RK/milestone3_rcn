@@ -147,6 +147,14 @@
     margin: 1rem;
 }
 
+/*--Forms--*/
+
+label {
+    font-size: 1.3em;
+    font-weight: 600;
+    color: #023a70;
+}
+
 /*--Table--*/
 
 thead {

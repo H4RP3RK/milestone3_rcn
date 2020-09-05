@@ -177,6 +177,8 @@ Queries.html
 - Need to show RCN Lead Name rather than RCN Lead ID
 - How do I set up so tables link with each other? 
 x Why is logo image not showing?
+New_question
+- Why won't labels go blue?
 Newcontact.html
 x How do I timestamp contact? - default=datetime.utcnow
 App.py 

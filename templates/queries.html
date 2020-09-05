@@ -8,6 +8,7 @@
             <th scope="col">RCN Lead</th>
             <th scope="col">Start Date</th>
             <th scope="col">End Date</th>
+            <th scope="col">Go To Query</th>
             </tr>
         </thead>
     {% for query in queries %}
@@ -18,6 +19,7 @@
             <td>{{query.rcn_lead_id}}</td>
             <td>{{query.start_date}}</td>
             <td>{{query.end_date}}</td>
+            <td><button href="#">Go</button></td>
             </tr>
         </tbody>
     {% endfor %}

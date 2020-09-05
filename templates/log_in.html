@@ -8,8 +8,8 @@
                     <div class="col">
                         <form action=" " method="POST">  
                             {{ form.hidden_tag() }}
-                            <div class="form-row">
-                                <div class="form-group col">
+                            <div class="form-row font-blue">
+                                <div class="form-group col font-blue">
                                     {{ form.email.label(class="form-control-label") }}
                                     {% if form.email.errors %}
                                         {{ form.email(class="form-control is-invalid")}}

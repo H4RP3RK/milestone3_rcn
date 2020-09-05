@@ -56,6 +56,30 @@
         <section class="container">
             <div class="border">
                 <h4 class="heading font-heavy font-blue">Your Cases</h4>
+                <div class="row">
+                    <div id="accordion">
+                    {% for question in questions %}
+                        <div class="card">
+                            <div class="card-header" id="headingOne">
+                            <h5 class="mb-0">
+                                <a class="btn" href="url_for('url_for('question_details', question_id=question._id)')">See the full case</a>
+                                <button class="btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                {{question.question_type}}
+                                </button>
+                                <span>{{question.start_date}}</span>
+                            </h5>
+                        </div>
+                        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                            <div class="card-body">
+                                {{question.summary}}
+                            </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    </div>
+                </div>
+                
+<!--                
                 <div class="table-responsive">
                     <table class="table-bordered table table-striped">
                         <thead>
@@ -64,6 +88,7 @@
                             <th scope="col">Query Summary</th>
                             <th scope="col">Start Date</th>
                             <th scope="col">End Date</th>
+                            <th scope="col">Go To Question</th>
                             </tr>
                         </thead>
                     {% for question in questions %}
@@ -73,11 +98,13 @@
                                 <td>{{question.summary}}</td>
                                 <td>{{question.start_date}}</td>
                                 <td>{{question.end_date}}</td>
+                                <td><button href="url_for('question_details', question_id=question._id)">Go</button></td>
                             </tr>
                         </tbody>
                     {% endfor %}
                     </table> 
                 </div>
+-->
             </div>
         </section> 
     </div>
