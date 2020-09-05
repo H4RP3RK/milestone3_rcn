@@ -35,11 +35,17 @@
                     <input type="text" class="form-control" id="job_title" name="job_title" value="{{ member.job_title }}">
                 </div>
             </div>
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary">Submit Updated Details</button>
+            <div class="form-group form-row justify-content-center">
+                <div class="col-8">
+                    <button type="submit" class="btn btn-primary">Submit Updated Details</button>            
+                </div>
+            </div>
+            <div class="form-group form-row justify-content-center">
+                <div class="col-8">
+                    <a class="btn background-blue" href="{{ url_for('member_home', email=session['email']) }}">Details OK, return to your home page</a>        
+                </div>
             </div>
         </form>
-        <a class="btn background-blue" href="{{ url_for('member_home', email=session['email']) }}">Details OK, return to your home page</a>
     </section>
 {% endblock %}
 
