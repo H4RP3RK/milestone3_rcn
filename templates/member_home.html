@@ -1,40 +1,40 @@
 {% extends 'base.html' %}
 {% block content %}
-    <div class="main">
+    <div class="main font">
 <!--Account Details-->
         <div class="container-md">
             <div class="row">
-                <section class="col-md-6 font blue-link">
+                <section class="col-md-6 blue-link">
                     <div class="border">
-                        <h3 class="font-heavy font-blue">{{ member.first_name }}'s Account Details</h3>
+                        <h4 class="font-heavy font-blue">{{ member.first_name }}'s Account Details</h4>
                         <form>
                             <div class="form-group form-row justify-content-center">
-                                <label for="name" class="col-sm-4 col-form-label">Name: </label>
-                                <div class="col-sm-8">
+                                <label for="name" class="col-4 col-form-label">Name: </label>
+                                <div class="col-8">
                                     <input type="text" readonly class="form-control-plaintext" id="name" name="name" value="{{ member.first_name}} {{ member.last_name }}">
                                 </div>
                             </div>
                             <div class="form-group form-row justify-content-center">
-                                <label for="email" class="col-sm-4 col-form-label">Email: </label>
-                                <div class="col-sm-8">
+                                <label for="email" class="col-4 col-form-label">Email: </label>
+                                <div class="col-8">
                                     <input type="text" readonly class="form-control-plaintext" id="email" name="email" value="{{ member.email }}">
                                 </div>
                             </div>
                             <div class="form-group form-row justify-content-center">
-                                <label for="telephone" class="col-sm-4 col-form-label">Telephone: </label>
-                                <div class="col-sm-8">
+                                <label for="telephone" class="col-4 col-form-label">Telephone: </label>
+                                <div class="col-8">
                                     <input type="text" class="form-control-plaintext" id="telephone" name="telephone" value="{{ member.telephone }}">
                                 </div>
                             </div>
                             <div class="form-group form-row justify-content-center">
-                                <label for="employer" class="col-sm-4 col-form-label">Employer: </label>
-                                <div class="col-sm-8">
+                                <label for="employer" class="col-4 col-form-label">Employer: </label>
+                                <div class="col-8">
                                     <input type="text" readonly class="form-control-plaintext" id="employer" name="employer" value="{{ member.employer }}">
                                 </div>
                             </div>
                             <div class="form-group form-row justify-content-center">
-                                <label for="job_title" class="col-sm-4 col-form-label">Job Title: </label>
-                                <div class="col-sm-8">
+                                <label for="job_title" class="col-4 col-form-label">Job Title: </label>
+                                <div class="col-8">
                                     <input type="text" readonly class="form-control-plaintext" id="job_title" name="job_title" value="{{ member.job_title }}">
                                 </div>
                             </div>
@@ -44,9 +44,10 @@
         <!--Task options-->
                 <section class="col-md-6">
                     <div class="border">
-                        <a class="btn background-blue" href="#" role="button"><h4>Update your account details</h4></a>
-                        <a class="btn background-blue" href="{{ url_for('new_question') }}" role="button"><h4>Ask a new question</h4></a> 
-                        <a class="btn background-blue" href="#" role="button"><h4>See your current/old questions</h4></a>
+                        <h4 class="font-heavy font-blue">What would you like to do?</h4>
+                        <h5><a class="btn background-blue" href="#" role="button">Update your account details</a></h5>
+                        <h5><a class="btn background-blue" href="{{ url_for('new_question') }}" role="button">Ask a new question</a></h5>
+                        <h5><a class="btn background-blue" href="#" role="button">See your current/old questions</a></h5>
                     </div>
                 </section>              
             </div>      
