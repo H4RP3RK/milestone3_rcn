@@ -6,30 +6,30 @@
             <div class="row">
                 <section class="col-md-6 blue-link">
                     <div class="border">
-                        <h4 class="heading font-heavy font-blue">{{ member.first_name }}'s Account Details</h4>
+                        <h4 class="heading font-heavy font-blue">Your RCN Lead</h4>
                         <form>
                             <div class="form-group form-row justify-content-center">
                                 <label for="name" class="col-4 col-form-label">Name: </label>
                                 <div class="col-8">
-                                    <input type="text" readonly class="form-control-plaintext" id="name" name="name" value="{{ member.first_name}} {{ member.last_name }}">
+                                    <input type="text" readonly class="form-control-plaintext" id="name" name="name" value="">
                                 </div>
                             </div>
                             <div class="form-group form-row justify-content-center">
                                 <label for="email" class="col-4 col-form-label">Email: </label>
                                 <div class="col-8">
-                                    <input type="text" readonly class="form-control-plaintext" id="email" name="email" value="{{ member.email }}">
+                                    <input type="text" readonly class="form-control-plaintext" id="email" name="email" value="">
                                 </div>
                             </div>
                             <div class="form-group form-row justify-content-center">
                                 <label for="telephone" class="col-4 col-form-label">Telephone: </label>
                                 <div class="col-8">
-                                    <input type="text" class="form-control-plaintext" id="telephone" name="telephone" value="{{ member.telephone }}">
+                                    <input type="text" class="form-control-plaintext" id="telephone" name="telephone" value="">
                                 </div>
                             </div>
                             <div class="form-group form-row justify-content-center">
-                                <label for="employer" class="col-4 col-form-label">Employer: </label>
+                                <label for="workplace" class="col-4 col-form-label">Workplace: </label>
                                 <div class="col-8">
-                                    <input type="text" readonly class="form-control-plaintext" id="employer" name="employer" value="{{ member.employer }}">
+                                    <input type="text" readonly class="form-control-plaintext" id="workplace" name="workplace" value="">
                                 </div>
                             </div>
                             <div class="form-group form-row justify-content-center">
@@ -45,8 +45,8 @@
                 <section class="col-md-6">
                     <div class="border">
                         <h4 class="heading font-heavy font-blue">What would you like to do?</h4>
-                        <h5><a class="btn background-blue" href="{{ url_for('account', email=session['email']) }}" role="button">Update your account details</a></h5>
-                        <h5><a class="btn background-blue" href="{{ url_for('new_question') }}" role="button">Ask a new question</a></h5>
+                        <h5><a class="btn background-blue" href="#" role="button">Update your account details</a></h5>
+                        <h5><a class="btn background-blue" href="#" role="button">Ask a new question</a></h5>
                         <h5><a class="btn background-blue" href="#" role="button">See your current/old questions</a></h5>
                     </div>
                 </section>              
