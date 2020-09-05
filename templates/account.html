@@ -1,51 +1,55 @@
 {% extends 'base.html' %}
 {% block content %}
-    <section class="container main font font-blue">
-        <form action="{{ url_for('edit_account', email=member.email) }}" method="POST">
-            <div class="form-group form-row justify-content-center">
-                <h3 class="col-md-8 question font-blue font-heavy text-center">Are your details up to date?</h3>        
-            </div>
-            <div class="form-group form-row justify-content-center">
-                <label for="name" class="col-sm-4 col-form-label">Name: </label>
-                <div class="col-sm-4">
-                    <input type="text" readonly class="form-control-plaintext" id="name" name="name" value="{{ member.first_name}} {{ member.last_name }}">
+<div class="container">
+    <div class="main row align-items-center">
+        <section class="container font font-blue">
+            <form action="{{ url_for('edit_account', email=member.email) }}" method="POST">
+                <div class="form-group form-row justify-content-center">
+                    <h3 class="col-md-8 question font-blue font-heavy text-center">Are your details up to date?</h3>        
                 </div>
-            </div>
-            <div class="form-group form-row justify-content-center">
-                <label for="email" class="col-sm-4 col-form-label">Email: </label>
-                <div class="col-sm-4">
-                    <input type="text" class="form-control" id="email" name="email" value="{{ member.email }}">
+                <div class="form-group form-row justify-content-center">
+                    <label for="name" class="col-sm-4 col-form-label">Name: </label>
+                    <div class="col-sm-4">
+                        <input type="text" readonly class="form-control-plaintext" id="name" name="name" value="{{ member.first_name}} {{ member.last_name }}">
+                    </div>
                 </div>
-            </div>
-            <div class="form-group form-row justify-content-center">
-                <label for="telephone" class="col-sm-4 col-form-label">Telephone: </label>
-                <div class="col-sm-4">
-                    <input type="text" class="form-control" id="telephone" name="telephone" value="{{ member.telephone }}">
+                <div class="form-group form-row justify-content-center">
+                    <label for="email" class="col-sm-4 col-form-label">Email: </label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="email" name="email" value="{{ member.email }}">
+                    </div>
                 </div>
-            </div>
-            <div class="form-group form-row justify-content-center">
-                <label for="employer" class="col-sm-4 col-form-label">Employer: </label>
-                <div class="col-sm-4">
-                    <input type="text" class="form-control" id="employer" name="employer" value="{{ member.employer }}">
+                <div class="form-group form-row justify-content-center">
+                    <label for="telephone" class="col-sm-4 col-form-label">Telephone: </label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="telephone" name="telephone" value="{{ member.telephone }}">
+                    </div>
                 </div>
-            </div>
-            <div class="form-group form-row justify-content-center">
-                <label for="job_title" class="col-sm-4 col-form-label">Job Title: </label>
-                <div class="col-sm-4">
-                    <input type="text" class="form-control" id="job_title" name="job_title" value="{{ member.job_title }}">
+                <div class="form-group form-row justify-content-center">
+                    <label for="employer" class="col-sm-4 col-form-label">Employer: </label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="employer" name="employer" value="{{ member.employer }}">
+                    </div>
                 </div>
-            </div>
-            <div class="form-group form-row justify-content-center">
-                <div class="col-8">
-                    <button type="submit" class="btn btn-primary">Submit Updated Details</button>            
+                <div class="form-group form-row justify-content-center">
+                    <label for="job_title" class="col-sm-4 col-form-label">Job Title: </label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="job_title" name="job_title" value="{{ member.job_title }}">
+                    </div>
                 </div>
-            </div>
-            <div class="form-group form-row justify-content-center">
-                <div class="col-8">
-                    <a class="btn background-blue" href="{{ url_for('member_home', email=session['email']) }}">Details OK, return to your home page</a>        
+                <div class="form-group form-row justify-content-center">
+                    <div class="col-8">
+                        <button type="submit" class="btn btn-primary">Submit Updated Details</button>            
+                    </div>
                 </div>
-            </div>
-        </form>
-    </section>
+                <div class="form-group form-row justify-content-center">
+                    <div class="col-8">
+                        <a class="btn background-blue" href="{{ url_for('member_home', email=session['email']) }}">Details OK, return to your home page</a>        
+                    </div>
+                </div>
+            </form>
+        </section>    
+    </div>
+</div>
 {% endblock %}
 
