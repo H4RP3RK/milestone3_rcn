@@ -64,6 +64,10 @@
     background-image: url("https://rcnfoundation.rcn.org.uk/-/media/royal-college-of-nursing/images/celebrating-nursing-practice/istock-nurses-patients/nurse-male-writing-on-notepad.jpg")
 }
 
+.new-question-background {
+    background-image: url("https://rcnfoundation.rcn.org.uk/-/media/royal-college-of-nursing/images/celebrating-nursing-practice/istock-nurses-patients/student-nurse-asian.jpg")
+}
+
 .opaque-white {
     background-color: rgba(255, 255, 255, 0.75);
 }
@@ -141,6 +145,13 @@
 
 .account-btns {
     margin: 1rem;
+}
+
+/*--Table--*/
+
+thead {
+    background-color: #023a70;
+    color: #ffffff;
 }
 
 /*--Footer--*/
