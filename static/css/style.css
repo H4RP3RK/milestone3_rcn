@@ -5,6 +5,7 @@
 /*--Fonts--*/
 
 .heading {
+    padding-top: 1rem;
     padding-bottom: 1rem;
 }
 
@@ -57,6 +58,10 @@
 
 .register-background {
     background-image: url("https://rcnfoundation.rcn.org.uk/-/media/royal-college-of-nursing/images/celebrating-nursing-practice/istock-nurses-patients/nurses-looking-on-laptop-in-corridor.jpg")
+}
+
+.account-background {
+    background-image: url("https://rcnfoundation.rcn.org.uk/-/media/royal-college-of-nursing/images/celebrating-nursing-practice/istock-nurses-patients/nurse-male-writing-on-notepad.jpg")
 }
 
 .opaque-white {
@@ -132,6 +137,10 @@
     background-color: #6e1a5d;
     color: #ffffff;
     text-decoration: underline;
+}
+
+.account-btns {
+    margin: 1rem;
 }
 
 /*--Footer--*/
