@@ -55,6 +55,10 @@
     background-image: url("https://www.rcn.org.uk/-/media/royal-college-of-nursing/images/rcn-magazines/background-images/bulletin/2018/november/nursing-voices-needed.jpg?la=en")
 }
 
+.register-background {
+    background-image: url("https://rcnfoundation.rcn.org.uk/-/media/royal-college-of-nursing/images/celebrating-nursing-practice/istock-nurses-patients/nurses-looking-on-laptop-in-corridor.jpg")
+}
+
 .opaque-white {
     background-color: rgba(255, 255, 255, 0.75);
 }
