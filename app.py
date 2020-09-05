@@ -136,6 +136,12 @@ def submit_question():
     return redirect(url_for('member_home', email=session['email']))
 
 
+@app.route('/question_details/<question_id>')
+def question_details(question_id):
+    contacts = mongo.db.contacts.find()
+    return render_template('question.html')
+
+
 @app.route('/new_contact')
 def new_contact():
     return render_template('newcontact.html', title='Ask a New Question')
