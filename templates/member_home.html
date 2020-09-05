@@ -69,12 +69,10 @@
                     {% for question in questions %}
                         <tbody>
                             <tr>
-                            <a href="{{ url_for('question_details', question_id=question_id) }}">
                                 <td>{{question.question_type}}</td>
                                 <td>{{question.summary}}</td>
                                 <td>{{question.start_date}}</td>
                                 <td>{{question.end_date}}</td>
-                            </a>
                             </tr>
                         </tbody>
                     {% endfor %}
