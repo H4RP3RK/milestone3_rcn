@@ -62,8 +62,8 @@ h4 {
 /*--Header--*/
 
 .navbar-brand img {
-    height: 15vh;
-    margin: 2vh 2vw;
+    height: 6em;
+    margin: 0.5rem;
 }
 
 .navbar-toggler {
@@ -76,7 +76,7 @@ h4 {
 }
 
 .nav-item {
-    padding: 0.5vh 2vw;
+    padding: 0.5rem 2rem;
 }
 
 /*--Main--*/
@@ -88,7 +88,7 @@ h4 {
 }
 
 .banner {
-    padding: 1vh 1vw;
+    padding: 0.7rem;
 }
 
 .question {
@@ -111,7 +111,7 @@ h4 {
 
 .blue-link a {
     color: #ffffff;
-    font-size: 3vh;
+    font-size: 1em;
     margin: 2vh 2vw;
 }
 

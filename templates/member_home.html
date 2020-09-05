@@ -45,7 +45,7 @@
                 <section class="col-md-6">
                     <div class="border">
                         <h4 class="font-heavy font-blue">What would you like to do?</h4>
-                        <h5><a class="btn background-blue" href="#" role="button">Update your account details</a></h5>
+                        <h5><a class="btn background-blue" href="{{ url_for('account', email=session['email']) }}" role="button">Update your account details</a></h5>
                         <h5><a class="btn background-blue" href="{{ url_for('new_question') }}" role="button">Ask a new question</a></h5>
                         <h5><a class="btn background-blue" href="#" role="button">See your current/old questions</a></h5>
                     </div>
