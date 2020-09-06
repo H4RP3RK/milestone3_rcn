@@ -132,12 +132,12 @@
     text-decoration: underline;
 }
 
-.btn {
+.blue-btn {
     background-color: #0063a3;
     color: #ffffff;
 }
 
-.btn:hover {
+.blue-btn:hover {
     background-color: #6e1a5d;
     color: #ffffff;
     text-decoration: underline;
