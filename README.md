@@ -181,6 +181,8 @@ New_question
 - Why won't labels go blue?
 Newcontact.html
 x How do I timestamp contact? - default=datetime.utcnow
+Question_details.html
+- 
 App.py 
 x set up environ to protect password before pushing
 - Can the members.queries.find_one be simplified so it's not duplicated

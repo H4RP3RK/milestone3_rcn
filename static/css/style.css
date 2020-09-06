@@ -160,13 +160,6 @@ label {
     color: #023a70;
 }
 
-/*--Table--*/
-
-thead {
-    background-color: #023a70;
-    color: #ffffff;
-}
-
 /*--Footer--*/
 
 footer {
@@ -177,4 +170,10 @@ footer {
     height: 2em;
     border: 4px #ffffff solid;
     border-radius: 50%;
+}
+
+/*--Question Details--*/
+
+.padding-bottom {
+    padding-bottom: 0;
 }
