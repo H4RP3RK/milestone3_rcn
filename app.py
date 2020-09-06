@@ -143,8 +143,8 @@ def question_details(question_id):
     return render_template('question_details.html', contacts=contacts, question=question)
 
 
-@app.route('/new_contact')
-def new_contact():
+@app.route('/new_contact/<question_id>')
+def new_contact(question_id):
     return render_template('newcontact.html', title='Contact your RCN Lead')
 
 
