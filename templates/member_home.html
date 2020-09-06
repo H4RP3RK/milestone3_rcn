@@ -61,12 +61,18 @@
                     {% for question in questions %}
                         <div class="card">
                             <div class="card-header" id="heading{{question._id}}">
-                            <div class="mb-0 row">
+                            <div class="mb-0 row align-items-center">
                                 <div class="col">
                                     <h5 class="font-heavy font-blue">{{question.question_type}}</h5>
                                 </div>
                                 <div class="col">
                                     <span>{{question.start_date}}</span>
+                                </div>
+                                <div class="col">
+                                    <button class="btn blue-btn btn-link" data-toggle="collapse" data-target="#collapse{{question._id}}" aria-expanded="true" aria-controls="collapse{{question._id}}">
+                                    Expand for details
+                                    </button>
+                                    <a class="blue-btn btn" href="{{ url_for('question_details', question_id=question._id) }}">See the full case</a>
                                 </div>
                             </div>
                             
