@@ -43,7 +43,11 @@
                 </section>
         <!--Task options-->
                 <section class="col-md-6">
-                    <div class="border">
+                    <div class="border row">
+                        <h4 class="heading font-heavy font-blue">Your question</h4>
+                        <h5>{{question.summary}}</h5>
+                    </div>
+                    <div class="border row">
                         <h4 class="heading font-heavy font-blue">What would you like to do?</h4>
                         <h5><a class="blue-btn btn background-blue" href="#" role="button">Contact your RCN Lead</a></h5>
                         <h5><a class="blue-btn btn background-blue" href="#" role="button">Add a new contact</a></h5>
@@ -61,35 +65,34 @@
                     {% for contact in contacts %}
                         <div class="card">
                             <div class="card-header" id="heading{{question._id}}">
-                            <div class="mb-0">
-                                <div class="row align-items-center">
-                                    <div class="col-sm-4">
-                                        <h5 class="font-heavy font-blue">{{contact.contact_type}}</h5>
+                                <div class="mb-0">
+                                    <div class="row align-items-center">
+                                        <div class="col-sm-4">
+                                            <h5 class="font-heavy font-blue">{{contact.contact_type}}</h5>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <span>{{contact.date}}</span>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <button class="btn blue-btn btn-link accordian-btn collapsed" data-toggle="collapse" data-target="#collapse{{question._id}}" aria-expanded="false" aria-controls="collapse{{question._id}}">
+                                            Details
+                                            </button>
+                                        </div>
                                     </div>
-                                    <div class="col-sm-4">
-                                        <span>{{contact.date}}</span>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <button class="btn blue-btn btn-link accordian-btn collapsed" data-toggle="collapse" data-target="#collapse{{question._id}}" aria-expanded="false" aria-controls="collapse{{question._id}}">
-                                        Details
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col">
-                                        From: {{contact.from}}
-                                    </div>
-                                    <div class="col">
-                                        To: {{contact.to}}
+                                    <div class="row">
+                                        <div class="col">
+                                            From: {{contact.from}}
+                                        </div>
+                                        <div class="col">
+                                            To: {{contact.to}}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            
                         </div>
                         <div id="collapse{{question._id}}" class="collapse" aria-labelledby="heading{{question._id}}" data-parent="#accordion">
                             <div class="card-body">
                                 {{contact.summary}}
-                            </div>
                             </div>
                         </div>
                     {% endfor %}
