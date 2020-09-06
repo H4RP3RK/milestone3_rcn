@@ -86,33 +86,6 @@
                     {% endfor %}
                     </div>
                 </div>
-                
-<!--                
-                <div class="table-responsive">
-                    <table class="table-bordered table table-striped">
-                        <thead>
-                            <tr>
-                            <th scope="col">Query Type</th>
-                            <th scope="col">Query Summary</th>
-                            <th scope="col">Start Date</th>
-                            <th scope="col">End Date</th>
-                            <th scope="col">Go To Question</th>
-                            </tr>
-                        </thead>
-                    {% for question in questions %}
-                        <tbody>
-                            <tr>
-                                <td>{{question.question_type}}</td>
-                                <td>{{question.summary}}</td>
-                                <td>{{question.start_date}}</td>
-                                <td>{{question.end_date}}</td>
-                                <td><button href="url_for('question_details', question_id=question._id)">Go</button></td>
-                            </tr>
-                        </tbody>
-                    {% endfor %}
-                    </table> 
-                </div>
--->
             </div>
         </section> 
     </div>
