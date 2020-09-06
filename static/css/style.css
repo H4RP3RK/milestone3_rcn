@@ -167,3 +167,9 @@ thead {
 footer {
     position: absolute;
 }
+
+.footer-image {
+    height: 1.5em;
+    border: 4px #ffffff solid;
+    border-radius: 50%;
+}
