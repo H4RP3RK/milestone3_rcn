@@ -62,7 +62,7 @@
                         <div class="card">
                             <div class="card-header" id="headingOne">
                             <h5 class="mb-0">
-                                <a class="btn" href="url_for('url_for('question_details', question_id=question._id)')">See the full case</a>
+                                <a class="btn" href="{{ url_for('question_details', question_id=question._id) }}">See the full case</a>
                                 <button class="btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                                 {{question.question_type}}
                                 </button>
