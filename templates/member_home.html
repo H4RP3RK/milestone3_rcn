@@ -62,17 +62,17 @@
                         <div class="card">
                             <div class="card-header" id="heading{{question._id}}">
                             <div class="mb-0 row align-items-center">
-                                <div class="col">
+                                <div class="col-sm-4">
                                     <h5 class="font-heavy font-blue">{{question.question_type}}</h5>
                                 </div>
-                                <div class="col">
+                                <div class="col-sm-4">
                                     <span>{{question.start_date}}</span>
                                 </div>
-                                <div class="col">
-                                    <button class="btn blue-btn btn-link" data-toggle="collapse" data-target="#collapse{{question._id}}" aria-expanded="true" aria-controls="collapse{{question._id}}">
-                                    Expand for details
+                                <div class="col-sm-4">
+                                    <button class="btn blue-btn btn-link accordian-btn" data-toggle="collapse" data-target="#collapse{{question._id}}" aria-expanded="true" aria-controls="collapse{{question._id}}">
+                                    Summary
                                     </button>
-                                    <a class="blue-btn btn" href="{{ url_for('question_details', question_id=question._id) }}">See the full case</a>
+                                    <a class="blue-btn btn accordian-btn" href="{{ url_for('question_details', question_id=question._id) }}">Full case</a>
                                 </div>
                             </div>
                             
