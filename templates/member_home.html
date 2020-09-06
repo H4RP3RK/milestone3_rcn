@@ -45,7 +45,7 @@
                 <section class="col-md-6">
                     <div class="border">
                         <h4 class="heading font-heavy font-blue">What would you like to do?</h4>
-                        <h5><a class=" btn background-blue" href="{{ url_for('account', email=session['email']) }}" role="button">Update your account details</a></h5>
+                        <h5><a class="blue-btn btn background-blue" href="{{ url_for('account', email=session['email']) }}" role="button">Update your account details</a></h5>
                         <h5><a class="blue-btn btn background-blue" href="{{ url_for('new_question') }}" role="button">Ask a new question</a></h5>
                         <h5><a class="blue-btn btn background-blue" href="#" role="button">See your current/old questions</a></h5>
                     </div>
@@ -57,17 +57,19 @@
             <div class="border">
                 <h4 class="heading font-heavy font-blue">Your Questions</h4>
                 <div class="row">
-                    <div class="" id="accordion">
+                    <div class="col" id="accordion">
                     {% for question in questions %}
                         <div class="card">
                             <div class="card-header" id="heading{{question._id}}">
-                            <h5 class="mb-0">
-                                <button class="btn blue-btn btn-link" data-toggle="collapse" data-target="#collapse{{question._id}}" aria-expanded="true" aria-controls="collapse{{question._id}}">
-                                Expand for details
-                                </button>
-                                <a class="blue-btn btn" href="{{ url_for('question_details', question_id=question._id) }}">See the full case</a>
-                                <span>{{question.question_type}} {{question.start_date}}</span>
-                            </h5>
+                            <div class="mb-0 row">
+                                <div class="col">
+                                    <h5 class="font-heavy font-blue">{{question.question_type}}</h5>
+                                </div>
+                                <div class="col">
+                                    <span>{{question.start_date}}</span>
+                                </div>
+                            </div>
+                            
                         </div>
                         <div id="collapse{{question._id}}" class="collapse show" aria-labelledby="heading{{question._id}}" data-parent="#accordion">
                             <div class="card-body">
