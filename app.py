@@ -145,7 +145,7 @@ def question_details(question_id):
 
 @app.route('/new_contact')
 def new_contact():
-    return render_template('newcontact.html', title='Ask a New Question')
+    return render_template('newcontact.html', title='Contact your RCN Lead')
 
 
 @app.route('/submit_contact', methods=['POST'])

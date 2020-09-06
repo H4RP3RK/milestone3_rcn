@@ -1,5 +1,28 @@
 {% extends 'base.html' %}
 {% block content %}
+    <div class="main background-picture new-question-background">
+        <section class="font main opaque-white">
+            <div class="container">
+                <div class="main row align-items-center justify-content-center">
+                    <div class="col-8">    
+                        <form action="{{ url_for('submit_question') }}" method="POST">  
+                            <div class="form-row">
+                                <div class="form-group col-10">
+                                    <label class="form-control-label" for="details">What would you like to contact your RCN Lead about?</label>
+                                    <textarea class="form-control" id="summary" name="summary" rows="5" placeholder="Please provide as much detail as possible to allow us to fully answer your question"></textarea>
+                                </div>       
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="blue-btn btn btn-primary">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>    
+
+<!--    
     <form action="{{ url_for('submit_contact') }}" method="POST">  
         <div class="form-row">
             <div class="form-group col-5">
@@ -31,4 +54,5 @@
             <button type="submit" class="blue-btn btn-primary">Submit</button>
         </div>
     </form>
+-->
 {% endblock %}
