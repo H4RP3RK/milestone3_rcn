@@ -86,7 +86,7 @@ def new_contact(question_id):
             'question_id': ObjectId(question_id),
             'contact_type': 'database',
             'date': datetime.datetime.utcnow(),
-            'details': request.form.get('summary'),
+            'summary': request.form.get('summary'),
             'from': member['first_name'],
             'to': 'RCN'
         }

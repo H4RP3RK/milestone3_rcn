@@ -1,6 +1,14 @@
 {% extends 'base.html' %}
 {% block content %}
     <div class="main font">
+<!--Breacrumbs-->
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ url_for('') }}">Your Home Page</a></li>
+            <li class="breadcrumb-item"><a href="#">Your Question</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Question Details</li>
+        </ol>
+    </nav>
 <!--Account Details-->
         <div class="container">
             <div class="row">
@@ -101,8 +109,8 @@
                                 {{contact.summary}}
                             </div>
                         </div>
-                    {% endfor %}
                     </div>
+                    {% endfor %}
                 </div>
             </div>
         </section> 
