@@ -179,7 +179,8 @@ x Why won't labels go blue?
 Newcontact.html
 x How do I timestamp contact? - default=datetime.utcnow
 Member_home.html
-- scroll to questions
+x scroll to questions
+x highlight question section when button pressed
 - Reorder accordian so latest come to the top
 Account.html
 - make sure update works
@@ -187,7 +188,8 @@ Question_details.html
 x Link contacts to particular query
 x Restyle accordian
 - Upload file
-- scroll to contacts
+x scroll to contacts
+x highlight contacts section when button pressed
 - Show photo and details of RCN staff dealing with query 
 - If RCN staff unassigned, add a message with general contact details
 - Reorder accordian so latest come to the top
