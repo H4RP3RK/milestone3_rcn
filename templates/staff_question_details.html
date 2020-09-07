@@ -4,7 +4,8 @@
 <!--Breacrumbs-->
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{{ url_for('member_home', username=session['username']) }}">Your Home Page</a></li>
+            <li class="breadcrumb-item"><a href="{{ url_for('staff_home', username=session['username']) }}">Your Home Page</a></li>
+            <li class="breadcrumb-item"><a href="{{ url_for('unassigned_questions', username=session['username']) }}">Unassigned Questions</a></li>
             <li class="breadcrumb-item active" aria-current="page">Question Details</li>
         </ol>
     </nav>
@@ -13,57 +14,45 @@
             <div class="row">
                 <section class="col-md-6 blue-link">
                     <div class="border">
-                        <h4 class="heading font-heavy font-blue">Your RCN Lead</h4>
-                        {% if question.staff_id == 'unassigned'%}
-    <!--Generic contact details and message show if RCN Lead hasn't yet been assigned-->
-                        <p class="font-blue">The contact details for your RCN Lead will appear here once the appropriate person has been assigned. In the meantime, please contact RCN Direct using the contact details below.</p>
-                        <div class="font-blue form-group form-row justify-content-center">
-                            <label for="email" class="col-4 col-form-label">Email: </label>
-                            <div class="col-8">
-                                <input type="text" readonly class="form-control-plaintext" id="email" name="email" value="support@rcn.org.uk">
-                            </div>
-                        </div>
-                        <div class="font-blue form-group form-row justify-content-center">
-                            <label for="telephone" class="col-4 col-form-label">Telephone: </label>
-                            <div class="col-8">
-                                <input type="text" class="form-control-plaintext" id="telephone" name="telephone" value="0345 772 6100">
-                            </div>
-                        </div>
-    <!--Details show when RCN Lead has been assigned-->
-                        {% else %}
+                        <h4 class="heading font-heavy font-blue">Member's Account Details</h4>
                         <form>
                             <div class="form-group form-row justify-content-center">
                                 <label for="name" class="col-4 col-form-label">Name: </label>
                                 <div class="col-8">
-                                    <input type="text" readonly class="form-control-plaintext" id="name" name="name" value="">
+                                    <input type="text" readonly class="form-control-plaintext" id="name" name="name" value="{{ member.first_name}} {{ member.last_name }}">
+                                </div>
+                            </div>
+                            <div class="form-group form-row justify-content-center">
+                                <label for="username" class="col-4 col-form-label">Username: </label>
+                                <div class="col-8">
+                                    <input type="text" readonly class="form-control-plaintext" id="username" name="username" value="{{ member.username }}">
                                 </div>
                             </div>
                             <div class="form-group form-row justify-content-center">
                                 <label for="email" class="col-4 col-form-label">Email: </label>
                                 <div class="col-8">
-                                    <input type="text" readonly class="form-control-plaintext" id="email" name="email" value="">
+                                    <input type="text" readonly class="form-control-plaintext" id="email" name="email" value="{{ member.email }}">
                                 </div>
                             </div>
                             <div class="form-group form-row justify-content-center">
                                 <label for="telephone" class="col-4 col-form-label">Telephone: </label>
                                 <div class="col-8">
-                                    <input type="text" class="form-control-plaintext" id="telephone" name="telephone" value="">
+                                    <input type="text" class="form-control-plaintext" id="telephone" name="telephone" value="{{ member.telephone }}">
                                 </div>
                             </div>
                             <div class="form-group form-row justify-content-center">
-                                <label for="workplace" class="col-4 col-form-label">Workplace: </label>
+                                <label for="employer" class="col-4 col-form-label">Employer: </label>
                                 <div class="col-8">
-                                    <input type="text" readonly class="form-control-plaintext" id="workplace" name="workplace" value="">
+                                    <input type="text" readonly class="form-control-plaintext" id="employer" name="employer" value="{{ member.employer }}">
                                 </div>
                             </div>
                             <div class="form-group form-row justify-content-center">
                                 <label for="job_title" class="col-4 col-form-label">Job Title: </label>
                                 <div class="col-8">
-                                    <input type="text" readonly class="form-control-plaintext" id="job_title" name="job_title" value="">
+                                    <input type="text" readonly class="form-control-plaintext" id="job_title" name="job_title" value="{{ member.job_title }}">
                                 </div>
                             </div>
                         </form>
-                        {% endif %}
                     </div>
                 </section>
 <!--Question-->        
