@@ -47,14 +47,14 @@
                         <h4 class="heading font-heavy font-blue">What would you like to do?</h4>
                         <h5><a class="blue-btn btn background-blue" href="{{ url_for('account', email=session['email']) }}" role="button">Update your account details</a></h5>
                         <h5><a class="blue-btn btn background-blue" href="{{ url_for('new_question') }}" role="button">Ask a new question</a></h5>
-                        <h5><a class="blue-btn btn background-blue" href="#" role="button">See your current/old questions</a></h5>
+                        <h5><button class="blue-btn btn background-blue" onclick="scrollQuestions()" role="button">See your current/old questions</button></h5>
                     </div>
                 </section>              
             </div>      
         </div>
 <!--Member Questions-->
         <section class="container">
-            <div class="border">
+            <div class="border" id="questions">
                 <h4 class="heading font-heavy font-blue">Your Questions</h4>
                 <div class="row">
                     <div class="col" id="accordion">
