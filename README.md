@@ -184,7 +184,7 @@ x highlight question section when button pressed
 - Reorder accordian so latest come to the top
 x change datetime to better format
 Account.html
-- make sure update works
+x make sure update works
 Question_details.html
 x Link contacts to particular query
 x Restyle accordian
@@ -194,7 +194,7 @@ x Restyle accordian
 x scroll to contacts
 x highlight contacts section when button pressed
 - Show photo and details of RCN staff dealing with query 
-- If RCN staff unassigned, add a message with general contact details
+x If RCN staff unassigned, add a message with general contact details
 - Reorder accordian so latest come to the top
 x change datetime to better format
 App.py 
