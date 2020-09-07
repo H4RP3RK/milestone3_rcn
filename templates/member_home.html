@@ -15,6 +15,12 @@
                                 </div>
                             </div>
                             <div class="form-group form-row justify-content-center">
+                                <label for="username" class="col-4 col-form-label">Username: </label>
+                                <div class="col-8">
+                                    <input type="text" readonly class="form-control-plaintext" id="username" name="username" value="{{ member.username }}">
+                                </div>
+                            </div>
+                            <div class="form-group form-row justify-content-center">
                                 <label for="email" class="col-4 col-form-label">Email: </label>
                                 <div class="col-8">
                                     <input type="text" readonly class="form-control-plaintext" id="email" name="email" value="{{ member.email }}">
@@ -45,7 +51,7 @@
                 <section class="col-md-6">
                     <div class="border">
                         <h4 class="heading font-heavy font-blue">What would you like to do?</h4>
-                        <h5><a class="blue-btn btn background-blue" href="{{ url_for('account', email=session['email']) }}" role="button">Update your account details</a></h5>
+                        <h5><a class="blue-btn btn background-blue" href="{{ url_for('account', username=session['username']) }}" role="button">Update your account details</a></h5>
                         <h5><a class="blue-btn btn background-blue" href="{{ url_for('new_question') }}" role="button">Ask a new question</a></h5>
                         <h5><button class="blue-btn btn background-blue" onclick="scrollQuestions()" role="button">See your current/old questions</button></h5>
                     </div>

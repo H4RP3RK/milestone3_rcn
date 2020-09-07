@@ -3,7 +3,7 @@
 <!--Breacrumbs-->
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb font">
-            <li class="breadcrumb-item"><a href="{{ url_for('member_home', email=session['email']) }}">Your Home Page</a></li>
+            <li class="breadcrumb-item"><a href="{{ url_for('member_home', username=session['username']) }}">Your Home Page</a></li>
             <li class="breadcrumb-item active" aria-current="page">Account Details</li>
         </ol>
     </nav>
@@ -14,7 +14,7 @@
             <div class="container">
                 <div class="main row align-items-center justify-content-center">
                     <div class="col-lg-8 font-blue">
-                        <form action="{{ url_for('edit_account', email=member.email) }}" method="POST">
+                        <form action="{{ url_for('edit_account', username=session['username']) }}" method="POST">
                             <div class="form-group form-row justify-content-center">
                                 <h3 class="col-md-8 question heading font-heavy text-center">Are your details up to date?</h3>        
                             </div>
@@ -22,6 +22,12 @@
                                 <label for="name" class="col-sm-4 col-form-label">Name: </label>
                                 <div class="col-sm-4">
                                     <input type="text" readonly class="form-control-plaintext" id="name" name="name" value="{{ member.first_name}} {{ member.last_name }}">
+                                </div>
+                            </div>
+                            <div class="form-group form-row justify-content-center">
+                                <label for="email" class="col-sm-4 col-form-label">Username: </label>
+                                <div class="col-sm-4">
+                                    <input type="text" readonly class="form-control-plaintext" id="username" name="username" value="{{ member.email }}">
                                 </div>
                             </div>
                             <div class="form-group form-row justify-content-center">
@@ -51,7 +57,7 @@
                             <div class="form-group form-row justify-content-center">
                                 <div class="col text-center">
                                     <button type="submit" class="account-btns blue-btn btn background-blue">Submit Updated Details</button>   
-                                    <a class="account-btns blue-btn btn background-blue" href="{{ url_for('member_home', email=session['email']) }}">Details OK, return to your home page</a>             
+                                    <a class="account-btns blue-btn btn background-blue" href="{{ url_for('member_home', username=session['username']) }}">Details OK, return to your home page</a>             
                                 </div>
                             </div>
                         </form>

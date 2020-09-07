@@ -182,7 +182,7 @@ Member_home.html
 x scroll to questions
 x highlight question section when button pressed
 - Reorder accordian so latest come to the top
-- change datetime to better format
+x change datetime to better format
 Account.html
 - make sure update works
 Question_details.html
@@ -194,7 +194,7 @@ x highlight contacts section when button pressed
 - Show photo and details of RCN staff dealing with query 
 - If RCN staff unassigned, add a message with general contact details
 - Reorder accordian so latest come to the top
-- change datetime to better format
+x change datetime to better format
 App.py 
 x set up environ to protect password before pushing
 - Can the members.queries.find_one be simplified so it's not duplicated

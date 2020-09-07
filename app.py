@@ -26,17 +26,17 @@ def welcome():
 
 @app.route('/log_in', methods=['GET', 'POST'])
 def log_in():
-    if 'email' in session:
-        return redirect(url_for('member_home', email=session['email']))
+    if 'username' in session:
+        return redirect(url_for('member_home', username=session['username']))
     form = loginForm()
     if request.method == 'POST':
         members = mongo.db.members
-        member = members.find_one({'email': form.email.data})
+        member = members.find_one({'username': form.email.data})
         if member:
             if bcrypt.check_password_hash(member['password'], form.password.data):
-                session['email'] = form.email.data
+                session['username'] = form.email.data
                 flash(f'You are logged in, {member["first_name"]}!', 'success')
-                return redirect(url_for('member_home', email=session['email']))
+                return redirect(url_for('member_home', username=session['username']))
             else:
                 flash('Email/password combination is not recognised', 'danger')
                 return render_template('log_in.html', form=form, title='Member Login')
@@ -48,18 +48,19 @@ def log_in():
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
-    if 'email' in session:
-        return redirect(url_for('member_home', email=session['email']))
+    if 'username' in session:
+        return redirect(url_for('member_home', email=session['username']))
     form = registrationForm()
     if request.method == 'POST':
         members = mongo.db.members
-        current_member = members.find_one({'email': request.form['email']})
+        current_member = members.find_one({'username': request.form['email']})
 
         if current_member is None:
             hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
             new_member = {
                 'first_name': form.first_name.data,
                 'last_name': form.last_name.data,
+                'username': form.email.data,
                 'email': form.email.data,
                 'telephone': form.telephone.data,
                 'employer': form.employer.data,
@@ -67,9 +68,9 @@ def register():
                 'password': hashed_password
             }
             members.insert_one(new_member)
-            session['email'] = form.email.data
+            session['username'] = form.email.data
             flash(f'Account created for {form.first_name.data}', 'success')
-            return redirect(url_for('member_home', email=session['email']))
+            return redirect(url_for('member_home', username=session['username']))
         else:
             flash(f'{form.email.data} is already registered. You can login by clicking the link below', 'danger')
     return render_template('register.html', form=form, title='Sign Up')
@@ -96,31 +97,31 @@ def new_contact(question_id):
     return render_template('newcontact.html', title='Contact your RCN Lead', question=question)
 
 
-@app.route('/member_home/<email>')
-def member_home(email):
+@app.route('/member_home/<username>')
+def member_home(username):
     members = mongo.db.members
-    member = members.find_one({'email': email})
+    member = members.find_one({'username': username})
     return render_template('member_home.html', 
                             member=member, 
                             member_name=member['first_name'],
-                            questions=mongo.db.questions.find({'member_id': email}), 
+                            questions=mongo.db.questions.find({'member_id': username}), 
                             title=f"{member['first_name']}'s Home Page")
 
 
-@app.route('/account/<email>')
-def account(email):
+@app.route('/account/<username>')
+def account(username):
     members = mongo.db.members
-    member = members.find_one({'email': email})
+    member = members.find_one({'username': username})
     return render_template('account.html', 
                             member=member,
                             title=f"{member['first_name']}'s Account")
 
 
-@app.route('/edit_account/<email>', methods=['GET', 'POST'])
-def edit_account(email):
+@app.route('/edit_account/<username>', methods=['GET', 'POST'])
+def edit_account(username):
     members = mongo.db.members
     members.update( 
-        {'email': email}, 
+        {'username': username}, 
         { '$set': 
             {
                 'email': request.form.get('email'),
@@ -130,7 +131,7 @@ def edit_account(email):
             }
         })
     flash("Your details are now updated.", 'success')
-    return redirect(url_for('account', email=session['email']))
+    return redirect(url_for('account', username=session['username']))
 
 
 @app.route('/new_question')
@@ -142,14 +143,14 @@ def new_question():
 def submit_question():
     questions = mongo.db.questions
     question = {
-        'member_id': session['email'],
+        'member_id': session['username'],
         'question_type': request.form.get('question_type'),
         'start_date': datetime.datetime.utcnow().strftime('%d/%m/%y  %H:%M'),
         'summary': request.form.get('summary')
     }
     questions.insert_one(question)
     flash("Thanks for your question. We'll respond shortly. You can click on your question below for updates.", 'success')
-    return redirect(url_for('member_home', email=session['email']))
+    return redirect(url_for('member_home', username=session['username']))
 
 
 @app.route('/question_details/<question_id>')
@@ -161,7 +162,7 @@ def question_details(question_id):
 
 @app.route('/log_out')
 def log_out():
-    session.pop('email', None)
+    session.pop('username', None)
     flash('You are now logged out', 'success')
     return redirect(url_for('welcome'))
 
