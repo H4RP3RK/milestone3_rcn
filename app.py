@@ -75,6 +75,53 @@ def register():
     return render_template('register.html', form=form, title='Sign Up')
 
 
+@app.route('/new_contact/<question_id>', methods=['GET', 'POST'])
+def new_contact(question_id):
+    contacts = mongo.db.contacts
+    question = mongo.db.questions.find_one({'_id': ObjectId(question_id)})
+    member = mongo.db.members.find_one({'email': session['email']})
+    if request.method == 'POST':
+        contact = {
+            'member_id': session['email'],
+            'question_id': ObjectId(question_id),
+            'contact_type': 'database',
+            'date': datetime.datetime.utcnow(),
+            'details': request.form.get('summary'),
+            'from': member['first_name'],
+            'to': 'RCN'
+        }
+        contacts.insert_one(contact)
+        flash("Thanks for getting in touch. Your RCN Lead will be in touch shortly. Check your contacts below for updates", 'success')
+        return redirect(url_for('question_details', question_id=question['_id']))
+    return render_template('newcontact.html', title='Contact your RCN Lead')
+
+
+"""
+@app.route('/new_contact/<question_id>')
+def new_contact(question_id):
+    question = mongo.db.questions.find_one({'_id': ObjectId(question_id)})
+    return render_template('newcontact.html', title='Contact your RCN Lead', question=question)
+
+
+@app.route('/submit_contact', methods=['POST'])
+def submit_contact():
+    contacts = mongo.db.contacts
+    member = mongo.db.members.find_one({'email': session['email']})
+    question = mongo.db.questions.find_one({'_id': ObjectId(question_id)})
+    contact = {
+        'member_id': session['email'],
+        'question_id': ObjectId(question_id),
+        'date': datetime.datetime.utcnow(),
+        'details': request.form.get('summary'),
+        'from': member['first_name'],
+        'to': 'RCN'
+    }
+    contacts.insert_one(contact)
+    flash("Thanks for getting in touch. Your RCN Lead will be in touch shortly. Check your contacts below for updates", 'success')
+    return redirect(url_for('question_details', question=question))
+"""
+
+
 @app.route('/member_home/<email>')
 def member_home(email):
     members = mongo.db.members
@@ -141,26 +188,6 @@ def question_details(question_id):
     contacts = mongo.db.contacts.find({'question_id': ObjectId(question_id)})
     question = mongo.db.questions.find_one({'_id': ObjectId(question_id)})
     return render_template('question_details.html', contacts=contacts, question=question)
-
-
-@app.route('/new_contact/<question_id>')
-def new_contact(question_id):
-    return render_template('newcontact.html', title='Contact your RCN Lead')
-
-
-@app.route('/submit_contact', methods=['POST'])
-def submit_contact():
-    contacts = mongo.db.contacts
-    member = members.find_one({'email': session['email']})
-    contact = {
-        'member_id': session['email'],
-        'date': datetime.datetime.utcnow(),
-        'details': request.form.get('summary'),
-        'from': member['first_name'],
-        'to': 'RCN'
-    }
-    contacts.insert_one(contact)
-    return redirect(url_for('member_home', email=session['email']))
 
 
 @app.route('/log_out')

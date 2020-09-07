@@ -70,7 +70,7 @@
                     <div class="col" id="accordion">
                     {% for contact in contacts %}
                         <div class="card">
-                            <div class="card-header" id="heading{{question._id}}">
+                            <div class="card-header" id="heading{{contact._id}}">
                                 <div class="mb-0">
                                     <div class="row align-items-center">
                                         <div class="col-sm-4">
@@ -80,7 +80,7 @@
                                             <span>{{contact.date}}</span>
                                         </div>
                                         <div class="col-sm-4">
-                                            <button class="btn blue-btn btn-link accordian-btn collapsed" data-toggle="collapse" data-target="#collapse{{question._id}}" aria-expanded="false" aria-controls="collapse{{question._id}}">
+                                            <button class="btn blue-btn btn-link accordian-btn collapsed" data-toggle="collapse" data-target="#collapse{{contact._id}}" aria-expanded="false" aria-controls="collapse{{contact._id}}">
                                             Details
                                             </button>
                                         </div>
@@ -96,7 +96,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div id="collapse{{question._id}}" class="collapse" aria-labelledby="heading{{question._id}}" data-parent="#accordion">
+                        <div id="collapse{{contact._id}}" class="collapse" aria-labelledby="heading{{contact._id}}" data-parent="#accordion">
                             <div class="card-body">
                                 {{contact.summary}}
                             </div>
