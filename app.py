@@ -193,7 +193,7 @@ def staff_log_in():
 @app.route('/staff_home/<username>')
 def staff_home(username):
     staff = mongo.db.staff.find_one({'username': session['username']})
-    return render_template('staff_home.html', username=session['username'], staff=staff)
+    return render_template('staff_home.html', username=session['username'], staff=staff, title='Staff Home Page')
 
 
 if __name__ == '__main__':
