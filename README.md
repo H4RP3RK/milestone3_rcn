@@ -166,6 +166,8 @@ Base.html
 - restyle navbar dropdown
 Welcome.html
 x If session exists, take to member_home rather than log_in
+Login.html
+- link up forgot password
 Register.html
 x If user exists with email address, can you send error?
 Queries.html 
