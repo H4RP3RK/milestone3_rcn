@@ -94,6 +94,10 @@
 
 /*--Main--*/
 
+.breadcrumb {
+    margin: 0;
+}
+
 .main {
     position: relative;
     height: 80vh;
