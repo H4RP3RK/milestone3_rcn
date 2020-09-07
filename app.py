@@ -31,10 +31,10 @@ def log_in():
     form = loginForm()
     if request.method == 'POST':
         members = mongo.db.members
-        member = members.find_one({'username': form.email.data})
+        member = members.find_one({'username': form.username.data})
         if member:
             if bcrypt.check_password_hash(member['password'], form.password.data):
-                session['username'] = form.email.data
+                session['username'] = form.username.data
                 flash(f'You are logged in, {member["first_name"]}!', 'success')
                 return redirect(url_for('member_home', username=session['username']))
             else:
@@ -49,7 +49,7 @@ def log_in():
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if 'username' in session:
-        return redirect(url_for('member_home', email=session['username']))
+        return redirect(url_for('member_home', username=session['username']))
     form = registrationForm()
     if request.method == 'POST':
         members = mongo.db.members
