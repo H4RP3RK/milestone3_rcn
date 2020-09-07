@@ -9,11 +9,15 @@
         </ol>
     </nav>
 <!--RCN Lead Details-->
+
+
+
         <div class="container">
             <div class="row">
                 <section class="col-md-6 blue-link">
                     <div class="border">
                         <h4 class="heading font-heavy font-blue">Your RCN Lead</h4>
+                        {% if question.rcn_lead %}
                         <form>
                             <div class="form-group form-row justify-content-center">
                                 <label for="name" class="col-4 col-form-label">Name: </label>
@@ -46,6 +50,21 @@
                                 </div>
                             </div>
                         </form>
+                        {% else %}
+                        <p>Your RCN Lead hasn't yet been assigned. In the meantime, please contact RCN Direct using the contact details below.</p>
+                        <div class="form-group form-row justify-content-center">
+                            <label for="email" class="col-4 col-form-label">Email: </label>
+                            <div class="col-8">
+                                <input type="text" readonly class="form-control-plaintext" id="email" name="email" value="support@rcn.org.uk">
+                            </div>
+                        </div>
+                        <div class="form-group form-row justify-content-center">
+                            <label for="telephone" class="col-4 col-form-label">Telephone: </label>
+                            <div class="col-8">
+                                <input type="text" class="form-control-plaintext" id="telephone" name="telephone" value="0345 772 6100">
+                            </div>
+                        </div>
+                        {% endif %}
                     </div>
                 </section>
 <!--Question-->        
