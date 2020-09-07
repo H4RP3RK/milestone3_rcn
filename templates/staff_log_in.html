@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block content %}
+<!--Login Form-->
+    <div class="main background-picture login-background">   
+        <div class="opaque-white">
+            <section class="container font font-blue">
+                <div class="main row align-items-center">
+                    <div class="col">
+                        <form action=" " method="POST">  
+                            {{ form.hidden_tag() }}
+                            <div class="form-row font-blue">
+                                <div class="form-group col font-blue">
+                                    {{ form.username.label(class="form-control-label") }}
+                                    {% if form.username.errors %}
+                                        {{ form.username(class="form-control is-invalid")}}
+                                        <div class="invalid-feedback">  
+                                            {% for error in form.username.errors %}
+                                                <span>{{ error }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                        {{ form.username(class="form-control")}}
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col">
+                                    {{ form.password.label(class="form-control-label") }}
+                                    {% if form.password.errors %}
+                                        {{ form.password(class="form-control is-invalid")}}
+                                        <div class="invalid-feedback">  
+                                            {% for error in form.password.errors %}
+                                                <span>{{ error }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                        {{ form.password(class="form-control")}}
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="form-group text-center">
+                                {{ form.submit(class="blue-btn btn") }}
+                            </div>
+                            <div>
+                                <a href="#">Forgot your password?</a>
+                            </div>
+                        </form>
+                        <div>
+                            <p>No account? <a href="{{ url_for('register') }}">Signup</a> </p> 
+                        </div>
+                    </div>
+                </div>
+            </section> 
+        </div>  
+    </div> 
+{% endblock %}
