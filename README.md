@@ -188,15 +188,16 @@ x make sure update works
 Question_details.html
 x Link contacts to particular query
 x Restyle accordian
+x scroll to contacts
+x highlight contacts section when button pressed
+x change datetime to better format
+x If RCN staff unassigned, add a message with general contact details
+- If no contacts, add a generic message (Why is this not working?)
 - add close case btn if case open
 - add close case btn if case closed
 - Upload file
-x scroll to contacts
-x highlight contacts section when button pressed
 - Show photo and details of RCN staff dealing with query 
-x If RCN staff unassigned, add a message with general contact details
 - Reorder accordian so latest come to the top
-x change datetime to better format
 App.py 
 x set up environ to protect password before pushing
 - Can the members.queries.find_one be simplified so it's not duplicated
