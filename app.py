@@ -155,15 +155,6 @@ def edit_account(email):
     return redirect(url_for('account'))
 
 
-@app.route('/get_queries/<email>')
-def get_queries(email):
-    members = mongo.db.members
-    member = members.find_one({'email': email})
-    return render_template('queries.html', 
-                            questions=mongo.db.questions.find({'email': email}), 
-                            title=f"{member['first_name']}'s Current/Old Questions")
-
-
 @app.route('/new_question')
 def new_question():
     return render_template('new_question.html', title='Ask a New Question')
