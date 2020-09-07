@@ -147,7 +147,8 @@ def submit_question():
         'member_id': session['username'],
         'question_type': request.form.get('question_type'),
         'start_date': datetime.datetime.utcnow().strftime('%d/%m/%y  %H:%M'),
-        'summary': request.form.get('summary')
+        'summary': request.form.get('summary'),
+        'staff_id': 'unassigned'
     }
     questions.insert_one(question)
     flash("Thanks for your question. We'll respond shortly. You can click on your question below for updates.", 'success')
@@ -194,8 +195,15 @@ def staff_log_in():
 @app.route('/staff_home/<username>')
 def staff_home(username):
     staff = mongo.db.staff.find_one({'username': session['username']})
-    questions=mongo.db.questions.find({'staff_id': username})
+    questions = mongo.db.questions.find({'staff_id': username})
     return render_template('staff_home.html', username=session['username'], staff=staff, questions=questions, title='Staff Home Page')
+
+
+@app.route('/unassigned_questions')
+def unassigned_questions():
+    questions = mongo.db.questions
+    unassigned = questions.find({'staff_id': 'unassigned'})
+    return render_template('unassigned_questions.html', questions=unassigned, title='Unassigned Questions')
 
 
 if __name__ == '__main__':

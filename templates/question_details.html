@@ -14,8 +14,23 @@
                 <section class="col-md-6 blue-link">
                     <div class="border">
                         <h4 class="heading font-heavy font-blue">Your RCN Lead</h4>
+                        {% if question.staff_id == 'unassigned'%}
+    <!--Generic contact details and message show if RCN Lead hasn't yet been assigned-->
+                        <p class="font-blue">The contact details for your RCN Lead will appear here once the appropriate person has been assigned. In the meantime, please contact RCN Direct using the contact details below.</p>
+                        <div class="font-blue form-group form-row justify-content-center">
+                            <label for="email" class="col-4 col-form-label">Email: </label>
+                            <div class="col-8">
+                                <input type="text" readonly class="form-control-plaintext" id="email" name="email" value="support@rcn.org.uk">
+                            </div>
+                        </div>
+                        <div class="font-blue form-group form-row justify-content-center">
+                            <label for="telephone" class="col-4 col-form-label">Telephone: </label>
+                            <div class="col-8">
+                                <input type="text" class="form-control-plaintext" id="telephone" name="telephone" value="0345 772 6100">
+                            </div>
+                        </div>
     <!--Details show when RCN Lead has been assigned-->
-                        {% if question.rcn_lead %}
+                        {% else %}
                         <form>
                             <div class="form-group form-row justify-content-center">
                                 <label for="name" class="col-4 col-form-label">Name: </label>
@@ -48,21 +63,6 @@
                                 </div>
                             </div>
                         </form>
-                        {% else %}
-    <!--Generic contact details and message show if RCN Lead hasn't yet been assigned-->
-                        <p class="font-blue">The contact details for your RCN Lead will appear here once the appropriate person has been assigned. In the meantime, please contact RCN Direct using the contact details below.</p>
-                        <div class="font-blue form-group form-row justify-content-center">
-                            <label for="email" class="col-4 col-form-label">Email: </label>
-                            <div class="col-8">
-                                <input type="text" readonly class="form-control-plaintext" id="email" name="email" value="support@rcn.org.uk">
-                            </div>
-                        </div>
-                        <div class="font-blue form-group form-row justify-content-center">
-                            <label for="telephone" class="col-4 col-form-label">Telephone: </label>
-                            <div class="col-8">
-                                <input type="text" class="form-control-plaintext" id="telephone" name="telephone" value="0345 772 6100">
-                            </div>
-                        </div>
                         {% endif %}
                     </div>
                 </section>
