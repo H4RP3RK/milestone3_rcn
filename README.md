@@ -163,7 +163,7 @@ Further reading and troubleshooting on cloning a repository from GitHub [here](h
 
 ## Questions/To Do
 Base.html
-- restyle navbar dropdown
+x restyle navbar dropdown
 Welcome.html
 x If session exists, take to member_home rather than log_in
 Login.html
@@ -182,6 +182,7 @@ Member_home.html
 x scroll to questions
 x highlight question section when button pressed
 - Reorder accordian so latest come to the top
+- change datetime to better format
 Account.html
 - make sure update works
 Question_details.html
@@ -193,10 +194,12 @@ x highlight contacts section when button pressed
 - Show photo and details of RCN staff dealing with query 
 - If RCN staff unassigned, add a message with general contact details
 - Reorder accordian so latest come to the top
+- change datetime to better format
 App.py 
 x set up environ to protect password before pushing
 - Can the members.queries.find_one be simplified so it's not duplicated
 - Can one @app.route send to two tables? Want to send to query and contact?
+- Why is secret key not working when in env.py?
 
 ## Mandatory Requirements
 A project violating any of these requirements will FAIL

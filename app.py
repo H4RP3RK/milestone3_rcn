@@ -123,10 +123,14 @@ def edit_account(email):
         {'email': email}, 
         { '$set': 
             {
-                'telephone': request.form.get('telephone')
+                'email': request.form.get('email'),
+                'telephone': request.form.get('telephone'),
+                'employer': request.form.get('employer'),
+                'job_title': request.form.get('job_title')
             }
         })
-    return redirect(url_for('account'))
+    flash("Your details are now updated.", 'success')
+    return redirect(url_for('account', email=session['email']))
 
 
 @app.route('/new_question')
