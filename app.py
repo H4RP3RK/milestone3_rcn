@@ -85,7 +85,7 @@ def new_contact(question_id):
             'member_id': session['email'],
             'question_id': ObjectId(question_id),
             'contact_type': 'database',
-            'date': datetime.datetime.utcnow(),
+            'date': datetime.datetime.utcnow().strftime('%d/%m/%y  %H:%M'),
             'summary': request.form.get('summary'),
             'from': member['first_name'],
             'to': 'RCN'
@@ -144,7 +144,7 @@ def submit_question():
     question = {
         'member_id': session['email'],
         'question_type': request.form.get('question_type'),
-        'start_date': datetime.datetime.utcnow(),
+        'start_date': datetime.datetime.utcnow().strftime('%d/%m/%y  %H:%M'),
         'summary': request.form.get('summary')
     }
     questions.insert_one(question)
