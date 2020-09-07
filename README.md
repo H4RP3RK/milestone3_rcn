@@ -188,6 +188,8 @@ Account.html
 Question_details.html
 x Link contacts to particular query
 x Restyle accordian
+- add close case btn if case open
+- add close case btn if case closed
 - Upload file
 x scroll to contacts
 x highlight contacts section when button pressed

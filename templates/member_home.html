@@ -63,6 +63,7 @@
             <div class="border" id="questions">
                 <h4 class="heading font-heavy font-blue">Your Questions</h4>
                 <div class="row">
+                {% if questions %}
                     <div class="col" id="accordion">
                     {% for question in questions %}
                         <div class="card">
@@ -90,6 +91,11 @@
                         </div>
                     {% endfor %}
                     </div>
+                {% else %}
+                    <div class="col">
+                        <p>You haven't asked any questions yet. When you do, they will appear here.</p>
+                    </div>
+                {% endif %}
                 </div>
             </div>
         </section> 

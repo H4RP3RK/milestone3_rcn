@@ -14,7 +14,7 @@
                 <section class="col-md-6 blue-link">
                     <div class="border">
                         <h4 class="heading font-heavy font-blue">Your RCN Lead</h4>
-<!--Details show when RCN Lead has been assigned-->
+    <!--Details show when RCN Lead has been assigned-->
                         {% if question.rcn_lead %}
                         <form>
                             <div class="form-group form-row justify-content-center">
@@ -49,7 +49,7 @@
                             </div>
                         </form>
                         {% else %}
-<!--Generic contact details and message show if RCN Lead hasn't yet been assigned-->
+    <!--Generic contact details and message show if RCN Lead hasn't yet been assigned-->
                         <p class="font-blue">The contact details for your RCN Lead will appear here once the appropriate person has been assigned. In the meantime, please contact RCN Direct using the contact details below.</p>
                         <div class="font-blue form-group form-row justify-content-center">
                             <label for="email" class="col-4 col-form-label">Email: </label>
@@ -92,6 +92,7 @@
             <div class="border" id="contacts">
                 <h4 class="heading font-heavy font-blue">Contacts</h4>
                 <div class="row">
+                {% if contacts %}
                     <div class="col" id="accordion">
                     {% for contact in contacts %}
                         <div class="card">
@@ -122,6 +123,11 @@
                         </div>
                     {% endfor %}
                     </div>
+                {% else %}
+                    <div class="col">
+                        <p>There are no contacts for this case yet. If you contact your RCN Lead or they contact you, details will appear here.</p>
+                    </div>
+                {% endif %}
                 </div>
             </div>
         </section> 
