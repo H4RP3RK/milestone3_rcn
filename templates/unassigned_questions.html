@@ -10,13 +10,13 @@
                     <div class="card">
                         <div class="card-header" id="heading{{question._id}}">
                             <div class="mb-0 row align-items-center">
-                                <div class="col-sm-3">
+                                <div class="col-sm-4">
                                     <h5 class="font-heavy font-blue">{{question.question_type}}</h5>
                                 </div>
                                 <div class="col-sm-3">
                                     <span>{{question.start_date}}</span>
                                 </div>
-                                <div class="col-sm-6">
+                                <div class="col-sm-5">
                                     <button class="btn blue-btn btn-link accordian-btn collapsed" data-toggle="collapse" data-target="#collapse{{question._id}}" aria-expanded="false" aria-controls="collapse{{question._id}}">
                                     Summary
                                     </button>
@@ -27,7 +27,8 @@
                         </div>
                         <div id="collapse{{question._id}}" class="collapse" aria-labelledby="heading{{question._id}}" data-parent="#accordion">
                             <div class="card-body">
-                                {{question.summary}}
+                                <h6>Member: {{question.member_id}}</h6>
+                                <p>{{question.summary}}</p>
                             </div>
                         </div>
                     </div>
