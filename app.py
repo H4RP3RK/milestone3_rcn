@@ -80,10 +80,10 @@ def register():
 def new_contact(question_id):
     contacts = mongo.db.contacts
     question = mongo.db.questions.find_one({'_id': ObjectId(question_id)})
-    member = mongo.db.members.find_one({'email': session['email']})
+    member = mongo.db.members.find_one({'username': session['username']})
     if request.method == 'POST':
         contact = {
-            'member_id': session['email'],
+            'member_id': session['username'],
             'question_id': ObjectId(question_id),
             'contact_type': 'database',
             'date': datetime.datetime.utcnow().strftime('%d/%m/%y  %H:%M'),
