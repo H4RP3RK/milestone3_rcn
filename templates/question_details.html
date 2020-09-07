@@ -69,7 +69,7 @@
                 </section>              
             </div>      
         </div>
-<!--Member Questions-->
+<!--Contacts-->
         <section class="container">
             <div class="border">
                 <h4 class="heading font-heavy font-blue">Contacts</h4>
@@ -78,34 +78,28 @@
                     {% for contact in contacts %}
                         <div class="card">
                             <div class="card-header" id="heading{{contact._id}}">
-                                <div class="mb-0">
-                                    <div class="row align-items-center">
-                                        <div class="col-sm-4">
-                                            <h5 class="font-heavy font-blue">{{contact.contact_type}}</h5>
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <span>{{contact.date}}</span>
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <button class="btn blue-btn btn-link accordian-btn collapsed" data-toggle="collapse" data-target="#collapse{{contact._id}}" aria-expanded="false" aria-controls="collapse{{contact._id}}">
-                                            Details
-                                            </button>
-                                        </div>
+                                <div class="mb-0 row align-items-center">
+                                    <div class="col-sm-3">
+                                        <span>{{contact.date}}</span>
                                     </div>
-                                    <div class="row">
-                                        <div class="col">
-                                            From: {{contact.from}}
-                                        </div>
-                                        <div class="col">
-                                            To: {{contact.to}}
-                                        </div>
+                                    <div class="col-sm-3">
+                                        From: {{contact.from}}
+                                    </div>
+                                    <div class="col-sm-3">
+                                        To: {{contact.to}}
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <button class="btn blue-btn btn-link accordian-btn collapsed" data-toggle="collapse" data-target="#collapse{{contact._id}}" aria-expanded="false" aria-controls="collapse{{contact._id}}">
+                                        Details
+                                        </button>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div id="collapse{{contact._id}}" class="collapse" aria-labelledby="heading{{contact._id}}" data-parent="#accordion">
-                            <div class="card-body">
-                                {{contact.summary}}
+                            <div id="collapse{{contact._id}}" class="collapse" aria-labelledby="heading{{contact._id}}" data-parent="#accordion">
+                                <div class="card-body">
+                                    <h5 class="font-heavy font-blue">{{contact.contact_type}} contact</h5>
+                                    {{contact.summary}}
+                                </div>
                             </div>
                         </div>
                     </div>

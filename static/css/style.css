@@ -100,7 +100,7 @@
 
 .main {
     position: relative;
-    height: 80vh;
+    min-height: 73vh;
     overflow: scroll;
 }
 

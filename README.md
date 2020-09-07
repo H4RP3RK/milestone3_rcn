@@ -158,15 +158,10 @@ Further reading and troubleshooting on cloning a repository from GitHub [here](h
 ******MY OWN NOTES - NOT PART OF FINAL README******
 
 ## To Do
-* Create account page
-* Allow member to edit their account details
-* Link contacts to particular query
-* Show photo of RCN staff dealing with query 
-* Create member login 
-* Create view so member can see all members and search through them 
+* Create view so staff can see all members and search through them 
 
 
-## Questions 
+## Questions/To Do
 Base.html
 - restyle navbar dropdown
 Welcome.html
@@ -175,14 +170,25 @@ Register.html
 x If user exists with email address, can you send error?
 Queries.html 
 - Need to show RCN Lead Name rather than RCN Lead ID
-- How do I set up so tables link with each other? 
+x How do I set up so tables link with each other? 
 x Why is logo image not showing?
-New_question
-- Why won't labels go blue?
+New_question.html
+x Why won't labels go blue?
 Newcontact.html
 x How do I timestamp contact? - default=datetime.utcnow
+Member_home.html
+- scroll to questions
+- Reorder accordian so latest come to the top
+Account.html
+- make sure update works
 Question_details.html
-- 
+x Link contacts to particular query
+x Restyle accordian
+- Upload file
+- scroll to contacts
+- Show photo and details of RCN staff dealing with query 
+- If RCN staff unassigned, add a message with general contact details
+- Reorder accordian so latest come to the top
 App.py 
 x set up environ to protect password before pushing
 - Can the members.queries.find_one be simplified so it's not duplicated
