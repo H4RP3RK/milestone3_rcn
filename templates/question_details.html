@@ -63,7 +63,7 @@
                             <h4 class="heading font-heavy font-blue">What would you like to do?</h4>
                             <h5><a class="blue-btn btn background-blue" href="{{ url_for('new_contact', question_id=question._id) }}" role="button">Contact your RCN Lead</a></h5>
                             <h5><a class="blue-btn btn background-blue" href="#" role="button">Upload a file</a></h5>
-                            <h5><a class="blue-btn btn background-blue" href="#" role="button">Browse your contacts</a></h5>
+                            <h5><button class="blue-btn btn background-blue" onclick="scrollContacts()" role="button">Browse your contacts</button></h5>
                         </div>
                     </div>
                 </section>              
@@ -71,7 +71,7 @@
         </div>
 <!--Contacts-->
         <section class="container">
-            <div class="border">
+            <div class="border" id="contacts">
                 <h4 class="heading font-heavy font-blue">Contacts</h4>
                 <div class="row">
                     <div class="col" id="accordion">
