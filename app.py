@@ -1,6 +1,6 @@
 import os, datetime
 from flask import Flask, render_template, redirect, request, url_for, flash, session
-from forms import registrationForm, loginForm
+from forms import registrationForm, loginForm, staffLoginForm
 from flask_pymongo import PyMongo
 from flask_bcrypt import Bcrypt
 from bson.objectid import ObjectId
@@ -168,8 +168,32 @@ def log_out():
 
 
 #STAFF SIDE OF SITE
+@app.route('/staff_log_in', methods=['GET', 'POST'])
+def staff_log_in():
+    if 'username' in session:
+        return redirect(url_for('staff_home', username=session['username']))
+    form = staffLoginForm()
+    if request.method == 'POST':
+        staff = mongo.db.staff
+        staffmember = staff.find_one({'username': form.username.data})
+        if staffmember:
+            if form.password.data == staffmember['password']:
+                session['username'] = form.username.data
+                flash(f'You are logged in, {staffmember["username"]}!', 'success')
+                return redirect(url_for('staff_home', username=session['username']))
+            else:
+                flash('Email/password combination is not recognised', 'danger')
+                return render_template('staff_log_in.html', form=form, title='Staff Login')
+        else:
+            flash('Email/password combination is not recognised', 'danger')
+            return render_template('staff_log_in.html', form=form, title='Staff Login')
+    return render_template('staff_log_in.html', form=form, title='Staff Login')
 
 
+@app.route('/staff_home/<username>')
+def staff_home(username):
+    staff = mongo.db.staff.find_one({'username': session['username']})
+    return render_template('staff_home.html', username=session['username'], staff=staff)
 
 
 if __name__ == '__main__':

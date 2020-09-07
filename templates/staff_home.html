@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="main font">
+<!--Account Details-->
+        <div class="container">
+            <div class="row">
+                <section class="col-md-6 blue-link">
+                    <div class="border">
+                        <h4 class="heading font-heavy font-blue">{{ staff.username }}'s Account Details</h4>
+                        <form>
+                            <div class="form-group form-row justify-content-center">
+                                <label for="name" class="col-4 col-form-label">Name: </label>
+                                <div class="col-8">
+                                    <input type="text" readonly class="form-control-plaintext" id="name" name="name" value="{{ staff.username }}">
+                                </div>
+                            </div>
+                            <div class="form-group form-row justify-content-center">
+                                <label for="email" class="col-4 col-form-label">Email: </label>
+                                <div class="col-8">
+                                    <input type="text" readonly class="form-control-plaintext" id="email" name="email" value="{{ staff.email }}">
+                                </div>
+                            </div>
+                            <div class="form-group form-row justify-content-center">
+                                <label for="telephone" class="col-4 col-form-label">Telephone: </label>
+                                <div class="col-8">
+                                    <input type="text" class="form-control-plaintext" id="telephone" name="telephone" value="{{ staff.telephone }}">
+                                </div>
+                            </div>
+                            <div class="form-group form-row justify-content-center">
+                                <label for="employer" class="col-4 col-form-label">Workplace: </label>
+                                <div class="col-8">
+                                    <input type="text" readonly class="form-control-plaintext" id="employer" name="employer" value="{{ staff.workplace }}">
+                                </div>
+                            </div>
+                            <div class="form-group form-row justify-content-center">
+                                <label for="job_title" class="col-4 col-form-label">Job Title: </label>
+                                <div class="col-8">
+                                    <input type="text" readonly class="form-control-plaintext" id="job_title" name="job_title" value="{{ staff.job_title }}">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -23,3 +23,4 @@ class loginForm(FlaskForm):
 class staffLoginForm(FlaskForm):
     username = StringField('Name', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])
+    submit = SubmitField('Login')
