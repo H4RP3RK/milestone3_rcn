@@ -93,7 +93,7 @@ def new_contact(question_id):
         contacts.insert_one(contact)
         flash("Thanks for getting in touch. Your RCN Lead will be in touch shortly. Check your contacts below for updates", 'success')
         return redirect(url_for('question_details', question_id=question['_id']))
-    return render_template('newcontact.html', title='Contact your RCN Lead')
+    return render_template('newcontact.html', title='Contact your RCN Lead', question=question)
 
 
 """

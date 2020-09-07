@@ -4,8 +4,7 @@
 <!--Breacrumbs-->
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{{ url_for('') }}">Your Home Page</a></li>
-            <li class="breadcrumb-item"><a href="#">Your Question</a></li>
+            <li class="breadcrumb-item"><a href="{{ url_for('member_home', email=session['email']) }}">Your Home Page</a></li>
             <li class="breadcrumb-item active" aria-current="page">Question Details</li>
         </ol>
     </nav>
@@ -114,37 +113,5 @@
                 </div>
             </div>
         </section> 
-
-<!--Member Queries 
-        <section class="container">
-            <div class="border">
-                <h4 class="heading font-heavy font-blue">Your Contacts</h4>
-                <table class="table-bordered table table-hover table-striped">
-                    <thead>
-                        <tr>
-                        <th scope="col">Contact Type</th>
-                        <th scope="col">Contact Summary</th>
-                        <th scope="col">Date</th>
-                        <th scope="col">From</th>
-                        <th scope="col">To</th>
-                        </tr>
-                    </thead>
-                    {% for contact in contacts %}
-                    <tbody>
-                        <a href="">
-                            <tr>
-                            <td>{{contact.contact_type}}</td>
-                            <td>{{contact.summary}}</td>
-                            <td>{{contact.date}}</td>
-                            <td>{{contact.from}}</td>
-                            <td>{{contact.to}}</td>
-                            </tr>
-                        </a>
-                    </tbody>
-                    {% endfor %}
-                </table> 
-            </div>
-        </section> 
--->
     </div>
 {% endblock %}
