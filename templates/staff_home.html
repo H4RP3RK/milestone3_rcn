@@ -52,5 +52,46 @@
                 </section>    
             </div>
         </div>
+<!--Member Questions-->
+        <section class="container">
+            <div class="border" id="questions">
+                <h4 class="heading font-heavy font-blue">Your Assigned Cases</h4>
+                <div class="row">
+                {% if questions %}
+                    <div class="col" id="accordion">
+                    {% for question in questions %}
+                        <div class="card">
+                            <div class="card-header" id="heading{{question._id}}">
+                                <div class="mb-0 row align-items-center">
+                                    <div class="col-sm-4">
+                                        <h5 class="font-heavy font-blue">{{question.question_type}}</h5>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <span>{{question.start_date}}</span>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <button class="btn blue-btn btn-link accordian-btn collapsed" data-toggle="collapse" data-target="#collapse{{question._id}}" aria-expanded="false" aria-controls="collapse{{question._id}}">
+                                        Summary
+                                        </button>
+                                        <a class="blue-btn btn accordian-btn" href="{{ url_for('question_details', question_id=question._id) }}">Full case</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="collapse{{question._id}}" class="collapse" aria-labelledby="heading{{question._id}}" data-parent="#accordion">
+                                <div class="card-body">
+                                    {{question.summary}}
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="col">
+                        <p>You haven't asked any questions yet. When you do, they will appear here.</p>
+                    </div>
+                {% endif %}
+                </div>
+            </div>
+        </section> 
     </div>
 {% endblock %}

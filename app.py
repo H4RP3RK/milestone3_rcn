@@ -101,10 +101,11 @@ def new_contact(question_id):
 def member_home(username):
     members = mongo.db.members
     member = members.find_one({'username': username})
+    questions=mongo.db.questions.find({'member_id': username})
     return render_template('member_home.html', 
                             member=member, 
                             member_name=member['first_name'],
-                            questions=mongo.db.questions.find({'member_id': username}), 
+                            questions=questions, 
                             title=f"{member['first_name']}'s Home Page")
 
 
@@ -193,7 +194,8 @@ def staff_log_in():
 @app.route('/staff_home/<username>')
 def staff_home(username):
     staff = mongo.db.staff.find_one({'username': session['username']})
-    return render_template('staff_home.html', username=session['username'], staff=staff, title='Staff Home Page')
+    questions=mongo.db.questions.find({'staff_id': username})
+    return render_template('staff_home.html', username=session['username'], staff=staff, questions=questions, title='Staff Home Page')
 
 
 if __name__ == '__main__':
