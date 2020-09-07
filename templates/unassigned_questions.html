@@ -20,7 +20,7 @@
                                     <button class="btn blue-btn btn-link accordian-btn collapsed" data-toggle="collapse" data-target="#collapse{{question._id}}" aria-expanded="false" aria-controls="collapse{{question._id}}">
                                     Summary
                                     </button>
-                                    <a class="blue-btn btn accordian-btn" href="#">Full details</a>
+                                    <a class="blue-btn btn accordian-btn" href="{{ url_for('staff_question_details', question_id=question._id) }}">Full details</a>
                                     <a class="blue-btn btn accordian-btn" href="#">Assign question</a>
                                 </div>
                             </div>

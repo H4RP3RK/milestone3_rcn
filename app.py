@@ -206,6 +206,14 @@ def unassigned_questions():
     return render_template('unassigned_questions.html', questions=unassigned, title='Unassigned Questions')
 
 
+@app.route('/staff_question_details/<question_id>')
+def staff_question_details(question_id):
+    contacts = mongo.db.contacts.find({'question_id': ObjectId(question_id)})
+    question = mongo.db.questions.find_one({'_id': ObjectId(question_id)})
+    member = mongo.db.members.find_one({'username': question['member_id']})
+    return render_template('staff_question_details.html', contacts=contacts, question=question, member=member)
+
+
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
             port=int(os.environ.get('PORT')),
