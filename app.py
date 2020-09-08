@@ -214,6 +214,29 @@ def staff_question_details(question_id):
     return render_template('staff_question_details.html', contacts=contacts, question=question, member=member)
 
 
+@app.route('/staf_new_contact/<question_id>', methods=['GET', 'POST'])
+def staff_new_contact(question_id):
+    contacts = mongo.db.contacts
+    question = mongo.db.questions.find_one({'_id': ObjectId(question_id)})
+    member = mongo.db.members.find_one({'username': question['member_id']})
+    if request.method == 'POST':
+        contact = {
+            'member_id': question['member_id'],
+            'question_id': ObjectId(question_id),
+            'contact_type': request.form.get('contact_type'),
+            'date': request.form.get('date'),
+            'summary': request.form.get('summary'),
+            'from': request.form.get('from'),
+            'to': request.form.get('to'),
+            'recorded_by': session['username'],
+            'recorded_on': datetime.datetime.utcnow().strftime('%d/%m/%y  %H:%M')
+        }
+        contacts.insert_one(contact)
+        flash("Your contact has been added. The member can now view your contacts", 'success')
+        return redirect(url_for('staff_question_details', question_id=question['_id']))
+    return render_template('staff_new_contact.html', title='Add a Contact', question=question)
+
+
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
             port=int(os.environ.get('PORT')),
