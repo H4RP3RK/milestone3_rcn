@@ -331,28 +331,19 @@ def register_staff():
 @app.route('/shared_login', methods=['GET', 'POST'])
 def shared_login():
     form = loginForm()
+    users = mongo.db.users
+    user = users.find_one({'username': form.username.data})
     if 'username' in session:
-        member = mongo.db.members.find_one({'username': session['username']})
-        staff = mongo.db.staff.find_one({'username': session['username']})
-        if member:
-            return redirect(url_for('member_home', username=session['username']))
-        if staff:
-            return redirect(url_for('staff_home', username=session['username']))
+        return redirect(url_for(f'{user["role"]}_home', username=session['username']))
     if request.method == 'POST':
-        member = mongo.db.members.find_one({'username': form.username.data})
-        staff = mongo.db.staff.find_one({'username': form.username.data})
-        if member and bcrypt.check_password_hash(member['password'], form.password.data):
+        if user and bcrypt.check_password_hash(user['password'], form.password.data):
             session['username'] = form.username.data
-            flash(f'Welcome {member["first_name"]}. You are logged in.', 'success')
-            return redirect(url_for('member_home', username=session['username']))
-        if staff and bcrypt.check_password_hash(staff['password'], form.password.data):
-            session['username'] = form.username.data
-            flash(f'You are logged in, {staff["first_name"]}', 'success')
-            return redirect(url_for('staff_home', username=session['username']))
+            flash(f'Welcome {user["first_name"]}. You are logged in.', 'success')
+            return redirect(url_for(f'{user["role"]}_home', username=session['username']))
         else:
             flash('Email/password combination is not recognised', 'danger')
-            return render_template('log_in.html', form=form, title='Member Login')
-    return render_template('shared_login.html', form=form, role=role, title='Login')
+            return render_template('shared_login.html', form=form, title='Login')
+    return render_template('shared_login.html', form=form, title='Login')
 
 
 if __name__ == '__main__':
