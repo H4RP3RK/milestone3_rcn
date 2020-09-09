@@ -1,6 +1,6 @@
 import os, datetime
 from flask import Flask, render_template, redirect, request, url_for, flash, session
-from forms import registrationForm, loginForm, staffLoginForm, roleForm
+from forms import registrationForm, loginForm, staffLoginForm
 from flask_pymongo import PyMongo
 from flask_bcrypt import Bcrypt
 from bson.objectid import ObjectId
@@ -240,7 +240,6 @@ def staff_new_contact(question_id):
 
 @app.route('/shared_login', methods=['GET', 'POST'])
 def shared_login():
-    role = roleForm()
     form = loginForm()
     if 'username' in session:
         member = mongo.db.members.find_one({'username': session['username']})

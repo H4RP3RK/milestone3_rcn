@@ -20,8 +20,6 @@ class loginForm(FlaskForm):
     password = PasswordField('password', validators=[DataRequired()])
     submit = SubmitField('Login')
 
-class roleForm(FlaskForm):
-    role = RadioField('Label', choices=[('Member','Member'),('Staff','Staff')])
 
 class staffLoginForm(FlaskForm):
     username = StringField('Name', validators=[DataRequired()])
