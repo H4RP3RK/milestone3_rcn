@@ -1,6 +1,6 @@
 import os, datetime
 from flask import Flask, render_template, redirect, request, url_for, flash, session
-from forms import registrationForm, loginForm, staffLoginForm
+from forms import loginForm, staffLoginForm, MemberRegistrationForm, StaffRegistrationForm
 from flask_pymongo import PyMongo
 from flask_bcrypt import Bcrypt
 from bson.objectid import ObjectId
@@ -44,7 +44,7 @@ def log_in():
             return render_template('log_in.html', form=form, title='Member Login')
     return render_template('log_in.html', form=form, title='Login')
 
-
+"""
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if 'username' in session:
@@ -73,7 +73,7 @@ def register():
         else:
             flash(f'{form.email.data} is already registered. You can login by clicking the link below', 'danger')
     return render_template('register.html', form=form, title='Sign Up')
-
+"""
 
 @app.route('/new_contact/<question_id>', methods=['GET', 'POST'])
 def new_contact(question_id):
@@ -237,6 +237,66 @@ def staff_new_contact(question_id):
     return render_template('staff_new_contact.html', title='Add a Contact', question=question)
 
 # SHARED SITE
+
+@app.route('/register_member', methods=['GET', 'POST'])
+def register_member():
+    if 'username' in session:
+        return redirect(url_for('member_home', username=session['username']))
+    form = MemberRegistrationForm()
+    if request.method == 'POST':
+        members = mongo.db.members
+        current_member = members.find_one({'username': request.form['email']})
+
+        if current_member is None:
+            hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+            new_member = {
+                'first_name': form.first_name.data,
+                'last_name': form.last_name.data,
+                'username': form.email.data,
+                'email': form.email.data,
+                'telephone': form.telephone.data,
+                'employer': form.employer.data,
+                'job_title': form.job_title.data,
+                'password': hashed_password
+            }
+            members.insert_one(new_member)
+            session['username'] = form.email.data
+            flash(f'Member account created for {form.first_name.data}', 'success')
+            return redirect(url_for('member_home', username=session['username']))
+        else:
+            flash(f'{form.email.data} is already registered. You can login by clicking the link below', 'danger')
+    return render_template('register_member.html', form=form, title='Sign Up')
+
+
+@app.route('/register_staff', methods=['GET', 'POST'])
+def register_staff():
+    if 'username' in session:
+        return redirect(url_for('staff_home', username=session['username']))
+    form = StaffRegistrationForm()
+    if request.method == 'POST':
+        staff = mongo.db.staff
+        current_staff = staff.find_one({'username': request.form['email']})
+
+        if current_staff is None:
+            hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+            new_staff = {
+                'first_name': form.first_name.data,
+                'last_name': form.last_name.data,
+                'username': form.email.data,
+                'email': form.email.data,
+                'telephone': form.telephone.data,
+                'workplace': form.workplace.data,
+                'job_title': form.job_title.data,
+                'password': hashed_password
+            }
+            staff.insert_one(new_staff)
+            session['username'] = form.email.data
+            flash(f'Staff account created for {form.first_name.data}', 'success')
+            return redirect(url_for('staff_home', username=session['username']))
+        else:
+            flash(f'{form.email.data} is already registered. You can login by clicking the link below', 'danger')
+    return render_template('register_staff.html', form=form, title='Sign Up')
+
 
 @app.route('/shared_login', methods=['GET', 'POST'])
 def shared_login():
