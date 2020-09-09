@@ -237,6 +237,37 @@ def staff_new_contact(question_id):
     return render_template('staff_new_contact.html', title='Add a Contact', question=question)
 
 # SHARED SITE
+@app.route('/register_shared', methods=['GET', 'POST'])
+def register_shared():
+    if 'username' in session:
+        user = mongo.db.users.find_one({'user': session['user']})
+        return redirect(url_for(f'{user["role"]}_home', username=session['username']))
+    form = MemberRegistrationForm()
+    if request.method == 'POST':
+        users = mongo.db.users
+        current_user = users.find_one({'username': request.form['email']})
+
+        if current_user is None:
+            hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+            new_user = {
+                'role': form.role.data,
+                'first_name': form.first_name.data,
+                'last_name': form.last_name.data,
+                'username': form.email.data,
+                'email': form.email.data,
+                'telephone': form.telephone.data,
+                'employer': form.employer.data,
+                'job_title': form.job_title.data,
+                'password': hashed_password
+            }
+            users.insert_one(new_user)
+            session['username'] = form.email.data
+            flash(f'{form.role.data} account created for {form.first_name.data}', 'success')
+            return redirect(url_for(f'{form.role.data}_home', username=session['username']))
+        else:
+            flash(f'{form.email.data} is already registered. You can login by clicking the link below', 'danger')
+    return render_template('register_shared.html', form=form, title='Sign Up')
+
 
 @app.route('/register_member', methods=['GET', 'POST'])
 def register_member():
