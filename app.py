@@ -197,6 +197,25 @@ def register_shared():
     return render_template('register_shared.html', form=form, title='Sign Up')
 
 
+@app.route('/shared_login', methods=['GET', 'POST'])
+def shared_login():
+    form = loginForm()
+    users = mongo.db.users
+    if 'username' in session:
+        user = users.find_one({'username': session['username']})
+        return redirect(url_for(f'{user["role"]}_home', username=session['username']))
+    if request.method == 'POST':
+        user = users.find_one({'username': form.username.data})
+        if user and bcrypt.check_password_hash(user['password'], form.password.data):
+            session['username'] = form.username.data
+            flash(f'Welcome {user["first_name"]}. You are logged in.', 'success')
+            return redirect(url_for(f'{user["role"]}_home', username=session['username']))
+        else:
+            flash('Email/password combination is not recognised', 'danger')
+            return render_template('shared_login.html', form=form, title='Login')
+    return render_template('shared_login.html', form=form, title='Login')
+
+
 @app.route('/register_member', methods=['GET', 'POST'])
 def register_member():
     if 'username' in session:
@@ -255,24 +274,6 @@ def register_staff():
         else:
             flash(f'{form.email.data} is already registered. You can login by clicking the link below', 'danger')
     return render_template('register_staff.html', form=form, title='Staff Sign Up')
-
-
-@app.route('/shared_login', methods=['GET', 'POST'])
-def shared_login():
-    form = loginForm()
-    users = mongo.db.users
-    user = users.find_one({'username': form.username.data})
-    if 'username' in session:
-        return redirect(url_for(f'{user["role"]}_home', username=session['username']))
-    if request.method == 'POST':
-        if user and bcrypt.check_password_hash(user['password'], form.password.data):
-            session['username'] = form.username.data
-            flash(f'Welcome {user["first_name"]}. You are logged in.', 'success')
-            return redirect(url_for(f'{user["role"]}_home', username=session['username']))
-        else:
-            flash('Email/password combination is not recognised', 'danger')
-            return render_template('shared_login.html', form=form, title='Login')
-    return render_template('shared_login.html', form=form, title='Login')
 
 
 if __name__ == '__main__':

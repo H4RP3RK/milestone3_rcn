@@ -166,7 +166,7 @@ Further reading and troubleshooting on cloning a repository from GitHub [here](h
 Jonathan 08.09.2020
 - Read up on flask forms documentation
 - Change all to forms
-- Combine different methods to one, particularly Login
+x Combine different methods to one, particularly Login
 - Can have multiple base.html and pull from it to create staff/member views
 - Avoid duplication of else in methods, means it can be reduced down
 - JS - organise the questions by date etc or close btn on flash messages

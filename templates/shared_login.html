@@ -6,6 +6,7 @@
             <section class="container font font-blue">
                 <div class="main row align-items-center">
                     <div class="col">
+                        <h2 class="question font-blue font-heavy">The RCN app is an easy way for RCN members to ask questions, check advice and keep in touch with the RCN.</h2>
                         <form action=" " method="POST">  
                             {{ form.hidden_tag() }}
                             <div class="form-row font-blue">
@@ -46,7 +47,7 @@
                             </div>
                         </form>
                         <div>
-                            <p>No account? <a href="{{ url_for('register_member') }}">Signup</a> </p> 
+                            <p>No account? <a href="{{ url_for('register_shared') }}">Signup</a> </p> 
                         </div>
                     </div>
                 </div>
