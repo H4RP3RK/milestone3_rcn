@@ -98,14 +98,13 @@ def new_contact(question_id):
 
 @app.route('/member_home/<username>')
 def member_home(username):
-    members = mongo.db.members
-    member = members.find_one({'username': username})
+    users = mongo.db.users
+    user = users.find_one({'username': username})
     questions=mongo.db.questions.find({'member_id': username})
     return render_template('member_home.html', 
-                            member=member, 
-                            member_name=member['first_name'],
+                            member=user,
                             questions=questions, 
-                            title=f"{member['first_name']}'s Home Page")
+                            title=f"{user['first_name']}'s Home Page")
 
 
 @app.route('/account/<username>')
