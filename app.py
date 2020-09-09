@@ -1,6 +1,6 @@
 import os, datetime
 from flask import Flask, render_template, redirect, request, url_for, flash, session
-from forms import registrationForm, loginForm, staffLoginForm
+from forms import registrationForm, loginForm, staffLoginForm, roleForm
 from flask_pymongo import PyMongo
 from flask_bcrypt import Bcrypt
 from bson.objectid import ObjectId
@@ -12,7 +12,7 @@ app = Flask(__name__)
 
 app.config['MONGO_DBNAME'] = os.environ.get('MONGO_DBNAME')
 app.config['MONGO_URI'] = os.environ.get('MONGO_URI')
-app.config['SECRET_KEY'] = ' '
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 
 mongo = PyMongo(app)
 bcrypt = Bcrypt(app)
@@ -26,24 +26,23 @@ def welcome():
 
 @app.route('/log_in', methods=['GET', 'POST'])
 def log_in():
-    if 'username' in session:
-        return redirect(url_for('member_home', username=session['username']))
     form = loginForm()
-    if request.method == 'POST':
-        members = mongo.db.members
-        member = members.find_one({'username': form.username.data})
+    member = mongo.db.members.find_one({'username': form.username.data})
+    staff = mongo.db.staff.find_one({'username': form.username.data})
+    if 'username' in session:
         if member:
-            if bcrypt.check_password_hash(member['password'], form.password.data):
-                session['username'] = form.username.data
-                flash(f'You are logged in, {member["first_name"]}!', 'success')
-                return redirect(url_for('member_home', username=session['username']))
-            else:
-                flash('Email/password combination is not recognised', 'danger')
-                return render_template('log_in.html', form=form, title='Member Login')
+            return redirect(url_for('member_home', username=session['username']))
+        if staff:
+            return redirect(url_for('staff_home', username=session['username']))
+    if request.method == 'POST':
+        if member and bcrypt.check_password_hash(member['password'], form.password.data):
+            session['username'] = form.username.data
+            flash(f'You are logged in, {member["first_name"]}!', 'success')
+            return redirect(url_for('member_home', username=session['username']))
         else:
             flash('Email/password combination is not recognised', 'danger')
             return render_template('log_in.html', form=form, title='Member Login')
-    return render_template('log_in.html', form=form, title='Member Login')
+    return render_template('log_in.html', form=form, title='Login')
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -211,7 +210,8 @@ def staff_question_details(question_id):
     contacts = mongo.db.contacts.find({'question_id': ObjectId(question_id)})
     question = mongo.db.questions.find_one({'_id': ObjectId(question_id)})
     member = mongo.db.members.find_one({'username': question['member_id']})
-    return render_template('staff_question_details.html', contacts=contacts, question=question, member=member)
+    staff = mongo.db.staff
+    return render_template('staff_question_details.html', contacts=contacts, question=question, member=member, staff=staff)
 
 
 @app.route('/staf_new_contact/<question_id>', methods=['GET', 'POST'])
@@ -235,6 +235,35 @@ def staff_new_contact(question_id):
         flash("Your contact has been added. The member can now view your contacts", 'success')
         return redirect(url_for('staff_question_details', question_id=question['_id']))
     return render_template('staff_new_contact.html', title='Add a Contact', question=question)
+
+# SHARED SITE
+
+@app.route('/shared_login', methods=['GET', 'POST'])
+def shared_login():
+    role = roleForm()
+    form = loginForm()
+    if 'username' in session:
+        member = mongo.db.members.find_one({'username': session['username']})
+        staff = mongo.db.staff.find_one({'username': session['username']})
+        if member:
+            return redirect(url_for('member_home', username=session['username']))
+        if staff:
+            return redirect(url_for('staff_home', username=session['username']))
+    if request.method == 'POST':
+        member = mongo.db.members.find_one({'username': form.username.data})
+        staff = mongo.db.staff.find_one({'username': form.username.data})
+        if member and bcrypt.check_password_hash(member['password'], form.password.data):
+            session['username'] = form.username.data
+            flash(f'Welcome {member["first_name"]}. You are logged in.', 'success')
+            return redirect(url_for('member_home', username=session['username']))
+        if staff and bcrypt.check_password_hash(staff['password'], form.password.data):
+            session['username'] = form.username.data
+            flash(f'You are logged in, {staff["first_name"]}', 'success')
+            return redirect(url_for('staff_home', username=session['username']))
+        else:
+            flash('Email/password combination is not recognised', 'danger')
+            return render_template('log_in.html', form=form, title='Member Login')
+    return render_template('shared_login.html', form=form, role=role, title='Login')
 
 
 if __name__ == '__main__':

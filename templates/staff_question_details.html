@@ -54,6 +54,20 @@
                             </div>
                         </form>
                     </div>
+                    <div class="border">
+                        <h4 class="heading font-heavy font-blue">RCN Lead</h4>  
+                        <form>
+                            <div class="form-group form-row justify-content-center">
+                                <label for="staff_id" class="col-4 col-form-label">Name: </label>
+                                <div class="col-8">
+                                    <select class="form-control" name="staff_id" id="staff_id">
+                                        <option value="unassigned">unassigned</option>
+                                        <option value="{{staff.username}}">{{staff.username}}</option>
+                                    </select>
+                                </div>
+                            </div>       
+                        </form>           
+                    </div>
                 </section>
 <!--Question-->        
                 <section class="col-md-6">

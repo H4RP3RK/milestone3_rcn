@@ -162,6 +162,15 @@ Further reading and troubleshooting on cloning a repository from GitHub [here](h
 
 
 ## Questions/To Do
+
+Jonathan 08.09.2020
+- Read up on flask forms documentation
+- Change all to forms
+- Combine different methods to one, particularly Login
+- Can have multiple base.html and pull from it to create staff/member views
+- Avoid duplication of else in methods, means it can be reduced down
+- JS - organise the questions by date etc or close btn on flash messages
+
 Base.html
 x restyle navbar dropdown
 Welcome.html
@@ -178,6 +187,7 @@ New_question.html
 x Why won't labels go blue?
 Newcontact.html
 x How do I timestamp contact? - default=datetime.utcnow
+- Edit contact
 Member_home.html
 x scroll to questions
 x highlight question section when button pressed
@@ -203,6 +213,7 @@ x set up environ to protect password before pushing
 - Can the members.queries.find_one be simplified so it's not duplicated
 - Can one @app.route send to two tables? Want to send to query and contact?
 - Why is secret key not working when in env.py?
+- simplify duplication of else methods. Use and with member and password
 
 ## Mandatory Requirements
 A project violating any of these requirements will FAIL
