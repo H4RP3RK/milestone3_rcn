@@ -168,26 +168,6 @@ def log_out():
 
 
 #STAFF SIDE OF SITE
-@app.route('/staff_log_in', methods=['GET', 'POST'])
-def staff_log_in():
-    if 'username' in session:
-        return redirect(url_for('staff_home', username=session['username']))
-    form = staffLoginForm()
-    if request.method == 'POST':
-        staff = mongo.db.staff
-        staffmember = staff.find_one({'username': form.username.data})
-        if staffmember:
-            if form.password.data == staffmember['password']:
-                session['username'] = form.username.data
-                flash(f'You are logged in, {staffmember["username"]}!', 'success')
-                return redirect(url_for('staff_home', username=session['username']))
-            else:
-                flash('Email/password combination is not recognised', 'danger')
-                return render_template('staff_log_in.html', form=form, title='Staff Login')
-        else:
-            flash('Email/password combination is not recognised', 'danger')
-            return render_template('staff_log_in.html', form=form, title='Staff Login')
-    return render_template('staff_log_in.html', form=form, title='Staff Login')
 
 
 @app.route('/staff_home/<username>')
