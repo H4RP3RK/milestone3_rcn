@@ -1,11 +1,21 @@
 {% extends 'base.html' %}
 {% block content %}
-<!--Signup Form-->
+<!--Background image-->
     <div class="main background-picture register-background">   
         <div class="opaque-white">
             <section class="container font font-blue">
+<!--Tabs-->
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('register_member') }}">Members</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{{ url_for('register_staff') }}">Staff</a>
+                    </li>
+                </ul>
                 <div class="main row align-items-center">
                     <div class="col">
+<!--Signup Form-->
                         <form action=" " method="POST">  
                             {{ form.hidden_tag() }}
                             <div class="form-row">
@@ -66,16 +76,16 @@
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-sm-6">
-                                    {{ form.employer.label(class="form-control-label") }}
-                                    {% if form.employer.errors %}
-                                        {{ form.employer(class="form-control is-invalid")}}
+                                    {{ form.workplace.label(class="form-control-label") }}
+                                    {% if form.workplace.errors %}
+                                        {{ form.workplace(class="form-control is-invalid")}}
                                         <div class="invalid-feedback">  
-                                            {% for error in form.employer.errors %}
+                                            {% for error in form.workplace.errors %}
                                                 <span>{{ error }}</span>
                                             {% endfor %}
                                         </div>
                                     {% else %}
-                                        {{ form.employer(class="form-control")}}
+                                        {{ form.workplace(class="form-control")}}
                                     {% endif %}
                                 </div>
                                 <div class="form-group col-sm-6">                

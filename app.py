@@ -265,7 +265,7 @@ def register_member():
             return redirect(url_for('member_home', username=session['username']))
         else:
             flash(f'{form.email.data} is already registered. You can login by clicking the link below', 'danger')
-    return render_template('register_member.html', form=form, title='Sign Up')
+    return render_template('register_member.html', form=form, title='Member Sign Up')
 
 
 @app.route('/register_staff', methods=['GET', 'POST'])
@@ -295,7 +295,7 @@ def register_staff():
             return redirect(url_for('staff_home', username=session['username']))
         else:
             flash(f'{form.email.data} is already registered. You can login by clicking the link below', 'danger')
-    return render_template('register_staff.html', form=form, title='Sign Up')
+    return render_template('register_staff.html', form=form, title='Staff Sign Up')
 
 
 @app.route('/shared_login', methods=['GET', 'POST'])
