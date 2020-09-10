@@ -117,8 +117,7 @@ def account(username):
 
 @app.route('/edit_account/<username>', methods=['GET', 'POST'])
 def edit_account(username):
-    members = mongo.db.members
-    members.update( 
+    mongo.db.users.update( 
         {'username': username}, 
         { '$set': 
             {

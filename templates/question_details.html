@@ -8,11 +8,21 @@
             <li class="breadcrumb-item active" aria-current="page">Question Details</li>
         </ol>
     </nav>
-<!--RCN Lead Details-->
         <div class="container">
             <div class="row">
+<!--Question-->        
+                <section class="col-md-6">
+                    <div class="border row">
+                        <div class="col font font-blue">
+                            <h4 class="heading font-heavy font-blue padding-bottom">{{question.question_type}} question</h4>
+                            <p>{{question.start_date}}</p>
+                            <h5>{{question.summary}}</h5>
+                        </div>
+                    </div>
+                </section>  
                 <section class="col-md-6 blue-link">
                     <div class="border">
+<!--RCN Lead Details-->
                         <h4 class="heading font-heavy font-blue">Your RCN Lead</h4>
                         {% if question.staff_id == 'unassigned'%}
     <!--Generic contact details and message show if RCN Lead hasn't yet been assigned-->
@@ -65,32 +75,23 @@
                         </form>
                         {% endif %}
                     </div>
-                </section>
-<!--Question-->        
-                <section class="col-md-6">
-                    <div class="border row">
-                        <div class="col font font-blue">
-                            <h4 class="heading font-heavy font-blue padding-bottom">{{question.question_type}} question</h4>
-                            <p>{{question.start_date}}</p>
-                            <h5>{{question.summary}}</h5>
-                        </div>
-                    </div>
-<!--Task options-->
-                    <div class="border row">
-                        <div class="col">
-                            <h4 class="heading font-heavy font-blue">What would you like to do?</h4>
-                            <h5><a class="blue-btn btn background-blue" href="{{ url_for('new_contact', question_id=question._id) }}" role="button">Contact your RCN Lead</a></h5>
-                            <h5><a class="blue-btn btn background-blue" href="#" role="button">Upload a file</a></h5>
-                            <h5><button class="blue-btn btn background-blue" onclick="scrollContacts()" role="button">Browse your contacts</button></h5>
-                        </div>
-                    </div>
-                </section>              
+                </section>            
             </div>      
         </div>
 <!--Contacts-->
         <section class="container">
             <div class="border" id="contacts">
-                <h4 class="heading font-heavy font-blue">Contacts</h4>
+                <div class="row">
+                    <div class="col-6">
+                        <h4 class="heading font-heavy font-blue">Contacts</h4>                    
+                    </div>
+                    <div class="col-3">
+                        <h5><a class="blue-btn btn background-blue" href="{{ url_for('new_contact', question_id=question._id) }}" role="button">Contact your RCN Lead</a></h5>                    
+                    </div>
+                    <div class="col-3">
+                        <h5><a class="blue-btn btn background-blue" href="#" role="button">Upload a file</a></h5>                    
+                    </div>
+                </div>
                 <div class="row">
                 {% if contacts %}
                     <div class="col" id="accordion">
