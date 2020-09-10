@@ -82,6 +82,7 @@ def member_home(username):
     return render_template('member_home.html', 
                             member=user,
                             questions=questions, 
+                            role=user['role'],
                             title=f"{user['first_name']}'s {user['role']} Home Page")
 
 
