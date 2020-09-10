@@ -49,31 +49,23 @@ def register(role):
 
         if current_user is None:
             hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-            if role == 'member':
-                new_user = {
-                    'role': role,
-                    'first_name': form.first_name.data,
-                    'last_name': form.last_name.data,
-                    'username': form.email.data,
-                    'email': form.email.data,
-                    'telephone': form.telephone.data,
-                    'employer': form.employer.data,
-                    'job_title': form.job_title.data,
-                    'password': hashed_password
-                }
-            if role == 'staff':
-                new_user = {
-                    'role': role,
-                    'first_name': form.first_name.data,
-                    'last_name': form.last_name.data,
-                    'username': form.email.data,
-                    'email': form.email.data,
-                    'telephone': form.telephone.data,
-                    'workplace': form.workplace.data,
-                    'job_title': form.job_title.data,
-                    'password': hashed_password
-                }
+            new_user = {
+                'role': role,
+                'first_name': form.first_name.data,
+                'last_name': form.last_name.data,
+                'username': form.email.data,
+                'email': form.email.data,
+                'telephone': form.telephone.data,
+                'job_title': form.job_title.data,
+                'password': hashed_password
+            }
             users.insert_one(new_user)
+            if role == 'member':
+                users.update_one({'_id': new_user['_id']}, 
+                                {"$set": {'employer': form.employer.data}})
+            if role == 'staff':
+                users.update_one({'_id': new_user['_id']}, 
+                                {"$set": {'workplace': form.workplace.data}})
             session['username'] = form.email.data
             flash(f'{role} account created for {form.first_name.data}', 'success')
             return redirect(url_for(f'{role}_home', username=session['username']))
