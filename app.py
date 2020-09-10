@@ -71,7 +71,18 @@ def register(role):
             return redirect(url_for(f'{role}_home', username=session['username']))
         else:
             flash(f'{form.email.data} is already registered. You can login by clicking the link below', 'danger')
-    return render_template('register_member.html', form=form, title=f'{role} Sign Up', role=role)
+    return render_template('register.html', form=form, title=f'{role} Sign Up', role=role)
+
+
+@app.route('/member_home/<username>')
+def member_home(username):
+    user = mongo.db.users.find_one({'username': username})
+    questions = mongo.db.questions.find({'member_id': username})
+    assigned = mongo.db.questions.find({'staff_id': username})
+    return render_template('member_home.html', 
+                            member=user,
+                            questions=questions, 
+                            title=f"{user['first_name']}'s {user['role']} Home Page")
 
 
 @app.route('/new_contact/<question_id>', methods=['GET', 'POST'])
@@ -93,17 +104,6 @@ def new_contact(question_id):
         flash("Thanks for getting in touch. Your RCN Lead will be in touch shortly. Check your contacts below for updates", 'success')
         return redirect(url_for('question_details', question_id=question['_id']))
     return render_template('new_contact.html', title='Contact your RCN Lead', question=question)
-
-
-@app.route('/member_home/<username>')
-def member_home(username):
-    users = mongo.db.users
-    user = users.find_one({'username': username})
-    questions=mongo.db.questions.find({'member_id': username})
-    return render_template('member_home.html', 
-                            member=user,
-                            questions=questions, 
-                            title=f"{user['first_name']}'s Home Page")
 
 
 @app.route('/account/<username>')
