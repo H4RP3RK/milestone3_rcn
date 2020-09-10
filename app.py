@@ -109,11 +109,10 @@ def new_contact(question_id):
 
 @app.route('/account/<username>')
 def account(username):
-    members = mongo.db.members
-    member = members.find_one({'username': username})
+    user = mongo.db.users.find_one({'username': username})
     return render_template('account.html', 
-                            member=member,
-                            title=f"{member['first_name']}'s Account")
+                            member=user,
+                            title=f"{user['first_name']}'s Account")
 
 
 @app.route('/edit_account/<username>', methods=['GET', 'POST'])
