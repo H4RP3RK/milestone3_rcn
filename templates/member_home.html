@@ -74,6 +74,7 @@
 <!--Member Questions-->
         <section class="container">
             <div class="border" id="questions">
+            {% if role == "member" %}
                 <h4 class="heading font-heavy font-blue">Your Questions</h4>
                 <div class="row">
                 {% if questions %}
@@ -109,6 +110,43 @@
                         <p>You haven't asked any questions yet. When you do, they will appear here.</p>
                     </div>
                 {% endif %}
+            {% else %}
+                <h4 class="heading font-heavy font-blue">Your Assigned Cases</h4>
+                <div class="row">
+                {% if assigned %}
+                    <div class="col" id="accordion">
+                    {% for assigned in assigned %}
+                        <div class="card">
+                            <div class="card-header" id="heading{{question._id}}">
+                                <div class="mb-0 row align-items-center">
+                                    <div class="col-sm-4">
+                                        <h5 class="font-heavy font-blue">{{assigned.question_type}}</h5>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <span>{{assigned.start_date}}</span>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <button class="btn blue-btn btn-link accordian-btn collapsed" data-toggle="collapse" data-target="#collapse{{question._id}}" aria-expanded="false" aria-controls="collapse{{question._id}}">
+                                        Summary
+                                        </button>
+                                        <a class="blue-btn btn accordian-btn" href="{{ url_for('question_details', question_id=question._id) }}">Full case</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="collapse{{question._id}}" class="collapse" aria-labelledby="heading{{question._id}}" data-parent="#accordion">
+                                <div class="card-body">
+                                    {{assigned.summary}}
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="col">
+                        <p>You don't have any assigned cases. When you do, they will appear here.</p>
+                    </div>
+                {% endif %}
+            {% endif %}
                 </div>
             </div>
         </section> 
