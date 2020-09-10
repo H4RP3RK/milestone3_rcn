@@ -1,6 +1,6 @@
 import os, datetime
 from flask import Flask, render_template, redirect, request, url_for, flash, session
-from forms import loginForm, staffLoginForm, MemberRegistrationForm, StaffRegistrationForm
+from forms import loginForm, registrationForm
 from flask_pymongo import PyMongo
 from flask_bcrypt import Bcrypt
 from bson.objectid import ObjectId
@@ -19,9 +19,67 @@ bcrypt = Bcrypt(app)
 
 
 @app.route('/')
-@app.route('/welcome')
-def welcome():
-    return render_template('welcome.html', title='Welcome to the RCN Member Query Database')
+@app.route('/shared_login', methods=['GET', 'POST'])
+def shared_login():
+    form = loginForm()
+    users = mongo.db.users
+    if 'username' in session:
+        user = users.find_one({'username': session['username']})
+        return redirect(url_for(f'{user["role"]}_home', username=session['username']))
+    if request.method == 'POST':
+        user = users.find_one({'username': form.username.data})
+        if user and bcrypt.check_password_hash(user['password'], form.password.data):
+            session['username'] = form.username.data
+            flash(f'Welcome {user["first_name"]}. You are logged in to your {user["role"]} account.', 'success')
+            return redirect(url_for(f'{user["role"]}_home', username=session['username']))
+        else:
+            flash('Email/password combination is not recognised', 'danger')
+            return render_template('shared_login.html', form=form, title='Login')
+    return render_template('shared_login.html', form=form, title='Login')
+
+
+@app.route('/register/<role>', methods=['GET', 'POST'])
+def register(role):
+    if 'username' in session:
+        return redirect(url_for(f'{role}_home', username=session['username']))
+    form = registrationForm()
+    if request.method == 'POST':
+        users = mongo.db.users
+        current_user = users.find_one({'username': request.form['email']})
+
+        if current_user is None:
+            hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+            if role == 'member':
+                new_user = {
+                    'role': role,
+                    'first_name': form.first_name.data,
+                    'last_name': form.last_name.data,
+                    'username': form.email.data,
+                    'email': form.email.data,
+                    'telephone': form.telephone.data,
+                    'employer': form.employer.data,
+                    'job_title': form.job_title.data,
+                    'password': hashed_password
+                }
+            if role == 'staff':
+                new_user = {
+                    'role': role,
+                    'first_name': form.first_name.data,
+                    'last_name': form.last_name.data,
+                    'username': form.email.data,
+                    'email': form.email.data,
+                    'telephone': form.telephone.data,
+                    'workplace': form.workplace.data,
+                    'job_title': form.job_title.data,
+                    'password': hashed_password
+                }
+            users.insert_one(new_user)
+            session['username'] = form.email.data
+            flash(f'{role} account created for {form.first_name.data}', 'success')
+            return redirect(url_for(f'{role}_home', username=session['username']))
+        else:
+            flash(f'{form.email.data} is already registered. You can login by clicking the link below', 'danger')
+    return render_template('register_member.html', form=form, title=f'{role} Sign Up', role=role)
 
 
 @app.route('/new_contact/<question_id>', methods=['GET', 'POST'])
@@ -113,7 +171,7 @@ def question_details(question_id):
 def log_out():
     session.pop('username', None)
     flash('You are now logged out', 'success')
-    return redirect(url_for('welcome'))
+    return redirect(url_for('shared_login'))
 
 
 #STAFF SIDE OF SITE
@@ -165,115 +223,6 @@ def staff_new_contact(question_id):
     return render_template('staff_new_contact.html', title='Add a Contact', question=question)
 
 # SHARED SITE
-@app.route('/register_shared', methods=['GET', 'POST'])
-def register_shared():
-    if 'username' in session:
-        user = mongo.db.users.find_one({'user': session['user']})
-        return redirect(url_for(f'{user["role"]}_home', username=session['username']))
-    form = MemberRegistrationForm()
-    if request.method == 'POST':
-        users = mongo.db.users
-        current_user = users.find_one({'username': request.form['email']})
-
-        if current_user is None:
-            hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-            new_user = {
-                'role': form.role.data,
-                'first_name': form.first_name.data,
-                'last_name': form.last_name.data,
-                'username': form.email.data,
-                'email': form.email.data,
-                'telephone': form.telephone.data,
-                'employer': form.employer.data,
-                'job_title': form.job_title.data,
-                'password': hashed_password
-            }
-            users.insert_one(new_user)
-            session['username'] = form.email.data
-            flash(f'{form.role.data} account created for {form.first_name.data}', 'success')
-            return redirect(url_for(f'{form.role.data}_home', username=session['username']))
-        else:
-            flash(f'{form.email.data} is already registered. You can login by clicking the link below', 'danger')
-    return render_template('register_shared.html', form=form, title='Sign Up')
-
-
-@app.route('/shared_login', methods=['GET', 'POST'])
-def shared_login():
-    form = loginForm()
-    users = mongo.db.users
-    if 'username' in session:
-        user = users.find_one({'username': session['username']})
-        return redirect(url_for(f'{user["role"]}_home', username=session['username']))
-    if request.method == 'POST':
-        user = users.find_one({'username': form.username.data})
-        if user and bcrypt.check_password_hash(user['password'], form.password.data):
-            session['username'] = form.username.data
-            flash(f'Welcome {user["first_name"]}. You are logged in.', 'success')
-            return redirect(url_for(f'{user["role"]}_home', username=session['username']))
-        else:
-            flash('Email/password combination is not recognised', 'danger')
-            return render_template('shared_login.html', form=form, title='Login')
-    return render_template('shared_login.html', form=form, title='Login')
-
-
-@app.route('/register_member', methods=['GET', 'POST'])
-def register_member():
-    if 'username' in session:
-        return redirect(url_for('member_home', username=session['username']))
-    form = MemberRegistrationForm()
-    if request.method == 'POST':
-        members = mongo.db.members
-        current_member = members.find_one({'username': request.form['email']})
-
-        if current_member is None:
-            hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-            new_member = {
-                'first_name': form.first_name.data,
-                'last_name': form.last_name.data,
-                'username': form.email.data,
-                'email': form.email.data,
-                'telephone': form.telephone.data,
-                'employer': form.employer.data,
-                'job_title': form.job_title.data,
-                'password': hashed_password
-            }
-            members.insert_one(new_member)
-            session['username'] = form.email.data
-            flash(f'Member account created for {form.first_name.data}', 'success')
-            return redirect(url_for('member_home', username=session['username']))
-        else:
-            flash(f'{form.email.data} is already registered. You can login by clicking the link below', 'danger')
-    return render_template('register_member.html', form=form, title='Member Sign Up')
-
-
-@app.route('/register_staff', methods=['GET', 'POST'])
-def register_staff():
-    if 'username' in session:
-        return redirect(url_for('staff_home', username=session['username']))
-    form = StaffRegistrationForm()
-    if request.method == 'POST':
-        staff = mongo.db.staff
-        current_staff = staff.find_one({'username': request.form['email']})
-
-        if current_staff is None:
-            hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-            new_staff = {
-                'first_name': form.first_name.data,
-                'last_name': form.last_name.data,
-                'username': form.email.data,
-                'email': form.email.data,
-                'telephone': form.telephone.data,
-                'workplace': form.workplace.data,
-                'job_title': form.job_title.data,
-                'password': hashed_password
-            }
-            staff.insert_one(new_staff)
-            session['username'] = form.email.data
-            flash(f'Staff account created for {form.first_name.data}', 'success')
-            return redirect(url_for('staff_home', username=session['username']))
-        else:
-            flash(f'{form.email.data} is already registered. You can login by clicking the link below', 'danger')
-    return render_template('register_staff.html', form=form, title='Staff Sign Up')
 
 
 if __name__ == '__main__':
