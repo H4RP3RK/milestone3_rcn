@@ -173,7 +173,8 @@ def submit_question():
 def question_details(question_id):
     contacts = mongo.db.contacts.find({'question_id': ObjectId(question_id)})
     question = mongo.db.questions.find_one({'_id': ObjectId(question_id)})
-    return render_template('question_details.html', contacts=contacts, question=question)
+    staff = mongo.db.users.find_one({'username': question['staff_id']})
+    return render_template('question_details.html', contacts=contacts, question=question, staff=staff)
 
 
 @app.route('/log_out')
