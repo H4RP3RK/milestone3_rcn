@@ -21,7 +21,7 @@
                     </div>
 <!--Assign RCN Lead-->
                     <div class="border row">
-                        <form class="col">
+                        <form class="col" action="{{ url_for('assign_lead', question_id=question._id) }}" method="POST">
                             <h4 class="heading font-heavy font-blue">RCN Lead</h4>  
                             <div class="form-group form-row justify-content-center">
                                 <label for="staff_id" class="col-4 col-form-label">Name: </label>
@@ -33,7 +33,8 @@
                                         {% endfor %}
                                     </select>
                                 </div>
-                            </div>       
+                            </div> 
+                            <button type="submit" class="account-btns blue-btn btn background-blue">Assign Question</button>     
                         </form>           
                     </div>
                 </section>  
@@ -87,8 +88,6 @@
                         <div class="col">
                             <h4 class="heading font-heavy font-blue">What would you like to do?</h4>
                             <h5><a class="blue-btn btn background-blue" href="{{ url_for('staff_new_contact', question_id=question._id) }}" role="button">Add a contact</a></h5>
-                            <h5><a class="blue-btn btn background-blue" href="#" role="button">Assign the question</a></h5>
-                            <h5><a class="blue-btn btn background-blue" href="#" role="button">Upload a file</a></h5>
                             <h5><a class="blue-btn btn background-blue" href="#" role="button">Close the question</a></h5>
                         </div>
                     </div>

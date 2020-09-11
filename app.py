@@ -25,7 +25,7 @@ def shared_login():
     users = mongo.db.users
     if 'username' in session:
         user = users.find_one({'username': session['username']})
-        return redirect(url_for(f'{user["role"]}_home', username=session['username']))
+        return redirect(url_for('member_home', username=session['username']))
     if request.method == 'POST':
         user = users.find_one({'username': form.username.data})
         if user and bcrypt.check_password_hash(user['password'], form.password.data):
@@ -82,6 +82,7 @@ def member_home(username):
     return render_template('member_home.html', 
                             member=user,
                             questions=questions, 
+                            assigned=assigned,
                             role=user['role'],
                             title=f"{user['first_name']}'s {user['role']} Home Page")
 
@@ -206,6 +207,22 @@ def staff_question_details(question_id):
     member = mongo.db.users.find_one({'username': question['member_id']})
     staff = mongo.db.users.find({'role': 'staff'})
     return render_template('staff_question_details.html', contacts=contacts, question=question, member=member, staff=staff)
+
+
+@app.route('/assign_lead/<question_id>', methods=['POST'])
+def assign_lead(question_id):
+    staff = mongo.db.users.find_one({'username': request.form.get('staff_id')})
+    questions = mongo.db.questions
+    question = questions.find_one({'_id': ObjectId(question_id)})
+    questions.update(
+        {'_id': ObjectId(question_id)},
+        { '$set':
+            {
+                'staff_id': request.form.get('staff_id')
+            }
+        })
+    flash(f"The question has been assigned to {staff['first_name']}. The question will appear on their Home Page", 'success')
+    return redirect(url_for('staff_question_details', question=question, question_id=question_id))
 
 
 @app.route('/staf_new_contact/<question_id>', methods=['GET', 'POST'])
