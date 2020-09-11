@@ -31,7 +31,7 @@ def shared_login():
         if user and bcrypt.check_password_hash(user['password'], form.password.data):
             session['username'] = form.username.data
             flash(f'Welcome {user["first_name"]}. You are logged in to your {user["role"]} account.', 'success')
-            return redirect(url_for(f'{user["role"]}_home', username=session['username']))
+            return redirect(url_for('member_home', username=session['username']))
         else:
             flash('Email/password combination is not recognised', 'danger')
             return render_template('shared_login.html', form=form, title='Login')
@@ -203,8 +203,8 @@ def unassigned_questions():
 def staff_question_details(question_id):
     contacts = mongo.db.contacts.find({'question_id': ObjectId(question_id)})
     question = mongo.db.questions.find_one({'_id': ObjectId(question_id)})
-    member = mongo.db.members.find_one({'username': question['member_id']})
-    staff = mongo.db.staff
+    member = mongo.db.users.find_one({'username': question['member_id']})
+    staff = mongo.db.users.find({'role': 'staff'})
     return render_template('staff_question_details.html', contacts=contacts, question=question, member=member, staff=staff)
 
 

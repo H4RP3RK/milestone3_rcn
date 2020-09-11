@@ -62,7 +62,9 @@
                                 <div class="col-8">
                                     <select class="form-control" name="staff_id" id="staff_id">
                                         <option value="unassigned">unassigned</option>
+                                        {% for staff in staff %}
                                         <option value="{{staff.username}}">{{staff.username}}</option>
+                                        {% endfor %}
                                     </select>
                                 </div>
                             </div>       
