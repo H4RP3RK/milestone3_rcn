@@ -90,7 +90,7 @@ def member_home(username):
 def new_contact(question_id):
     contacts = mongo.db.contacts
     question = mongo.db.questions.find_one({'_id': ObjectId(question_id)})
-    member = mongo.db.members.find_one({'username': session['username']})
+    user = mongo.db.users.find_one({'username': session['username']})
     if request.method == 'POST':
         contact = {
             'member_id': session['username'],
@@ -98,13 +98,30 @@ def new_contact(question_id):
             'contact_type': 'database',
             'date': datetime.datetime.utcnow().strftime('%d/%m/%y  %H:%M'),
             'summary': request.form.get('summary'),
-            'from': member['first_name'],
+            'from': user['first_name'] + user['last_name'],
             'to': 'RCN'
         }
         contacts.insert_one(contact)
         flash("Thanks for getting in touch. Your RCN Lead will be in touch shortly. Check your contacts below for updates", 'success')
         return redirect(url_for('question_details', question_id=question['_id']))
     return render_template('new_contact.html', title='Contact your RCN Lead', question=question)
+
+
+@app.route('/edit_contact/<contact_id>', methods=['GET', 'POST'])
+def edit_contact(contact_id):
+    contact = mongo.db.contacts.find_one({'_id': ObjectId(contact_id)})
+    question = mongo.db.questions.find_one({'_id': ObjectId(contact['question_id'])})
+    if request.method == 'POST':
+        mongo.db.contacts.update( 
+            {'_id': ObjectId(contact_id)}, 
+            { '$set': 
+                {
+                    'summary': request.form.get('summary')
+                }
+            })
+        flash("Your contact has been updated.", 'success')
+        return redirect(url_for('question_details', question_id=question['_id']))        
+    return render_template('edit_contact.html', contact=contact, question=question, title='Edit Contact') 
 
 
 @app.route('/account/<username>')
