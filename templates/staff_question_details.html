@@ -4,14 +4,40 @@
 <!--Breacrumbs-->
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{{ url_for('staff_home', username=session['username']) }}">Your Home Page</a></li>
-            <li class="breadcrumb-item"><a href="{{ url_for('unassigned_questions', username=session['username']) }}">Unassigned Questions</a></li>
+            <li class="breadcrumb-item"><a href="{{ url_for('member_home', username=session['username']) }}">Your Home Page</a></li>
             <li class="breadcrumb-item active" aria-current="page">Question Details</li>
         </ol>
     </nav>
-<!--RCN Lead Details-->
         <div class="container">
             <div class="row">
+<!--Question-->        
+                <section class="col-md-6">
+                    <div class="border row">
+                        <div class="col font font-blue">
+                            <h4 class="heading font-heavy font-blue padding-bottom">{{question.question_type}} question</h4>
+                            <p>{{question.start_date}}</p>
+                            <h5>{{question.summary}}</h5>
+                        </div>
+                    </div>
+<!--Assign RCN Lead-->
+                    <div class="border row">
+                        <form class="col">
+                            <h4 class="heading font-heavy font-blue">RCN Lead</h4>  
+                            <div class="form-group form-row justify-content-center">
+                                <label for="staff_id" class="col-4 col-form-label">Name: </label>
+                                <div class="col-8">
+                                    <select class="form-control" name="staff_id" id="staff_id">
+                                        <option value="unassigned">unassigned</option>
+                                        {% for staff in staff %}
+                                        <option value="{{staff.username}}">{{staff.username}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>       
+                        </form>           
+                    </div>
+                </section>  
+<!--Member Details-->
                 <section class="col-md-6 blue-link">
                     <div class="border">
                         <h4 class="heading font-heavy font-blue">Member's Account Details</h4>
@@ -54,32 +80,8 @@
                             </div>
                         </form>
                     </div>
-                    <div class="border">
-                        <h4 class="heading font-heavy font-blue">RCN Lead</h4>  
-                        <form>
-                            <div class="form-group form-row justify-content-center">
-                                <label for="staff_id" class="col-4 col-form-label">Name: </label>
-                                <div class="col-8">
-                                    <select class="form-control" name="staff_id" id="staff_id">
-                                        <option value="unassigned">unassigned</option>
-                                        {% for staff in staff %}
-                                        <option value="{{staff.username}}">{{staff.username}}</option>
-                                        {% endfor %}
-                                    </select>
-                                </div>
-                            </div>       
-                        </form>           
-                    </div>
-                </section>
-<!--Question-->        
+                </section>     
                 <section class="col-md-6">
-                    <div class="border row">
-                        <div class="col font font-blue">
-                            <h4 class="heading font-heavy font-blue padding-bottom">{{question.question_type}} question</h4>
-                            <p>{{question.start_date}}</p>
-                            <h5>{{question.summary}}</h5>
-                        </div>
-                    </div>
 <!--Task options-->
                     <div class="border row">
                         <div class="col">
