@@ -25,13 +25,13 @@ def shared_login():
     users = mongo.db.users
     if 'username' in session:
         user = users.find_one({'username': session['username']})
-        return redirect(url_for('member_home', username=session['username']))
+        return redirect(url_for('home', username=session['username']))
     if request.method == 'POST':
         user = users.find_one({'username': form.username.data})
         if user and bcrypt.check_password_hash(user['password'], form.password.data):
             session['username'] = form.username.data
             flash(f'Welcome {user["first_name"]}. You are logged in to your {user["role"]} account.', 'success')
-            return redirect(url_for('member_home', username=session['username']))
+            return redirect(url_for('home', username=session['username']))
         else:
             flash('Email/password combination is not recognised', 'danger')
             return render_template('shared_login.html', form=form, title='Login')
@@ -74,12 +74,12 @@ def register(role):
     return render_template('register.html', form=form, title=f'{role} Sign Up', role=role)
 
 
-@app.route('/member_home/<username>')
-def member_home(username):
+@app.route('/home/<username>')
+def home(username):
     user = mongo.db.users.find_one({'username': username})
     questions = mongo.db.questions.find({'member_id': username})
     assigned = mongo.db.questions.find({'staff_id': username})
-    return render_template('member_home.html', 
+    return render_template('home.html', 
                             member=user,
                             questions=questions, 
                             assigned=assigned,
@@ -166,7 +166,7 @@ def submit_question():
     }
     questions.insert_one(question)
     flash("Thanks for your question. We'll respond shortly. You can click on your question below for updates.", 'success')
-    return redirect(url_for('member_home', username=session['username']))
+    return redirect(url_for('home', username=session['username']))
 
 
 @app.route('/question_details/<question_id>')
