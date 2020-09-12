@@ -52,15 +52,16 @@
                                     </button>
                                 </div>
                                 <form action="" method="POST">  
-                                    <input type="hidden" id="question_id" name="question_id" value="{{ question._id }}">
+                                    <input type="hidden" id="question_id" name="question_id" value="{{question._id}}">
                                     <div class="modal-body">
                                         <div class="form-group form-row justify-content-center">
                                             <label for="staff_id" class="col-4 col-form-label">RCN Lead: </label>
                                             <div class="col-8">
                                                 <select class="form-control" name="staff_id" id="staff_id">
                                                     <option value="unassigned">unassigned</option>
+                                                    <option value="kirsty.harper@rcn.org.uk">kirsty.harper@rcn.org.uk</option>
                                                     {% for staff in staff %}
-                                                    <option value="{{staff.username}}">{{staff.username}}</option>
+                                                        <option value="{{staff.username}}">{{staff.username}}</option>
                                                     {% endfor %}
                                                 </select>
                                             </div>

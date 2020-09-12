@@ -220,7 +220,7 @@ def unassigned_questions():
     staff = mongo.db.users.find({'role': 'staff'})
     if request.method == 'POST':
         questions.update(
-            {'_id': request.form.get('question_id')},
+            {'_id': ObjectId(request.form.get('question_id'))},
             { '$set': 
                 {'staff_id': request.form.get('staff_id')}
             }
