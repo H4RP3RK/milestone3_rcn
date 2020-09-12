@@ -2,46 +2,46 @@
 {% block content %}
     <div class="main font">
 <!--Breacrumbs-->
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ url_for('home', username=session['username']) }}">Your Home Page</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Question Details</li>
-            </ol>
-        </nav>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ url_for('home', username=session['username']) }}">Your Home Page</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Question Details</li>
+        </ol>
+    </nav>
         <div class="container">
             <div class="row">
-<!--Task options-->
-                <section class="col-12">
-                    <div class="border">
-                        <h4 class="heading font-heavy font-blue">What would you like to do?</h4>
-                        <a class="blue-btn btn background-blue" href="#" role="button">Contact Member</a>                         
-                        <a class="blue-btn btn background-blue" href="{{ url_for('staff_new_contact', question_id=question._id) }}" role="button">Add Contact</a>
-                        <a class="blue-btn btn background-blue" href="#" role="button">Assign/Edit</a>
-                        <a class="blue-btn btn background-blue" href="#" role="button">Browse Contacts</a>
-                        <a class="blue-btn btn background-blue" href="#" role="button">Close Question</a>              
-                    </div>
-                </section>  
 <!--Question-->        
                 <section class="col-md-6">
-                    <div class="border">
-                        <div class="font font-blue">
+                    <div class="border row">
+                        <div class="col font font-blue">
                             <h4 class="heading font-heavy font-blue padding-bottom">{{question.question_type}} question</h4>
                             <p>{{question.start_date}}</p>
                             <h5>{{question.summary}}</h5>
                         </div>
                     </div>
-<!--RCN Lead-->        
-                    <div class="border">
-                        <div class="font font-blue">
-                            <h4 class="heading font-heavy font-blue padding-bottom">RCN Lead</h4>
-                            <h5>{{question.summary}}</h5>
-                        </div>
-                    </div>                   
-                </section>
-<!--Member Account Details--> 
+<!--Assign RCN Lead-->
+                    <div class="border row">
+                        <form class="col" action="{{ url_for('assign_lead', question_id=question._id) }}" method="POST">
+                            <h4 class="heading font-heavy font-blue">RCN Lead</h4>  
+                            <div class="form-group form-row justify-content-center">
+                                <label for="staff_id" class="col-4 col-form-label">Name: </label>
+                                <div class="col-8">
+                                    <select class="form-control" name="staff_id" id="staff_id">
+                                        <option value="unassigned">unassigned</option>
+                                        {% for staff in staff %}
+                                        <option value="{{staff.username}}">{{staff.username}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div> 
+                            <button type="submit" class="account-btns blue-btn btn background-blue">Assign Question</button>     
+                        </form>           
+                    </div>
+                </section>  
+<!--Member Details-->
                 <section class="col-md-6 blue-link">
                     <div class="border">
-                        <h4 class="heading font-heavy font-blue">{{ member.first_name }}'s Account Details</h4>
+                        <h4 class="heading font-heavy font-blue">Member's Account Details</h4>
                         <form>
                             <div class="form-group form-row justify-content-center">
                                 <label for="name" class="col-4 col-form-label">Name: </label>
@@ -68,17 +68,10 @@
                                 </div>
                             </div>
                             <div class="form-group form-row justify-content-center">
-                            {% if role == "member" %}
                                 <label for="employer" class="col-4 col-form-label">Employer: </label>
                                 <div class="col-8">
                                     <input type="text" readonly class="form-control-plaintext" id="employer" name="employer" value="{{ member.employer }}">
                                 </div>
-                            {% else %}
-                                <label for="workplace" class="col-4 col-form-label">Workplace: </label>
-                                <div class="col-8">
-                                    <input type="text" readonly class="form-control-plaintext" id="workplace" name="workplace" value="{{ member.workplace }}">
-                                </div>                                
-                            {% endif %}
                             </div>
                             <div class="form-group form-row justify-content-center">
                                 <label for="job_title" class="col-4 col-form-label">Job Title: </label>
@@ -88,10 +81,20 @@
                             </div>
                         </form>
                     </div>
-                </section>           
+                </section>     
+                <section class="col-md-6">
+<!--Task options-->
+                    <div class="border row">
+                        <div class="col">
+                            <h4 class="heading font-heavy font-blue">What would you like to do?</h4>
+                            <h5><a class="blue-btn btn background-blue" href="{{ url_for('staff_new_contact', question_id=question._id) }}" role="button">Add a contact</a></h5>
+                            <h5><a class="blue-btn btn background-blue" href="#" role="button">Close the question</a></h5>
+                        </div>
+                    </div>
+                </section>              
             </div>      
         </div>
-<!--Member Questions-->
+<!--Contacts-->
         <section class="container">
             <div class="border" id="contacts">
                 <h4 class="heading font-heavy font-blue">Contacts</h4>

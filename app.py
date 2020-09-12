@@ -216,7 +216,7 @@ def staff_home(username):
 @app.route('/unassigned_questions')
 def unassigned_questions():
     questions = mongo.db.questions
-    unassigned = questions.find({'staff_id': 'unassigned'})
+    unassigned = questions.find({'staff_id': 'unassigned'}).sort('start_date', 1)
     return render_template('unassigned_questions.html', questions=unassigned, title='Unassigned Questions')
 
 

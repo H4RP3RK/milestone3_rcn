@@ -7,15 +7,15 @@
                 <section class="col-md-6">
                     <div class="border">
                         <h4 class="heading font-heavy font-blue">What would you like to do?</h4>
-                            <h5><a class="blue-btn btn background-blue" href="{{ url_for('account', username=session['username']) }}" role="button">Update your account details</a></h5>
-                        {% if role == "member" %}
-                            <h5><a class="blue-btn btn background-blue" href="{{ url_for('new_question') }}" role="button">Ask a new question</a></h5>
-                            <h5><button class="blue-btn btn background-blue" onclick="scrollQuestions()" role="button">See your current/old questions</button></h5>
-                        {% else %}
-                            <h5><a class="blue-btn btn background-blue" href="#" role="button">See your assigned cases</a></h5>
-                            <h5><a class="blue-btn btn background-blue" href="{{ url_for('unassigned_questions') }}" role="button">Browse all unassigned cases</a></h5>
-                            <h5><button class="blue-btn btn background-blue" href="#" role="button">See all member accounts</button></h5>
-                        {% endif %}
+                        <h5><a class="blue-btn btn background-blue" href="{{ url_for('account', username=session['username']) }}" role="button">Update your account details</a></h5>
+                    {% if role == "member" %}
+                        <h5><a class="blue-btn btn background-blue" href="{{ url_for('new_question') }}" role="button">Ask a new question</a></h5>
+                        <h5><button class="blue-btn btn background-blue" onclick="scrollQuestions()" role="button">See your current/old questions</button></h5>
+                    {% else %}
+                        <h5><a class="blue-btn btn background-blue" href="#" role="button">See your assigned cases</a></h5>
+                        <h5><a class="blue-btn btn background-blue" href="{{ url_for('unassigned_questions') }}" role="button">Browse all unassigned cases</a></h5>
+                        <h5><button class="blue-btn btn background-blue" href="#" role="button">See all member accounts</button></h5>
+                    {% endif %}
                     </div>
                 </section>  
 <!--Account Details--> 
