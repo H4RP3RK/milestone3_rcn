@@ -27,14 +27,17 @@ def shared_login():
         user = users.find_one({'username': session['username']})
         return redirect(url_for('home', username=session['username']))
     if request.method == 'POST':
-        user = users.find_one({'username': form.username.data})
-        if user and bcrypt.check_password_hash(user['password'], form.password.data):
-            session['username'] = form.username.data
-            flash(f'Welcome {user["first_name"]}. You are logged in to your {user["role"]} account.', 'success')
-            return redirect(url_for('home', username=session['username']))
+        if form.validate_on_submit():
+            user = users.find_one({'username': form.username.data})
+            if user and bcrypt.check_password_hash(user['password'], form.password.data):
+                session['username'] = form.username.data
+                flash(f'Welcome {user["first_name"]}. You are logged in to your {user["role"]} account.', 'success')
+                return redirect(url_for('home', username=session['username']))
+            else:
+                flash('Email/password combination is not recognised', 'danger')
+                return render_template('shared_login.html', form=form, title='Login')
         else:
-            flash('Email/password combination is not recognised', 'danger')
-            return render_template('shared_login.html', form=form, title='Login')
+            flash('Error logging in. Please refresh the page and try again.', 'danger')
     return render_template('shared_login.html', form=form, title='Login')
 
 
