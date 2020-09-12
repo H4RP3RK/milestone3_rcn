@@ -225,7 +225,8 @@ def staff_question_details(question_id):
     contacts = mongo.db.contacts.find({'question_id': ObjectId(question_id)})
     question = mongo.db.questions.find_one({'_id': ObjectId(question_id)})
     member = mongo.db.users.find_one({'username': question['member_id']})
-    staff = mongo.db.users.find({'role': 'staff'})
+    staff = mongo.db.users.find_one({'username': question['staff_id']})
+    #staff = mongo.db.users.find({'role': 'staff'})
     return render_template('staff_question_details.html', contacts=contacts, question=question, member=member, staff=staff)
 
 

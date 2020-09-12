@@ -34,7 +34,12 @@
                     <div class="border">
                         <div class="font font-blue">
                             <h4 class="heading font-heavy font-blue padding-bottom">RCN Lead</h4>
-                            <h5>{{question.summary}}</h5>
+                            {% if question.staff_id == "unassigned" %}
+                                <h5>Unassigned</h5>
+                            {% else %}
+                                <h5>{{staff.first_name}} {{staff.last_name}}</h5>
+                                <h6>{{staff.job_title}} - {{staff.workplace}}</h6>
+                            {% endif %}
                         </div>
                     </div>                   
                 </section>
