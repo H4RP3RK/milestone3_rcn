@@ -213,11 +213,20 @@ def staff_home(username):
     return render_template('staff_home.html', username=session['username'], staff=staff, questions=questions, title='Staff Home Page')
 
 
-@app.route('/unassigned_questions')
+@app.route('/unassigned_questions', methods=['GET','POST'])
 def unassigned_questions():
     questions = mongo.db.questions
     unassigned = questions.find({'staff_id': 'unassigned'}).sort('start_date', 1)
     staff = mongo.db.users.find({'role': 'staff'})
+    if request.method == 'POST':
+        questions.update(
+            {'_id': request.form.get('question_id')},
+            { '$set': 
+                {'staff_id': request.form.get('staff_id')}
+            }
+        )
+        flash(f'Question assigned to {request.form.get("staff_id")}', 'success')
+        return redirect(url_for('unassigned_questions'))
     return render_template('unassigned_questions.html', questions=unassigned, title='Unassigned Questions', staff=staff)
 
 
