@@ -59,8 +59,7 @@
                                             <div class="col-8">
                                                 <select class="form-control" name="staff_id" id="staff_id">
                                                     <option value="unassigned">unassigned</option>
-                                                    <option value="kirsty.harper@rcn.org.uk">kirsty.harper@rcn.org.uk</option>
-                                                    {% for staff in staff %}
+                                                    {% for staff in staff_list %}
                                                         <option value="{{staff.username}}">{{staff.username}}</option>
                                                     {% endfor %}
                                                 </select>

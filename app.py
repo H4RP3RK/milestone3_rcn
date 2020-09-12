@@ -217,7 +217,7 @@ def staff_home(username):
 def unassigned_questions():
     questions = mongo.db.questions
     unassigned = questions.find({'staff_id': 'unassigned'}).sort('start_date', 1)
-    staff = mongo.db.users.find({'role': 'staff'})
+    staff_list = mongo.db.users.find({'role': 'staff'})
     if request.method == 'POST':
         questions.update(
             {'_id': ObjectId(request.form.get('question_id'))},
@@ -227,7 +227,7 @@ def unassigned_questions():
         )
         flash(f'Question assigned to {request.form.get("staff_id")}', 'success')
         return redirect(url_for('unassigned_questions'))
-    return render_template('unassigned_questions.html', questions=unassigned, title='Unassigned Questions', staff=staff)
+    return render_template('unassigned_questions.html', questions=unassigned, title='Unassigned Questions', staff_list=staff_list)
 
 
 @app.route('/assign_edit_question/<question_id>', methods=['GET', 'POST'])
@@ -243,7 +243,16 @@ def staff_question_details(question_id):
     question = mongo.db.questions.find_one({'_id': ObjectId(question_id)})
     member = mongo.db.users.find_one({'username': question['member_id']})
     staff = mongo.db.users.find_one({'username': question['staff_id']})
-    return render_template('staff_question_details.html', contacts=contacts, question=question, member=member, staff=staff)
+    staff_list = mongo.db.users.find({'role': 'staff'})
+    if request.method == 'POST':
+        mongo.db.questions.update(
+            {'_id': ObjectId(request.form.get('question_id'))},
+            { '$set': 
+                {'staff_id': request.form.get('staff_id')}
+            }
+        )
+        return redirect(url_for('staff_question_details'))
+    return render_template('staff_question_details.html', contacts=contacts, question=question, member=member, staff=staff, staff_list=staff_list)
 
 
 @app.route('/assign_lead/<question_id>', methods=['POST'])
@@ -262,7 +271,7 @@ def assign_lead(question_id):
     return redirect(url_for('staff_question_details', question=question, question_id=question_id))
 
 
-@app.route('/staf_new_contact/<question_id>', methods=['GET', 'POST'])
+@app.route('/staff_new_contact/<question_id>', methods=['GET', 'POST'])
 def staff_new_contact(question_id):
     contacts = mongo.db.contacts
     question = mongo.db.questions.find_one({'_id': ObjectId(question_id)})

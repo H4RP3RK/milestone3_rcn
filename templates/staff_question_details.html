@@ -16,7 +16,7 @@
                         <h4 class="heading font-heavy font-blue">What would you like to do?</h4>
                         <a class="blue-btn btn background-blue" href="#" role="button">Contact Member</a>                         
                         <a class="blue-btn btn background-blue" href="{{ url_for('staff_new_contact', question_id=question._id) }}" role="button">Add Contact</a>
-                        <a class="blue-btn btn background-blue" href="{{ url_for('assign_edit_question', question_id=question._id) }}" role="button">Assign/Edit</a>
+                        <button type="button" class="btn blue-btn" data-toggle="modal" data-target="#{{question._id}}Modal">Assign Question</button>
                         <a class="blue-btn btn background-blue" href="#" role="button">Browse Contacts</a>
                         <a class="blue-btn btn background-blue" href="#" role="button">Close Question</a>              
                     </div>
@@ -141,4 +141,38 @@
             </div>
         </section> 
     </div>
+
+<!--Modal - Assign Question-->
+    <div class="modal fade" id="{{question._id}}Modal" tabindex="-1" role="dialog" aria-labelledby="{{question._id}}ModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content font font-blue">
+                <div class="modal-header">
+                    <h5 class="modal-title font-heavy" id="{{question._id}}ModalLabel">Assign Question</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="" method="POST">  
+                    <input type="hidden" id="question_id" name="question_id" value="{{question._id}}">
+                    <div class="modal-body">
+                        <div class="form-group form-row justify-content-center">
+                            <label for="staff_id" class="col-4 col-form-label">RCN Lead: </label>
+                            <div class="col-8">
+                                <select class="form-control" name="staff_id" id="staff_id">
+                                    <option value="unassigned">unassigned</option>
+                                    {% for staff in staff_list %}
+                                        <option value="{{staff.username}}">{{staff.username}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div> 
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn blue-btn">Assign</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
 {% endblock %}
