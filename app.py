@@ -83,8 +83,8 @@ def register(role):
 @app.route('/home/<username>')
 def home(username):
     user = mongo.db.users.find_one({'username': username})
-    questions = mongo.db.questions.find({'member_id': username})
-    assigned = mongo.db.questions.find({'staff_id': username})
+    questions = mongo.db.questions.find({'member_id': username}).sort('start_date', -1)
+    assigned = mongo.db.questions.find({'staff_id': username}).sort('start_date', -1)
     return render_template('home.html', 
                             member=user,
                             questions=questions, 
@@ -190,7 +190,7 @@ def submit_question():
 
 @app.route('/question_details/<question_id>')
 def question_details(question_id):
-    contacts = mongo.db.contacts.find({'question_id': ObjectId(question_id)})
+    contacts = mongo.db.contacts.find({'question_id': ObjectId(question_id)}).sort('date', -1)
     question = mongo.db.questions.find_one({'_id': ObjectId(question_id)})
     staff = mongo.db.users.find_one({'username': question['staff_id']})
     return render_template('question_details.html', contacts=contacts, question=question, staff=staff)
