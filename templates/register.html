@@ -26,6 +26,7 @@
                         <form action="{{ url_for('register', role=role) }}" method="POST">  
                             {{ form.hidden_tag() }}
                             <div class="form-row">
+    <!--first name input-->
                                 <div class="form-group col-sm-6">
                                     {{ form.first_name.label(class="form-control-label") }}                    
                                     {% if form.first_name.errors %}
@@ -39,6 +40,7 @@
                                         {{ form.first_name(class="form-control")}}
                                     {% endif %}
                                 </div>
+    <!--last name input-->
                                 <div class="form-group col-sm-6">
                                     {{ form.last_name.label(class="form-control-label") }}
                                     {% if form.last_name.errors %}
@@ -54,6 +56,7 @@
                                 </div>
                             </div>
                             <div class="form-row">
+    <!--email input-->
                                 <div class="form-group col-sm-6">
                                     {{ form.email.label(class="form-control-label") }}
                                     {% if form.email.errors %}
@@ -67,6 +70,7 @@
                                         {{ form.email(class="form-control")}}
                                     {% endif %}
                                 </div>
+    <!--telephone input-->
                                 <div class="form-group col-sm-6">
                                     {{ form.telephone.label(class="form-control-label") }}
                                     {% if form.telephone.errors %}
@@ -83,6 +87,7 @@
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-sm-6">
+        <!--If on member register page, form has employer input-->
                                     {% if role == "member" %}
 
                                         {{ form.employer.label(class="form-control-label") }}
@@ -96,7 +101,7 @@
                                         {% else %}
                                             {{ form.employer(class="form-control")}}
                                         {% endif %}
-
+        <!--Else, form has workplace input-->
                                     {% else %}
 
                                         {{ form.workplace.label(class="form-control-label") }}
@@ -113,6 +118,7 @@
 
                                     {% endif %}
                                 </div>
+    <!--job title input-->
                                 <div class="form-group col-sm-6">                
                                     {{ form.job_title.label(class="form-control-label") }}
                                     {% if form.job_title.errors %}
@@ -128,6 +134,7 @@
                                 </div>
                             </div>
                             <div class="form-row">
+    <!--password input-->
                                 <div class="form-group col-sm-6">
                                     {{ form.password.label(class="form-control-label") }}
                                     {% if form.password.errors %}
@@ -141,6 +148,7 @@
                                         {{ form.password(class="form-control")}}
                                     {% endif %}
                                 </div>
+    <!--confirm password input-->
                                 <div class="form-group col-sm-6">                
                                     {{ form.confirm_password.label(class="form-control-label") }}
                                     {% if form.confirm_password.errors %}
@@ -155,10 +163,12 @@
                                     {% endif %}
                                 </div>
                             </div>
+    <!--submit button-->
                             <div class="form-group text-center">
                                 {{ form.submit(class="blue-btn btn") }}
                             </div>
                         </form>
+<!--Login Link-->
                         <div>
                             <p>Already have an account? <a href="{{ url_for('shared_login') }}">Login</a> </p> 
                         </div>

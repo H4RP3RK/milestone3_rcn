@@ -93,25 +93,38 @@ def home(username):
                             title=f"{user['first_name']}'s {user['role']} Home Page")
 
 
+# Took inspiration from Corey Schafer YouTube tutorials: https://www.youtube.com/watch?v=803Ei2Sq-Zs&t=134s
+
 @app.route('/account/<username>', methods=['GET', 'POST'])
 def account(username):
     user = mongo.db.users.find_one({'username': username})
+    role = user['role']
+    form = registrationForm()
     if request.method == 'POST':
         mongo.db.users.update( 
             {'username': username}, 
             { '$set': 
                 {
-                    'email': request.form.get('email'),
-                    'telephone': request.form.get('telephone'),
-                    'employer': request.form.get('employer'),
-                    'job_title': request.form.get('job_title')
+                    'email': form.email.data,
+                    'telephone': form.telephone.data,
+                    'employer': form.employer.data,
+                    'job_title': form.job_title.data
                 }
             })
         flash("Your details are now updated.", 'success')
-        return redirect(url_for('home', username=session['username']))        
-    return render_template('account.html', 
-                            member=user,
-                            title=f"{user['first_name']}'s Account")
+        return redirect(url_for('home', username=session['username']))
+    elif request.method == 'GET':
+        form.username.data = user['username']
+        form.email.data = user['email']
+        form.telephone.data = user['telephone']
+        form.job_title.data = user['job_title']
+        if role == "member":
+            form.employer.data = user['employer']
+        elif role == "staff":
+            form.workplace.data = user['workplace']
+        else:
+            flash("Error with your account. Unsure whether you are an RCN member or staff. Please contact IT for support", 'danger')            
+    return render_template('account.html', member=user, title="Edit Your Account Details", form=form, role=role)
 
 
 @app.route('/new_contact/<question_id>', methods=['GET', 'POST'])
