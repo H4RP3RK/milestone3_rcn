@@ -3,14 +3,14 @@
 <!--Breacrumbs-->
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{{ url_for('staff_home', username=session['username']) }}">Your Home Page</a></li>
+            <li class="breadcrumb-item"><a href="{{ url_for('home', username=session['username']) }}">Your Home Page</a></li>
             <li class="breadcrumb-item active" aria-current="page">Unassigned Questions</li>
         </ol>
     </nav>
 <!--Unassigned cases accordian-->
     <section class="container">
         <div class="border" id="questions">
-            <h4 class="heading font-heavy font-blue">All Unassigned Cases</h4>
+            <h4 class="heading font-heavy font-blue">All Unassigned Questions</h4>
             <div class="row">
             {% if questions %}
                 <div class="col" id="accordion">
@@ -29,7 +29,7 @@
                                     Summary
                                     </button>
                                     <a class="blue-btn btn accordian-btn" href="{{ url_for('staff_question_details', question_id=question._id) }}">Full details</a>
-                                    <a class="blue-btn btn accordian-btn" href="#">Assign question</a>
+                                    <button type="button" class="btn blue-btn" data-toggle="modal" data-target="#{{question._id}}Modal">Assign Question</button>
                                 </div>
                             </div>
                         </div>
@@ -40,6 +40,40 @@
                             </div>
                         </div>
                     </div>
+                    
+<!--Modal - Assign Question-->
+                    <div class="modal fade" id="{{question._id}}Modal" tabindex="-1" role="dialog" aria-labelledby="{{question._id}}ModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content font">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="{{question._id}}ModalLabel">Assign Question</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action=" " method="POST">  
+                                        <div class="form-group form-row justify-content-center">
+                                            <label for="staff_id" class="col-4 col-form-label">RCN Lead: </label>
+                                            <div class="col-8">
+                                                <select class="form-control" name="staff_id" id="staff_id">
+                                                    <option value="unassigned">unassigned</option>
+                                                    {% for staff in staff %}
+                                                    <option value="{{staff.username}}">{{staff.username}}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                        </div> 
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 {% endfor %}
                 </div>
             {% else %}

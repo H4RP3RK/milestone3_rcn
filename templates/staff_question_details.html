@@ -16,7 +16,7 @@
                         <h4 class="heading font-heavy font-blue">What would you like to do?</h4>
                         <a class="blue-btn btn background-blue" href="#" role="button">Contact Member</a>                         
                         <a class="blue-btn btn background-blue" href="{{ url_for('staff_new_contact', question_id=question._id) }}" role="button">Add Contact</a>
-                        <a class="blue-btn btn background-blue" href="#" role="button">Assign/Edit</a>
+                        <a class="blue-btn btn background-blue" href="{{ url_for('assign_edit_question', question_id=question._id) }}" role="button">Assign/Edit</a>
                         <a class="blue-btn btn background-blue" href="#" role="button">Browse Contacts</a>
                         <a class="blue-btn btn background-blue" href="#" role="button">Close Question</a>              
                     </div>
