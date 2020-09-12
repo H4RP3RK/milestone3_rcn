@@ -3,9 +3,10 @@
 <!--Breacrumbs-->
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{{ url_for('staff_home', username=session['username']) }}">Your Home Page</a></li>
+            <li class="breadcrumb-item"><a href="{{ url_for('home', username=session['username']) }}">Your Home Page</a></li>
             <li class="breadcrumb-item"><a href="{{ url_for('unassigned_questions', username=session['username']) }}">Unassigned Questions</a></li>
-            <li class="breadcrumb-item active" aria-current="{{ url_for('staff_question_details', question_id=question._id) }}">Question Details</li>
+            <li class="breadcrumb-item"><a href="{{ url_for('staff_question_details', question_id=question._id) }}">Question Details</a></li>
+            <li class="breadcrumb-item active" aria-current="{{ url_for('staff_new_contact', question_id=question._id) }}">Add New Contact</li>
         </ol>
     </nav>
 <!--Background image-->
