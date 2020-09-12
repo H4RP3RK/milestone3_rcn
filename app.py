@@ -1,6 +1,6 @@
 import os, datetime
 from flask import Flask, render_template, redirect, request, url_for, flash, session
-from forms import loginForm, registrationForm
+from forms import loginForm, registrationForm, accountForm
 from flask_pymongo import PyMongo
 from flask_bcrypt import Bcrypt
 from bson.objectid import ObjectId
@@ -99,20 +99,23 @@ def home(username):
 def account(username):
     user = mongo.db.users.find_one({'username': username})
     role = user['role']
-    form = registrationForm()
+    form = accountForm()
     if request.method == 'POST':
-        mongo.db.users.update( 
-            {'username': username}, 
-            { '$set': 
-                {
-                    'email': form.email.data,
-                    'telephone': form.telephone.data,
-                    'employer': form.employer.data,
-                    'job_title': form.job_title.data
-                }
-            })
-        flash("Your details are now updated.", 'success')
-        return redirect(url_for('home', username=session['username']))
+        if form.validate_on_submit():
+            mongo.db.users.update( 
+                {'username': username}, 
+                { '$set': 
+                    {
+                        'email': form.email.data,
+                        'telephone': form.telephone.data,
+                        'employer': form.employer.data,
+                        'job_title': form.job_title.data
+                    }
+                })
+            flash("Your details are now updated.", 'success')
+            return redirect(url_for('home', username=session['username']))
+        else:
+            flash('Error submitting form. Please refresh the page and try again.', 'danger')
     elif request.method == 'GET':
         form.username.data = user['username']
         form.email.data = user['email']

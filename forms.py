@@ -9,7 +9,7 @@ class registrationForm(FlaskForm):
     first_name = StringField('First Name', validators=[DataRequired()])
     last_name = StringField('Last Name', validators=[DataRequired()])
     email = StringField('Email', validators=[DataRequired(), Email()])
-    username = StringField('Username', validators=[DataRequired(), Email(), EqualTo('email')])
+    username = StringField('Username', validators=[DataRequired(), Email()])
     telephone = StringField('Telephone', validators=[Length(min=11)])
     employer = StringField('Employer')
     workplace = StringField('Workplace')
@@ -17,10 +17,18 @@ class registrationForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password', message='Passwords must match')])
     submit = SubmitField('Sign Up')
-    update = SubmitField('Update')
 
 
 class loginForm(FlaskForm):
     username = StringField('email', validators=[DataRequired(), Email()])
     password = PasswordField('password', validators=[DataRequired()])
     submit = SubmitField('Login')
+
+class accountForm(FlaskForm):
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    username = StringField('Username', validators=[DataRequired(), Email()])
+    telephone = StringField('Telephone', validators=[Length(min=11)])
+    employer = StringField('Employer')
+    workplace = StringField('Workplace')
+    job_title = StringField('Job Title')
+    update = SubmitField('Update')
