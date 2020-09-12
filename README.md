@@ -180,14 +180,14 @@ Login.html
 Register.html
 x If user exists with email address, can you send error?
 Queries.html 
-- Need to show RCN Lead Name rather than RCN Lead ID
+x Need to show RCN Lead Name rather than RCN Lead ID
 x How do I set up so tables link with each other? 
 x Why is logo image not showing?
 New_question.html
 x Why won't labels go blue?
 Newcontact.html
 x How do I timestamp contact? - default=datetime.utcnow
-- Edit contact
+x Edit contact
 Member_home.html
 x scroll to questions
 x highlight question section when button pressed
@@ -195,6 +195,10 @@ x highlight question section when button pressed
 x change datetime to better format
 Account.html
 x make sure update works
+- Change to show workplace if staff
+- Change staff job_title to select
+- change form to flask form 
+- warning message when changing account details
 Question_details.html
 x Link contacts to particular query
 x Restyle accordian
@@ -202,12 +206,13 @@ x scroll to contacts
 x highlight contacts section when button pressed
 x change datetime to better format
 x If RCN staff unassigned, add a message with general contact details
+x Show details of RCN staff dealing with query
+- Show photo of RCN staff 
+- Reorder accordian so latest come to the top
 - If no contacts, add a generic message (Why is this not working?)
 - add close case btn if case open
 - add close case btn if case closed
 - Upload file
-- Show photo and details of RCN staff dealing with query 
-- Reorder accordian so latest come to the top
 App.py 
 x set up environ to protect password before pushing
 - Can the members.queries.find_one be simplified so it's not duplicated

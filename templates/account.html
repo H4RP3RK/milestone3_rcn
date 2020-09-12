@@ -14,7 +14,7 @@
             <div class="container">
                 <div class="main row align-items-center justify-content-center">
                     <div class="col-lg-8 font-blue">
-                        <form action="{{ url_for('edit_account', username=session['username']) }}" method="POST">
+                        <form action="{{ url_for('account', username=session['username']) }}" method="POST">
                             <div class="form-group form-row justify-content-center">
                                 <h3 class="col-md-8 question heading font-heavy text-center">Are your details up to date?</h3>        
                             </div>

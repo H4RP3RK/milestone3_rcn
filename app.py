@@ -41,36 +41,39 @@ def shared_login():
 @app.route('/register/<role>', methods=['GET', 'POST'])
 def register(role):
     if 'username' in session:
-        return redirect(url_for(f'{role}_home', username=session['username']))
+        return redirect(url_for('home', username=session['username']))
     form = registrationForm()
     if request.method == 'POST':
-        users = mongo.db.users
-        current_user = users.find_one({'username': request.form['email']})
+        if form.validate_on_submit():
+            users = mongo.db.users
+            current_user = users.find_one({'username': request.form['email']})
 
-        if current_user is None:
-            hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-            new_user = {
-                'role': role,
-                'first_name': form.first_name.data,
-                'last_name': form.last_name.data,
-                'username': form.email.data,
-                'email': form.email.data,
-                'telephone': form.telephone.data,
-                'job_title': form.job_title.data,
-                'password': hashed_password
-            }
-            users.insert_one(new_user)
-            if role == 'member':
-                users.update_one({'_id': new_user['_id']}, 
-                                {"$set": {'employer': form.employer.data}})
-            if role == 'staff':
-                users.update_one({'_id': new_user['_id']}, 
-                                {"$set": {'workplace': form.workplace.data}})
-            session['username'] = form.email.data
-            flash(f'{role} account created for {form.first_name.data}', 'success')
-            return redirect(url_for(f'{role}_home', username=session['username']))
+            if current_user is None:
+                hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+                new_user = {
+                    'role': role,
+                    'first_name': form.first_name.data,
+                    'last_name': form.last_name.data,
+                    'username': form.email.data,
+                    'email': form.email.data,
+                    'telephone': form.telephone.data,
+                    'job_title': form.job_title.data,
+                    'password': hashed_password
+                }
+                users.insert_one(new_user)
+                if role == 'member':
+                    users.update_one({'_id': new_user['_id']}, 
+                                    {"$set": {'employer': form.employer.data}})
+                if role == 'staff':
+                    users.update_one({'_id': new_user['_id']}, 
+                                    {"$set": {'workplace': form.workplace.data}})
+                session['username'] = form.email.data
+                flash(f'{role} account created for {form.first_name.data}', 'success')
+                return redirect(url_for('home', username=session['username']))
+            else:
+                flash(f'{form.email.data} is already registered. You can login by clicking the link below', 'danger')
         else:
-            flash(f'{form.email.data} is already registered. You can login by clicking the link below', 'danger')
+            flash('Error submitting form. Please refresh the page and try again.', 'danger')
     return render_template('register.html', form=form, title=f'{role} Sign Up', role=role)
 
 
@@ -85,6 +88,27 @@ def home(username):
                             assigned=assigned,
                             role=user['role'],
                             title=f"{user['first_name']}'s {user['role']} Home Page")
+
+
+@app.route('/account/<username>', methods=['GET', 'POST'])
+def account(username):
+    user = mongo.db.users.find_one({'username': username})
+    if request.method == 'POST':
+        mongo.db.users.update( 
+            {'username': username}, 
+            { '$set': 
+                {
+                    'email': request.form.get('email'),
+                    'telephone': request.form.get('telephone'),
+                    'employer': request.form.get('employer'),
+                    'job_title': request.form.get('job_title')
+                }
+            })
+        flash("Your details are now updated.", 'success')
+        return redirect(url_for('home', username=session['username']))        
+    return render_template('account.html', 
+                            member=user,
+                            title=f"{user['first_name']}'s Account")
 
 
 @app.route('/new_contact/<question_id>', methods=['GET', 'POST'])
@@ -123,30 +147,6 @@ def edit_contact(contact_id):
         flash("Your contact has been updated.", 'success')
         return redirect(url_for('question_details', question_id=question['_id']))        
     return render_template('edit_contact.html', contact=contact, question=question, title='Edit Contact') 
-
-
-@app.route('/account/<username>')
-def account(username):
-    user = mongo.db.users.find_one({'username': username})
-    return render_template('account.html', 
-                            member=user,
-                            title=f"{user['first_name']}'s Account")
-
-
-@app.route('/edit_account/<username>', methods=['GET', 'POST'])
-def edit_account(username):
-    mongo.db.users.update( 
-        {'username': username}, 
-        { '$set': 
-            {
-                'email': request.form.get('email'),
-                'telephone': request.form.get('telephone'),
-                'employer': request.form.get('employer'),
-                'job_title': request.form.get('job_title')
-            }
-        })
-    flash("Your details are now updated.", 'success')
-    return redirect(url_for('account', username=session['username']))
 
 
 @app.route('/new_question')
