@@ -14,7 +14,7 @@
                 <section class="col-12">
                     <div class="border">
                         <h4 class="heading font-heavy font-blue">What would you like to do?</h4>
-                        <a class="blue-btn btn background-blue" href="#" role="button">Contact Member</a>                         
+                        <a class="blue-btn btn background-blue" href="{{ url_for('new_contact', question_id=question._id)}}" role="button">Contact Member</a>                         
                         <a class="blue-btn btn background-blue" href="{{ url_for('staff_new_contact', question_id=question._id) }}" role="button">Add Contact</a>
                         <button type="button" class="btn blue-btn" data-toggle="modal" data-target="#{{question._id}}Modal">Assign Question</button>
                         <button class="blue-btn btn background-blue" onclick="scrollContacts()" role="button">Browse Contacts</button>

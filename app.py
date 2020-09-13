@@ -132,20 +132,40 @@ def account(username):
 
 @app.route('/new_contact/<question_id>', methods=['GET', 'POST'])
 def new_contact(question_id):
-    contacts = mongo.db.contacts
     question = mongo.db.questions.find_one({'_id': ObjectId(question_id)})
-    user = mongo.db.users.find_one({'username': session['username']})
+    contacts = mongo.db.contacts
+    users = mongo.db.users
+    user = users.find_one({'username': session['username']})
+    member = users.find_one({'username': question['member_id']})
+    staff = users.find_one({'username': question['staff_id']})
     if request.method == 'POST':
         contact = {
-            'member_id': session['username'],
+            'user_id': session['username'],
             'question_id': ObjectId(question_id),
             'contact_type': 'database',
             'date': datetime.datetime.utcnow().strftime('%d/%m/%y  %H:%M'),
             'summary': request.form.get('summary'),
-            'from': user['first_name'] + user['last_name'],
-            'to': 'RCN'
+            'from': f"{user['first_name']} {user['last_name']}",
         }
         contacts.insert_one(contact)
+        if user['role'] == 'member':
+            mongo.db.contacts.update( 
+                {'_id': contact['_id']}, 
+                { '$set': 
+                    {
+                        'to': f"{staff['first_name']} {staff['last_name']}",
+                    }
+                })
+        elif user['role'] == 'staff':
+            mongo.db.contacts.update( 
+                {'_id': contact['_id']}, 
+                { '$set': 
+                    {
+                        'to': f"{member['first_name']} {member['last_name']}",
+                    }
+                })
+        else:
+            flash("Problem with your account. Please contact IT", 'danger')           
         flash("Thanks for getting in touch. Your RCN Lead will be in touch shortly. Check your contacts below for updates", 'success')
         return redirect(url_for('question_details', question_id=question['_id']))
     return render_template('new_contact.html', title='Contact your RCN Lead', question=question)
