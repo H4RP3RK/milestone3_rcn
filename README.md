@@ -221,6 +221,7 @@ Staff_question_details.html
     - link up close question 
     - Add edit contacts btn 
     - Add top/bottom margins to btns
+    - Alter member question layout - form?
 App.py 
     x set up environ to protect password before pushing
     - Can the members.queries.find_one be simplified so it's not duplicated

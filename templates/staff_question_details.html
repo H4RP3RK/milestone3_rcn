@@ -21,16 +21,17 @@
                         <a class="blue-btn btn background-blue" href="#" role="button">Close Question</a>              
                     </div>
                 </section>  
-<!--Question-->        
+<!--Question--> 
+<!--      
                 <section class="col-md-6">
                     <div class="border">
                         <div class="font font-blue">
-                            <h4 class="heading font-heavy font-blue padding-bottom">{{question.question_type.capitalize()}} Question</h4>
+                            <h4 class="heading font-heavy font-blue padding-bottom">Member's Question - {{question.question_type.capitalize()}}</h4>
                             <p>{{question.start_date}}</p>
                             <h5>{{question.summary}}</h5>
                         </div>
                     </div>
-<!--RCN Lead-->        
+<!--RCN Lead        
                     <div class="border">
                         <div class="font font-blue">
                             <h4 class="heading font-heavy font-blue padding-bottom">RCN Lead</h4>
@@ -43,10 +44,49 @@
                         </div>
                     </div>                   
                 </section>
+-->
+                <section class="col-md-6 blue-link">
+                    <div class="border">
+                        <h4 class="heading font-heavy font-blue">Question Details</h4>
+                        <form>
+                            <div class="form-group form-row justify-content-center">
+                                <label for="question_type" class="col-4 col-form-label">Question Type: </label>
+                                <div class="col-8">
+                                    <input type="text" readonly class="form-control-plaintext" id="question_type" name="question_type" value="{{ question.question_type.capitalize() }}">
+                                </div>
+                            </div>
+                            <div class="form-group form-row justify-content-center">
+                                <label for="staff_id" class="col-4 col-form-label">RCN Lead: </label>
+                                <div class="col-8">
+                                    <input type="text" readonly class="form-control-plaintext" id="staff_id" name="staff_id" value="{{ question.staff_id }}">
+                                </div>
+                            </div>
+                            <div class="form-group form-row justify-content-center">
+                                <label for="start_date" class="col-4 col-form-label">Start Date: </label>
+                                <div class="col-8">
+                                    <input type="text" readonly class="form-control-plaintext" id="start_date" name="start_date" value="{{ question.start_date }}">
+                                </div>
+                            </div>
+                            <div class="form-group form-row justify-content-center">
+                                <label for="end_date" class="col-4 col-form-label">End Date: </label>
+                                <div class="col-8">
+                                    <input type="text" class="form-control-plaintext" id="end_date" name="end_date" value="{{ question.end_date }}">
+                                </div>
+                            </div>
+                            <div class="form-group form-row justify-content-center">
+                                <label for="summary" class="col-4 col-form-label">Summary: </label>
+                                <div class="col-8">
+                                    <input type="text" readonly class="form-control-plaintext" id="summary" name="summary" value="{{ question.summary }}">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </section>    
+
 <!--Member Account Details--> 
                 <section class="col-md-6 blue-link">
                     <div class="border">
-                        <h4 class="heading font-heavy font-blue">{{ member.first_name }}'s Account Details</h4>
+                        <h4 class="heading font-heavy font-blue">Member's Account Details</h4>
                         <form>
                             <div class="form-group form-row justify-content-center">
                                 <label for="name" class="col-4 col-form-label">Name: </label>
