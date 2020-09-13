@@ -12,9 +12,9 @@
         <div class="border" id="questions">
             <h4 class="heading font-heavy font-blue">All Unassigned Questions</h4>
             <div class="row">
-            {% if questions %}
+            {% if unassigned %}
                 <div class="col" id="accordion">
-                {% for question in questions %}
+                {% for question in unassigned %}
                     <div class="card">
                         <div class="card-header" id="heading{{question._id}}">
                             <div class="mb-0 row align-items-center">

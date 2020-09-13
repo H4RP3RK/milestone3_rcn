@@ -209,8 +209,8 @@ def log_out():
 @app.route('/unassigned_questions', methods=['GET','POST'])
 def unassigned_questions():
     questions = mongo.db.questions
-    unassigned = questions.find({'staff_id': 'unassigned'}).sort('start_date', 1)
-    staff_list = mongo.db.users.find({'role': 'staff'})
+    unassigned = list(questions.find({'staff_id': 'unassigned'}).sort('start_date', 1))
+    staff_list = list(mongo.db.users.find({'role': 'staff'}))
     if request.method == 'POST':
         questions.update(
             {'_id': ObjectId(request.form.get('question_id'))},
@@ -220,7 +220,7 @@ def unassigned_questions():
         )
         flash(f'Question assigned to {request.form.get("staff_id")}', 'success')
         return redirect(url_for('unassigned_questions'))
-    return render_template('unassigned_questions.html', questions=unassigned, title='Unassigned Questions', staff_list=staff_list)
+    return render_template('unassigned_questions.html', unassigned=unassigned, title='Unassigned Questions', staff_list=staff_list)
 
 
 @app.route('/assign_edit_question/<question_id>', methods=['GET', 'POST'])
@@ -230,7 +230,7 @@ def assign_edit_question(question_id):
     return render_template('assign_edit_question.html', title='Assign/Edit Question', question=question, staff=staff)
 
 
-@app.route('/staff_question_details/<question_id>')
+@app.route('/staff_question_details/<question_id>', methods=['GET', 'POST'])
 def staff_question_details(question_id):
     contacts = mongo.db.contacts.find({'question_id': ObjectId(question_id)})
     question = mongo.db.questions.find_one({'_id': ObjectId(question_id)})
@@ -244,8 +244,9 @@ def staff_question_details(question_id):
                 {'staff_id': request.form.get('staff_id')}
             }
         )
-        return redirect(url_for('staff_question_details'))
-    return render_template('staff_question_details.html', contacts=contacts, question=question, member=member, staff=staff, staff_list=staff_list)
+        flash(f'Question assigned to {request.form.get("staff_id")}', 'success')
+        return redirect(url_for('staff_question_details', question_id=question_id))
+    return render_template('staff_question_details.html', contacts=contacts, question=question, member=member, staff=staff, staff_list=staff_list, question_id=question_id)
 
 
 @app.route('/assign_lead/<question_id>', methods=['POST'])

@@ -113,7 +113,7 @@
                     <p>You haven't asked any questions yet. When you do, they will appear here.</p>
                 </div>
             {% endif %}
-        {% else %}
+        {% elif role == "staff" %}
             <h4 class="heading font-heavy font-blue">Your Assigned Cases</h4>
             <div class="row">
             {% if assigned %}
@@ -132,7 +132,7 @@
                                     <button class="btn blue-btn btn-link accordian-btn collapsed" data-toggle="collapse" data-target="#collapse{{assigned._id}}" aria-expanded="false" aria-controls="collapse{{assigned._id}}">
                                     Summary
                                     </button>
-                                    <a class="blue-btn btn accordian-btn" href="{{ url_for('question_details', question_id=assigned._id) }}">Full case</a>
+                                    <a class="blue-btn btn accordian-btn" href="{{ url_for('staff_question_details', question_id=assigned._id) }}">Full case</a>
                                 </div>
                             </div>
                         </div>
@@ -149,6 +149,8 @@
                     <p>You don't have any assigned cases. When you do, they will appear here.</p>
                 </div>
             {% endif %}
+        {% else %}
+            <p>Error with account, please contact IT</p>
         {% endif %}
             </div>
         </div>
