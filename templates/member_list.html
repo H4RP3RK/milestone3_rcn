@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block content %}
+<!--Breacrumbs-->
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ url_for('home', username=session['username']) }}">Your Home Page</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Member List</li>
+        </ol>
+    </nav>
+<!--Unassigned cases accordian-->
+<div class="main">
+    <section class="container">
+        <div class="border" id="members">
+            <h4 class="heading font-heavy font-blue">All Members</h4>
+            <div class="row">
+                <div class="col" id="accordion">
+                {% for member in members %}
+                    <div class="card">
+                        <div class="card-header" id="heading{{member._id}}">
+                            <div class="mb-0 row align-items-center">
+                                <div class="col-sm-4">
+                                    <h5 class="font-blue">{{member.first_name}} {{member.last_name}}</h5>
+                                </div>
+                                <div class="col-sm-4">
+                                    <span>{{member.job_title}}</span>
+                                </div>
+                                <div class="col-sm-4">
+                                    <button class="btn blue-btn btn-link accordian-btn collapsed" data-toggle="collapse" data-target="#collapse{{member._id}}" aria-expanded="false" aria-controls="collapse{{member._id}}">
+                                    Summary
+                                    </button>
+                                    <a class="blue-btn btn accordian-btn" href="#">Full details</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="collapse{{member._id}}" class="collapse" aria-labelledby="heading{{member._id}}" data-parent="#accordion">
+                            <div class="card-body">
+                            </div>
+                        </div>
+                    </div>                    
+                {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section> 
+</div>
+{% endblock %}

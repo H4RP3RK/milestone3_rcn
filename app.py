@@ -316,6 +316,12 @@ def staff_new_contact(question_id):
         return redirect(url_for('staff_question_details', question_id=question['_id']))
     return render_template('staff_new_contact.html', title='Add a Contact', question=question)
 
+
+@app.route('/member_list')
+def member_list():
+    members = mongo.db.users.find({'role': 'member'})
+    return render_template('member_list.html', members=members)
+
 # SHARED SITE
 
 
