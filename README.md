@@ -191,7 +191,7 @@ Newcontact.html
 Home.html
     x scroll to questions
     x highlight question section when button pressed
-    - Reorder accordian so latest come to the top
+    x Reorder accordian so latest come to the top
     x change datetime to better format
 Account.html
     x make sure update works
@@ -200,7 +200,7 @@ Account.html
     - warning message when changing account details
     - Change staff job_title to select
 Unassigned_questions.html
-    - Why won't staff pull through to modal?
+    x Why won't staff pull through to modal?
 Question_details.html
     x Link contacts to particular query
     x Restyle accordian
@@ -215,6 +215,12 @@ Question_details.html
     - add close case btn if case open
     - add close case btn if case closed
     - Upload file
+Staff_question_details.html
+    - Changed time format to match other Pages
+    x Change workplace to employer in member details
+    - link up close question 
+    - Add edit contacts btn 
+    - Add top/bottom margins to btns
 App.py 
     x set up environ to protect password before pushing
     - Can the members.queries.find_one be simplified so it's not duplicated
