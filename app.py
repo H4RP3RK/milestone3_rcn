@@ -204,6 +204,20 @@ def question_details(question_id):
     return render_template('question_details.html', contacts=contacts, question=question, staff=staff)
 
 
+@app.route('/close_question/<question_id>', methods=['GET', 'POST'])
+def close_question(question_id):
+    question = mongo.db.questions.find_one({'_id': ObjectId(question_id)})
+    mongo.db.questions.update( 
+        {'_id': ObjectId(question_id)}, 
+        { '$set': 
+            {
+                'end_date': request.form.get('end_date')
+            }
+        })
+    flash('Case now closed', 'success')
+    return redirect(url_for('staff_question_details', question_id=question['_id']))
+
+
 @app.route('/log_out')
 def log_out():
     session.pop('username', None)
@@ -254,7 +268,7 @@ def staff_question_details(question_id):
         )
         flash(f'Question assigned to {request.form.get("staff_id")}', 'success')
         return redirect(url_for('staff_question_details', question_id=question_id))
-    return render_template('staff_question_details.html', contacts=contacts, question=question, member=member, staff=staff, staff_list=staff_list, question_id=question_id)
+    return render_template('staff_question_details.html', contacts=contacts, question=question, member=member, staff=staff, staff_list=staff_list, question_id=question_id, title='Question Details - Staff View')
 
 
 @app.route('/assign_lead/<question_id>', methods=['POST'])

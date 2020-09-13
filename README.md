@@ -218,10 +218,11 @@ Question_details.html
 Staff_question_details.html
     - Changed time format to match other Pages
     x Change workplace to employer in member details
-    - link up close question 
+    x link up close question 
     - Add edit contacts btn 
     - Add top/bottom margins to btns
-    - Alter member question layout - form?
+    x Alter member question layout - form?
+    - Fit form inputs within border
 App.py 
     x set up environ to protect password before pushing
     - Can the members.queries.find_one be simplified so it's not duplicated
