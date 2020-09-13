@@ -16,35 +16,16 @@
                         <h4 class="heading font-heavy font-blue">What would you like to do?</h4>
                         <a class="blue-btn btn background-blue" href="{{ url_for('new_contact', question_id=question._id)}}" role="button">Contact Member</a>                         
                         <a class="blue-btn btn background-blue" href="{{ url_for('staff_new_contact', question_id=question._id) }}" role="button">Add Contact</a>
-                        <button type="button" class="btn blue-btn" data-toggle="modal" data-target="#{{question._id}}CloseModal">Assign Question</button>
-                        <button class="blue-btn btn background-blue" onclick="scrollContacts()" role="button">Browse Contacts</button>        
-                        <button type="button" class="btn blue-btn" data-toggle="modal" data-target="#{{question._id}}CloseModal">Close Question</button>     
+                        <button type="button" class="btn blue-btn" data-toggle="modal" data-target="#{{question._id}}Modal">Assign Question</button>
+                        <button class="blue-btn btn background-blue" onclick="scrollContacts()" role="button">Browse Contacts</button>  
+                        {% if question.end_date %}   
+                        <button type="button" class="btn blue-btn">Reopen Question</button> 
+                        {% else %}  
+                        <button type="button" class="btn blue-btn" data-toggle="modal" data-target="#{{question._id}}CloseModal">Close Question</button> 
+                        {% endif %} 
                     </div>
                 </section>  
 <!--Question--> 
-<!--      
-                <section class="col-md-6">
-                    <div class="border">
-                        <div class="font font-blue">
-                            <h4 class="heading font-heavy font-blue padding-bottom">Member's Question - {{question.question_type.capitalize()}}</h4>
-                            <p>{{question.start_date}}</p>
-                            <h5>{{question.summary}}</h5>
-                        </div>
-                    </div>
-<!--RCN Lead        
-                    <div class="border">
-                        <div class="font font-blue">
-                            <h4 class="heading font-heavy font-blue padding-bottom">RCN Lead</h4>
-                            {% if question.staff_id == "unassigned" %}
-                                <h5>Unassigned</h5>
-                            {% else %}
-                                <h5>{{staff.first_name}} {{staff.last_name}}</h5>
-                                <h6>{{staff.job_title}} - {{staff.workplace}}</h6>
-                            {% endif %}
-                        </div>
-                    </div>                   
-                </section>
--->
                 <section class="col-md-6 blue-link">
                     <div class="border">
                         <h4 class="heading font-heavy font-blue">Question Details</h4>

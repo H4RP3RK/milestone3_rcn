@@ -210,9 +210,9 @@ Question_details.html
     x If RCN staff unassigned, add a message with general contact details
     x Show details of RCN staff dealing with query
     - Show photo of RCN staff 
-    - Reorder accordian so latest come to the top
+    x Reorder accordian so latest come to the top
     - If no contacts, add a generic message (Why is this not working?)
-    - add close case btn if case open
+    x add close case btn if case open
     - add close case btn if case closed
     - Upload file
 Staff_question_details.html
