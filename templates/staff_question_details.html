@@ -19,7 +19,7 @@
                         <button type="button" class="btn blue-btn" data-toggle="modal" data-target="#{{question._id}}Modal">Assign Question</button>
                         <button class="blue-btn btn background-blue" onclick="scrollContacts()" role="button">Browse Contacts</button>  
                         {% if question.end_date %}   
-                        <button type="button" class="btn blue-btn">Reopen Question</button> 
+                        <a class="blue-btn btn background-blue" href="{{ url_for('reopen_question', question_id=question._id)}}" role="button">Reopen Question</a>
                         {% else %}  
                         <button type="button" class="btn blue-btn" data-toggle="modal" data-target="#{{question._id}}CloseModal">Close Question</button> 
                         {% endif %} 

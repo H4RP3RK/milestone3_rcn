@@ -215,7 +215,20 @@ def close_question(question_id):
             }
         })
     flash('Case now closed', 'success')
-    return redirect(url_for('staff_question_details', question_id=question['_id']))
+    return redirect(url_for('staff_question_details', question_id=question_id))
+
+
+@app.route('/reopen_question/<question_id>', methods=['GET', 'POST'])
+def reopen_question(question_id):
+    mongo.db.questions.update( 
+        {'_id': ObjectId(question_id)}, 
+        { '$unset': 
+            {
+                'end_date': ""
+            }
+        })
+    flash('Case reopened', 'success')
+    return redirect(url_for('staff_question_details', question_id=question_id))    
 
 
 @app.route('/log_out')
