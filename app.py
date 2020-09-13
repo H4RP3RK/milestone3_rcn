@@ -232,7 +232,7 @@ def assign_edit_question(question_id):
 
 @app.route('/staff_question_details/<question_id>', methods=['GET', 'POST'])
 def staff_question_details(question_id):
-    contacts = mongo.db.contacts.find({'question_id': ObjectId(question_id)})
+    contacts = mongo.db.contacts.find({'question_id': ObjectId(question_id)}).sort('date', -1)
     question = mongo.db.questions.find_one({'_id': ObjectId(question_id)})
     member = mongo.db.users.find_one({'username': question['member_id']})
     staff = mongo.db.users.find_one({'username': question['staff_id']})
