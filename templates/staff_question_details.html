@@ -134,6 +134,10 @@
                                         <button class="btn blue-btn btn-link accordian-btn collapsed" data-toggle="collapse" data-target="#collapse{{contact._id}}" aria-expanded="false" aria-controls="collapse{{contact._id}}">
                                         Details
                                         </button>
+                                        {% if contact.recorded_by == session['username'] %}
+                                        <a class="blue-btn btn background-blue" href="{{ url_for('edit_contact', contact_id=contact._id) }}" role="button">Edit</a>
+                                        {% else %}
+                                        {% endif %}
                                     </div>
                                 </div>
                             </div>

@@ -188,11 +188,13 @@ New_question.html
 Newcontact.html
     x How do I timestamp contact? - default=datetime.utcnow
     x Edit contact
+    - If mbr adds new contact, remove end_date
 Home.html
     x scroll to questions
     x highlight question section when button pressed
     x Reorder accordian so latest come to the top
     x change datetime to better format
+    - all member account btn
 Account.html
     x make sure update works
     x Change to show workplace if staff
@@ -212,14 +214,14 @@ Question_details.html
     - Show photo of RCN staff 
     x Reorder accordian so latest come to the top
     - If no contacts, add a generic message (Why is this not working?)
-    x add close case btn if case open
-    - add close case btn if case closed
+    x add close btn if case open
+    x add reopen btn if case closed
     - Upload file
 Staff_question_details.html
     - Changed time format to match other Pages
     x Change workplace to employer in member details
     x link up close question 
-    - Add edit contacts btn 
+    - Add edit contacts btn, only on contacts created by user
     - Add top/bottom margins to btns
     x Alter member question layout - form?
     - Fit form inputs within border

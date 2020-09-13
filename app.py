@@ -140,13 +140,14 @@ def new_contact(question_id):
     staff = users.find_one({'username': question['staff_id']})
     if request.method == 'POST':
         contact = {
-            'user_id': session['username'],
             'question_id': ObjectId(question_id),
             'contact_type': 'database',
             'date': datetime.datetime.utcnow().strftime('%d/%m/%y  %H:%M'),
             'summary': request.form.get('summary'),
             'from': request.form.get('from'),
-            'to': request.form.get('to')
+            'to': request.form.get('to'),
+            'recorded_by': session['username'],
+            'recorded_on': datetime.datetime.utcnow().strftime('%d/%m/%y  %H:%M')
         }
         contacts.insert_one(contact)
         if user['role'] == 'member':
