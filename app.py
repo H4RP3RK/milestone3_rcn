@@ -259,13 +259,6 @@ def unassigned_questions():
     return render_template('unassigned_questions.html', unassigned=unassigned, title='Unassigned Questions', staff_list=staff_list)
 
 
-@app.route('/assign_edit_question/<question_id>', methods=['GET', 'POST'])
-def assign_edit_question(question_id):
-    question = mongo.db.questions.find_one({'_id': ObjectId(question_id)})
-    staff = mongo.db.users.find({'role': 'staff'})
-    return render_template('assign_edit_question.html', title='Assign/Edit Question', question=question, staff=staff)
-
-
 @app.route('/staff_question_details/<question_id>', methods=['GET', 'POST'])
 def staff_question_details(question_id):
     contacts = mongo.db.contacts.find({'question_id': ObjectId(question_id)}).sort('date', -1)

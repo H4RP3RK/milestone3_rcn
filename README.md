@@ -222,7 +222,7 @@ Staff_question_details.html
     x Change workplace to employer in member details
     x link up close question 
     - Add edit contacts btn, only on contacts created by user
-    - Add top/bottom margins to btns
+    x Add top/bottom margins to btns
     x Alter member question layout - form?
     - Fit form inputs within border
 App.py 
