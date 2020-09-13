@@ -12,6 +12,10 @@
     <section class="container">
         <div class="border" id="members">
             <h4 class="heading font-heavy font-blue">All Members</h4>
+                <form class="form-inline">
+                    <input class="form-control mr-sm-2" type="member_name" id="member_name" name="member_name" placeholder="Search" aria-label="Search">
+                    <button class="btn blue-btn my-2 my-sm-0" onclick="search()" type="submit">Search</button>
+                </form>
             <div class="row">
                 <div class="col" id="accordion">
                 {% for member in members %}
