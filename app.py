@@ -145,30 +145,18 @@ def new_contact(question_id):
             'contact_type': 'database',
             'date': datetime.datetime.utcnow().strftime('%d/%m/%y  %H:%M'),
             'summary': request.form.get('summary'),
-            'from': f"{user['first_name']} {user['last_name']}",
+            'from': request.form.get('from'),
+            'to': request.form.get('to')
         }
         contacts.insert_one(contact)
         if user['role'] == 'member':
-            mongo.db.contacts.update( 
-                {'_id': contact['_id']}, 
-                { '$set': 
-                    {
-                        'to': f"{staff['first_name']} {staff['last_name']}",
-                    }
-                })
+            flash("Thanks for getting in touch. Your RCN Lead will be in touch shortly. Check your contacts below for updates", 'success')
         elif user['role'] == 'staff':
-            mongo.db.contacts.update( 
-                {'_id': contact['_id']}, 
-                { '$set': 
-                    {
-                        'to': f"{member['first_name']} {member['last_name']}",
-                    }
-                })
+            flash(f"Contact made. Check your contacts below for updates", 'success')
         else:
             flash("Problem with your account. Please contact IT", 'danger')           
-        flash("Thanks for getting in touch. Your RCN Lead will be in touch shortly. Check your contacts below for updates", 'success')
         return redirect(url_for('question_details', question_id=question['_id']))
-    return render_template('new_contact.html', title='Contact your RCN Lead', question=question)
+    return render_template('new_contact.html', title='Contact Form', question=question, user=user, member=member)
 
 
 @app.route('/edit_contact/<contact_id>', methods=['GET', 'POST'])
