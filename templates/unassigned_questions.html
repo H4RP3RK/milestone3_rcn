@@ -39,8 +39,7 @@
                                 <p>{{question.summary}}</p>
                             </div>
                         </div>
-                    </div>
-                    
+                    </div>                    
 <!--Modal - Assign Question-->
                     <div class="modal fade" id="{{question._id}}Modal" tabindex="-1" role="dialog" aria-labelledby="{{question._id}}ModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
@@ -48,7 +47,7 @@
                                 <div class="modal-header">
                                     <h5 class="modal-title font-heavy" id="{{question._id}}ModalLabel">Assign Question</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
+                                        <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
                                 <form action="" method="POST">  
@@ -60,7 +59,7 @@
                                                 <select class="form-control" name="staff_id" id="staff_id">
                                                     <option value="unassigned">unassigned</option>
                                                     {% for staff in staff_list %}
-                                                        <option value="{{staff.username}}">{{staff.username}}</option>
+                                                    <option value="{{staff.username}}">{{staff.username}}</option>
                                                     {% endfor %}
                                                 </select>
                                             </div>
@@ -73,7 +72,6 @@
                             </div>
                         </div>
                     </div>
-
                 {% endfor %}
                 </div>
             {% else %}

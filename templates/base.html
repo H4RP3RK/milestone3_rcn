@@ -47,7 +47,7 @@
         </div>
     </header>
     <main>
-    <!--banner-->
+<!--Banner-->
         <section class="container-fluid banner text-center background-blue font font-heavy">
         {% if title %}
             <h2>{{ title }}</h2>
@@ -55,28 +55,33 @@
             <h2>Member Query Database</h2>
         {% endif %}        
         </section>
-        
+<!--Flash messages-->        
         {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-                {% for category, message in messages %}
-                    <div class="text-center alert alert-{{ category }}">
-                        {{ message }}
-                    </div>
-                {% endfor %}
-            {% endif %}
+            
+        {% if messages %}
+            {% for category, message in messages %}
+            <div class="text-center alert alert-{{ category }}">
+                {{ message }}
+            </div>
+            {% endfor %}
+        {% endif %}
+
         {% endwith %}
+<!--Template Content-->        
         {% block content %}
         {% endblock %}
     </main>
+<!--Footer-->
     <footer class="container-fluid background-blue font font-heavy">
-<!--Sister Sites-->
         <div class="container">  
             <div class="row blue-link">
+    <!--Sister Sites-->
                 <div class="col-sm-6 d-flex justify-content-start">
                     <a href="https://www.rcn.org.uk/" target="_blank"><img class="footer-image" src="{{ url_for('static', filename='images/rcn.jpeg') }}" alt="RCN"></a>
                     <a href="https://journals.rcni.com/home" target="_blank"><img class="footer-image" src="{{ url_for('static', filename='images/rcni.jpeg') }}" alt="RCNi"></a>
                     <a href="https://my.rcn.org.uk/RCNXtra/login" target="_blank"><img class="footer-image" src="{{ url_for('static', filename='images/rcnxtra.jpeg') }}" alt="RCNXtra"></a>
                 </div>
+    <!--Social Media Links-->
                 <div class="col-sm-6 d-flex justify-content-end">
                     <a href="https://twitter.com/thercn" target="_blank"><i class="fab fa-twitter"></i></a>
                     <a href="https://www.facebook.com/royalcollegeofnursing" target="_blank"><i class="fab fa-facebook-f"></i></a>

@@ -3,108 +3,118 @@
 <!--Breacrumbs-->
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb font">
-            <li class="breadcrumb-item"><a href="{{ url_for('home', username=session['username']) }}">Your Home Page</a></li>
+            <li class="breadcrumb-item">
+                <a href="{{ url_for('home', username=session['username']) }}">Your Home Page</a>
+            </li>
             <li class="breadcrumb-item active" aria-current="page">Account Details</li>
         </ol>
     </nav>
-<!--Background Image-->
+    <!--Background Image-->
     <div class="main background-picture account-background">
         <section class="font main opaque-white">
-<!--Account Form-->
+    <!--Account Form-->
             <div class="container">
                 <div class="main row align-items-center justify-content-center">
                     <div class="col-lg-8 font-blue">
                         <form action="{{ url_for('account', username=session['username']) }}" method="POST">
+                            {{ form.hidden_tag() }}
                             <div class="form-group form-row justify-content-center">
                                 <h3 class="col-md-8 question heading font-heavy text-center">Are your details up to date?</h3>        
                             </div>
+    <!--Username input (readonly)-->                        
                             <div class="form-group form-row justify-content-center align-items-center">
                                     {{ form.username.label(class="col-sm-4 form-control-label") }}
                                 <div class="col-sm-4">
                                     {{ form.username(readonly=true, class="form-control-plaintext")}}  
                                 </div>
                             </div>
-                            {{ form.hidden_tag() }}
+    <!--Email input--> 
                             <div class="form-group form-row justify-content-center align-items-center">                                    
-                                    {{ form.email.label(class="col-sm-4 form-control-label") }}
-                                    {% if form.email.errors %}
-                                        {{ form.email(class="form-control is-invalid")}}
-                                        <div class="invalid-feedback">  
-                                            {% for error in form.email.errors %}
-                                                <span>{{ error }}</span>
-                                            {% endfor %}
-                                        </div>
-                                    {% else %}
-                                        <div class="col-sm-4">
-                                            {{ form.email(class="form-control")}}                                        
-                                        </div>
-                                    {% endif %}
+                                {{ form.email.label(class="col-sm-4 form-control-label") }}
+                                {% if form.email.errors %}
+                                {{ form.email(class="form-control is-invalid")}}
+                                <div class="invalid-feedback">  
+                                    {% for error in form.email.errors %}
+                                    <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                                {% else %}
+                                <div class="col-sm-4">
+                                    {{ form.email(class="form-control")}}                                        
+                                </div>
+                                {% endif %}
                             </div>
+    <!--Telephone input--> 
                             <div class="form-group form-row justify-content-center align-items-center">                                    
-                                    {{ form.telephone.label(class="col-sm-4 form-control-label") }}
-                                    {% if form.telephone.errors %}
-                                        {{ form.telephone(class="form-control is-invalid")}}
-                                        <div class="invalid-feedback">  
-                                            {% for error in form.telephone.errors %}
-                                                <span>{{ error }}</span>
-                                            {% endfor %}
-                                        </div>
-                                    {% else %}
-                                        <div class="col-sm-4">
-                                            {{ form.telephone(class="form-control")}}                                        
-                                        </div>
-                                    {% endif %}
+                                {{ form.telephone.label(class="col-sm-4 form-control-label") }}
+                                {% if form.telephone.errors %}
+                                {{ form.telephone(class="form-control is-invalid")}}
+                                <div class="invalid-feedback">  
+                                    {% for error in form.telephone.errors %}
+                                    <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                                {% else %}
+                                <div class="col-sm-4">
+                                    {{ form.telephone(class="form-control")}}                                        
+                                </div>
+                                {% endif %}
                             </div>
+    <!--If user role is member, show Employer input--> 
                             {% if role == "member" %}
                             <div class="form-group form-row justify-content-center align-items-center">                                    
-                                    {{ form.employer.label(class="col-sm-4 form-control-label") }}
-                                    {% if form.employer.errors %}
-                                        {{ form.employer(class="form-control is-invalid")}}
-                                        <div class="invalid-feedback">  
-                                            {% for error in form.employer.errors %}
-                                                <span>{{ error }}</span>
-                                            {% endfor %}
-                                        </div>
-                                    {% else %}
-                                        <div class="col-sm-4">
-                                            {{ form.employer(class="form-control")}}                                        
-                                        </div>
-                                    {% endif %}
+                                {{ form.employer.label(class="col-sm-4 form-control-label") }}
+                                {% if form.employer.errors %}
+                                {{ form.employer(class="form-control is-invalid")}}
+                                <div class="invalid-feedback">  
+                                    {% for error in form.employer.errors %}
+                                    <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                                {% else %}
+                                <div class="col-sm-4">
+                                    {{ form.employer(class="form-control")}}                                        
+                                </div>
+                                {% endif %}
                             </div>
+    <!--Else if role is staff, show Workplace input--> 
                             {% elif role == "staff" %}
                             <div class="form-group form-row justify-content-center align-items-center">                                    
-                                    {{ form.workplace.label(class="col-sm-4 form-control-label") }}
-                                    {% if form.workplace.errors %}
-                                        {{ form.workplace(class="form-control is-invalid")}}
-                                        <div class="invalid-feedback">  
-                                            {% for error in form.workplace.errors %}
-                                                <span>{{ error }}</span>
-                                            {% endfor %}
-                                        </div>
-                                    {% else %}
-                                        <div class="col-sm-4">
-                                            {{ form.workplace(class="form-control")}}                                        
-                                        </div>
-                                    {% endif %}
+                                {{ form.workplace.label(class="col-sm-4 form-control-label") }}
+                                {% if form.workplace.errors %}
+                                {{ form.workplace(class="form-control is-invalid")}}
+                                <div class="invalid-feedback">  
+                                    {% for error in form.workplace.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                                {% else %}
+                                <div class="col-sm-4">
+                                    {{ form.workplace(class="form-control")}}                                        
+                                </div>
+                                {% endif %}
                             </div>
+    <!--If user role is neither member or staff, show error message-->
                             {% else %}
                             <p>Account error, role unassigned. Please log out and back in again.</p>
                             {% endif %}
+    <!--Job Title input-->
                             <div class="form-group form-row justify-content-center align-items-center">                                    
-                                    {{ form.job_title.label(class="col-sm-4 form-control-label") }}
-                                    {% if form.job_title.errors %}
-                                        {{ form.job_title(class="form-control is-invalid")}}
-                                        <div class="invalid-feedback">  
-                                            {% for error in form.job_title.errors %}
-                                                <span>{{ error }}</span>
-                                            {% endfor %}
-                                        </div>
-                                    {% else %}
-                                        <div class="col-sm-4">
-                                            {{ form.job_title(class="form-control")}}                                        
-                                        </div>
-                                    {% endif %}
+                                {{ form.job_title.label(class="col-sm-4 form-control-label") }}
+                                {% if form.job_title.errors %}
+                                {{ form.job_title(class="form-control is-invalid")}}
+                                <div class="invalid-feedback">  
+                                    {% for error in form.job_title.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                                {% else %}
+                                <div class="col-sm-4">
+                                    {{ form.job_title(class="form-control")}}                                        
+                                </div>
+                                {% endif %}
                             </div>
+    <!--Update button-->
                             <div class="form-group form-row justify-content-center">
                                 <div class="form-group text-center">
                                     {{ form.update(class="blue-btn btn") }}
@@ -114,5 +124,7 @@
                     </div>    
                 </div>
             </div>
+        </section>
+    </div>
 {% endblock %}
 

@@ -31,7 +31,7 @@ def shared_login():
             user = users.find_one({'username': form.username.data})
             if user and bcrypt.check_password_hash(user['password'], form.password.data):
                 session['username'] = form.username.data
-                flash(f'Welcome {user["first_name"]}. You are logged in to your {user["role"]} account.', 'success')
+                flash(f'Welcome {user["first_name"].capitalize()}. You are logged in to your {user["role"].capitalize()} account.', 'success')
                 return redirect(url_for('home', username=session['username']))
             else:
                 flash('Email/password combination is not recognised', 'danger')
@@ -77,7 +77,7 @@ def register(role):
                 flash(f'{form.email.data} is already registered. You can login by clicking the link below', 'danger')
         else:
             flash('Error submitting form. Please refresh the page and try again.', 'danger')
-    return render_template('register.html', form=form, title=f'{role} Sign Up', role=role)
+    return render_template('register.html', form=form, title=f'{role.capitalize()} Sign Up', role=role)
 
 
 @app.route('/home/<username>')
@@ -90,7 +90,7 @@ def home(username):
                             questions=questions, 
                             assigned=assigned,
                             role=user['role'],
-                            title=f"{user['first_name']}'s {user['role']} Home Page")
+                            title=f"{user['first_name'].capitalize()}'s {user['role'].capitalize()} Home Page")
 
 
 # Took inspiration from Corey Schafer YouTube tutorials: https://www.youtube.com/watch?v=803Ei2Sq-Zs&t=134s
@@ -204,13 +204,6 @@ def log_out():
 
 
 #STAFF SIDE OF SITE
-
-
-@app.route('/staff_home/<username>')
-def staff_home(username):
-    staff = mongo.db.staff.find_one({'username': session['username']})
-    questions = mongo.db.questions.find({'staff_id': username})
-    return render_template('staff_home.html', username=session['username'], staff=staff, questions=questions, title='Staff Home Page')
 
 
 @app.route('/unassigned_questions', methods=['GET','POST'])
