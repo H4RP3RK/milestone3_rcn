@@ -23,7 +23,7 @@
                 <div class="main row align-items-center">
                     <div class="col">
 <!--Signup Form-->
-                        <form action="{{ url_for('register', role=role) }}" method="POST">  
+                        <form action="" method="POST">  
                             {{ form.hidden_tag() }}
                             <div class="form-row">
     <!--first name input-->
@@ -91,30 +91,30 @@
                                     {% if role == "member" %}
 
                                         {{ form.employer.label(class="form-control-label") }}
-                                        {% if form.employer.errors %}
-                                            {{ form.employer(class="form-control is-invalid")}}
-                                            <div class="invalid-feedback">  
-                                                {% for error in form.employer.errors %}
-                                                    <span>{{ error }}</span>
-                                                {% endfor %}
-                                            </div>
-                                        {% else %}
-                                            {{ form.employer(class="form-control")}}
-                                        {% endif %}
+                                    {% if form.employer.errors %}
+                                        {{ form.employer(class="form-control is-invalid")}}
+                                        <div class="invalid-feedback">  
+                                            {% for error in form.employer.errors %}
+                                                <span>{{ error }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                        {{ form.employer(class="form-control")}}
+                                    {% endif %}
         <!--Else, form has workplace input-->
                                     {% else %}
 
                                         {{ form.workplace.label(class="form-control-label") }}
-                                        {% if form.workplace.errors %}
+                                    {% if form.workplace.errors %}
                                             {{ form.workplace(class="form-control is-invalid")}}
                                             <div class="invalid-feedback">  
                                                 {% for error in form.workplace.errors %}
                                                     <span>{{ error }}</span>
                                                 {% endfor %}
                                             </div>
-                                        {% else %}
+                                    {% else %}
                                             {{ form.workplace(class="form-control")}}
-                                        {% endif %}
+                                    {% endif %}
 
                                     {% endif %}
                                 </div>
@@ -170,7 +170,7 @@
                         </form>
 <!--Login Link-->
                         <div>
-                            <p>Already have an account? <a href="{{ url_for('shared_login') }}">Login</a> </p> 
+                            <h5>Already have an account? <a href="{{ url_for('shared_login') }}">Login</a> </h5> 
                         </div>
                     </div>
                 </div>

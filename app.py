@@ -76,7 +76,7 @@ def register(role):
             else:
                 flash(f'{form.email.data} is already registered. You can login by clicking the link below', 'danger')
         else:
-            flash('Error submitting form. Please refresh the page and try again.', 'danger')
+            flash(f'Error submitting form: {form.errors} Please contact IT', 'danger')
     return render_template('register.html', form=form, title=f'{role.capitalize()} Sign Up', role=role)
 
 
