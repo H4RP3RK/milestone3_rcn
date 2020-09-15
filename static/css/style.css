@@ -76,6 +76,10 @@
     background-image: url("https://www.rcn.org.uk/magazines/-/media/royal-college-of-nursing/images/rcn-magazines/background-images/students/2017/november/behind-the-scenes.jpg?la=en")
 }
 
+.question-details-background {
+    background-image: url("https://rcnfoundation.rcn.org.uk/-/media/royal-college-of-nursing/images/celebrating-nursing-practice/istock-nurses-patients/nurse-with-folder-495697588.jpg")
+}
+
 .opaque-white {
     background-color: rgba(255, 255, 255, 0.75);
 }

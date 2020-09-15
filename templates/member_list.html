@@ -36,7 +36,7 @@
                                         <button class="btn blue-btn btn-link accordion-btn collapsed" data-toggle="collapse" data-target="#collapse{{member._id}}" aria-expanded="false" aria-controls="collapse{{member._id}}">
                                         <i class="fas fa-caret-square-down"></i>
                                         </button>
-                                        <a class="blue-btn btn accordion-btn" href="#"><i class="far fa-address-card"></i></a>
+                                        <a class="blue-btn btn accordion-btn" href="{{ url_for('member_details', member_id=member.username) }}"><i class="far fa-address-card"></i></a>
                                     </div>
                                 </div>
                             </div>

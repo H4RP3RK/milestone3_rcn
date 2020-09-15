@@ -322,6 +322,13 @@ def member_list():
     members = mongo.db.users.find({'role': 'member'})
     return render_template('member_list.html', members=members)
 
+@app.route('/member_details/<member_id>')
+def member_details(member_id):
+    member = mongo.db.users.find_one({'_id': ObjectId(member_id)})
+    questions = mongo.db.questions.find({'member_id': member['username']})
+    return render_template('member_details.html', title=f"{member['first_name']} {member['last_name']}'s Account Details - Staff View", member=member, questions=questions)
+
+
 # SHARED SITE
 
 

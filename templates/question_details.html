@@ -8,6 +8,8 @@
             <li class="breadcrumb-item active" aria-current="page">Question Details</li>
         </ol>
     </nav>
+<div class="main background-picture question-details-background">
+    <div class="font main opaque-white">    
         <div class="container">
             <div class="row">
                 <section class="col-md-6">
@@ -137,7 +139,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div id="collapse{{contact._id}}" class="collapse" aria-labelledby="heading{{contact._id}}" data-parent="#accordion">
+                            <div id="collapse{{contact._id}}" class="collapse" aria-labelledby="heading{{contact._id}}" data-parent="#accordion{{contact._id}}">
                                 <div class="card-body">
                                     <h5 class="font-heavy font-blue">{{contact.contact_type}} contact</h5>
                                     {{contact.summary}}
@@ -155,4 +157,5 @@
             </div>
         </section> 
     </div>
+</div>
 {% endblock %}
