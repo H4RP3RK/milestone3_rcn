@@ -1,5 +1,14 @@
 {% extends 'base.html' %}
 {% block content %}
+<!--Breacrumbs-->
+<!--Breacrumbs-->
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ url_for('home', username=session['username']) }}">Your Home Page</a></li>
+            <li class="breadcrumb-item"><a href="{{ url_for('member_list') }}">Member List</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Member Details</li>
+        </ol>
+    </nav>
 <div class="main font background-picture home-background">
     <div class="font main opaque-white">
         <div class="container">
@@ -71,7 +80,7 @@
                                         <button class="btn blue-btn btn-link accordion-btn collapsed" data-toggle="collapse" data-target="#collapse{{question._id}}" aria-expanded="false" aria-controls="collapse{{question._id}}">
                                         Summary
                                         </button>
-                                        <a class="blue-btn btn accordion-btn" href="{{ url_for('question_details', question_id=question._id) }}">Full details</a>
+                                        <a class="blue-btn btn accordion-btn" href="{{ url_for('staff_question_details', question_id=question._id) }}">Full details</a>
                                     </div>
                                 </div>
                             </div>

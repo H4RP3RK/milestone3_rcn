@@ -173,6 +173,7 @@ x Combine different methods to one, particularly Login
 
 Base.html
     x restyle navbar dropdown
+    - Change dropdown options for staff
 Welcome.html
     x If session exists, take to member_home rather than log_in
 Login.html
@@ -194,7 +195,7 @@ Home.html
     x highlight question section when button pressed
     x Reorder accordian so latest come to the top
     x change datetime to better format
-    - all member account btn
+    x all member account btn
 Account.html
     x make sure update works
     x Change to show workplace if staff
@@ -212,6 +213,7 @@ Question_details.html
     x If RCN staff unassigned, add a message with general contact details
     x Show details of RCN staff dealing with query
     - Show photo of RCN staff 
+    - Add edit contacts btn, only on contacts created by user
     x Reorder accordian so latest come to the top
     - If no contacts, add a generic message (Why is this not working?)
     x add close btn if case open
@@ -221,10 +223,13 @@ Staff_question_details.html
     - Changed time format to match other Pages
     x Change workplace to employer in member details
     x link up close question 
-    - Add edit contacts btn, only on contacts created by user
+    x Add edit contacts btn, only on contacts created by user
     x Add top/bottom margins to btns
     x Alter member question layout - form?
     - Fit form inputs within border
+    - Change accordion forms to font awesome to match member_list page
+Member_list.html
+    - Add JS to filter different queries and/or search
 App.py 
     x set up environ to protect password before pushing
     - Can the members.queries.find_one be simplified so it's not duplicated
