@@ -8,46 +8,48 @@
         </ol>
     </nav>
 <!--Unassigned cases accordion-->
-<div class="main">
-    <section class="container">
-        <div class="border" id="members">
-            <div class="row align-items-center">
-                <div class="col-sm-6">
-                    <h4 class="heading font-heavy font-blue">All Members</h4>                
+<div class="main background-picture member-list-background">
+    <div class="main opaque-white">
+        <section class="container">
+            <div class="border" id="members">
+                <div class="row align-items-center">
+                    <div class="col-sm-6">
+                        <h4 class="heading font-heavy font-blue">All Members</h4>                
+                    </div>
+                    <form class="col-sm-6 ">
+                        <input class="form-control mr-sm-2" type="member_name" id="member_name" onkeyup="search();" name="member_name" placeholder="Search by member name or job title" aria-label="Search">
+                    </form>        
                 </div>
-                <form class="col-sm-6 ">
-                    <input class="form-control mr-sm-2" type="member_name" id="member_name" onkeyup="search();" name="member_name" placeholder="Search by member name or job title" aria-label="Search">
-                </form>        
-            </div>
-            <div class="row">
-                <div class="col" id="accordion">
-                {% for member in members %}
-                    <div id="{{member._id}}" class="card member">
-                        <div class="card-header name" id="heading{{member._id}}">
-                            <div class="mb-0 row align-items-center">
-                                <div class="col-sm-5" id="{{member.first_name}}{{member.last_name}}">
-                                    <h5 class="font-blue">{{member.first_name}} {{member.last_name}}</h5>
-                                </div>
-                                <div class="col-sm-4">
-                                    <span class="job_title">{{member.job_title}}</span>
-                                </div>
-                                <div class="col-sm-3">
-                                    <button class="btn blue-btn btn-link accordion-btn collapsed" data-toggle="collapse" data-target="#collapse{{member._id}}" aria-expanded="false" aria-controls="collapse{{member._id}}">
-                                    <i class="fas fa-caret-square-down"></i>
-                                    </button>
-                                    <a class="blue-btn btn accordion-btn" href="#"><i class="far fa-address-card"></i></a>
+                <div class="row">
+                    <div class="col" id="accordion">
+                    {% for member in members %}
+                        <div id="{{member._id}}" class="card member">
+                            <div class="card-header name" id="heading{{member._id}}">
+                                <div class="mb-0 row align-items-center">
+                                    <div class="col-sm-5" id="{{member.first_name}}{{member.last_name}}">
+                                        <h5 class="font-blue">{{member.first_name}} {{member.last_name}}</h5>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <span class="job_title">{{member.job_title}}</span>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <button class="btn blue-btn btn-link accordion-btn collapsed" data-toggle="collapse" data-target="#collapse{{member._id}}" aria-expanded="false" aria-controls="collapse{{member._id}}">
+                                        <i class="fas fa-caret-square-down"></i>
+                                        </button>
+                                        <a class="blue-btn btn accordion-btn" href="#"><i class="far fa-address-card"></i></a>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div id="collapse{{member._id}}" class="collapse" aria-labelledby="heading{{member._id}}" data-parent="#accordion">
-                            <div class="card-body">
+                            <div id="collapse{{member._id}}" class="collapse" aria-labelledby="heading{{member._id}}" data-parent="#accordion">
+                                <div class="card-body">
+                                </div>
                             </div>
-                        </div>
-                    </div>                    
-                {% endfor %}
+                        </div>                    
+                    {% endfor %}
+                    </div>
                 </div>
             </div>
-        </div>
-    </section> 
+        </section> 
+    </div>
 </div>
 {% endblock %}

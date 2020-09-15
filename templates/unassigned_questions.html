@@ -8,78 +8,82 @@
         </ol>
     </nav>
 <!--Unassigned cases accordian-->
-    <section class="container">
-        <div class="border" id="questions">
-            <h4 class="heading font-heavy font-blue">All Unassigned Questions</h4>
-            <div class="row">
-            {% if unassigned %}
-                <div class="col" id="accordion">
-                {% for question in unassigned %}
-                    <div class="card">
-                        <div class="card-header" id="heading{{question._id}}">
-                            <div class="mb-0 row align-items-center">
-                                <div class="col-sm-4">
-                                    <h5 class="font-heavy font-blue">{{question.question_type}}</h5>
+    <div class="main background-picture unassigned-background">
+        <div class="main opaque-white">
+            <section class="container">
+                <div class="border" id="questions">
+                    <h4 class="heading font-heavy font-blue">All Unassigned Questions</h4>
+                    <div class="row">
+                    {% if unassigned %}
+                        <div class="col" id="accordion">
+                        {% for question in unassigned %}
+                            <div class="card">
+                                <div class="card-header" id="heading{{question._id}}">
+                                    <div class="mb-0 row align-items-center">
+                                        <div class="col-sm-4">
+                                            <h5 class="font-heavy font-blue">{{question.question_type}}</h5>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <span>{{question.start_date}}</span>
+                                        </div>
+                                        <div class="col-sm-5">
+                                            <button class="btn blue-btn btn-link accordian-btn collapsed" data-toggle="collapse" data-target="#collapse{{question._id}}" aria-expanded="false" aria-controls="collapse{{question._id}}">
+                                            Summary
+                                            </button>
+                                            <a class="blue-btn btn accordian-btn" href="{{ url_for('staff_question_details', question_id=question._id) }}">Full details</a>
+                                            <button type="button" class="btn blue-btn" data-toggle="modal" data-target="#{{question._id}}Modal">Assign Question</button>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="col-sm-3">
-                                    <span>{{question.start_date}}</span>
+                                <div id="collapse{{question._id}}" class="collapse" aria-labelledby="heading{{question._id}}" data-parent="#accordion">
+                                    <div class="card-body">
+                                        <h6>Member: {{question.member_id}}</h6>
+                                        <p>{{question.summary}}</p>
+                                    </div>
                                 </div>
-                                <div class="col-sm-5">
-                                    <button class="btn blue-btn btn-link accordian-btn collapsed" data-toggle="collapse" data-target="#collapse{{question._id}}" aria-expanded="false" aria-controls="collapse{{question._id}}">
-                                    Summary
-                                    </button>
-                                    <a class="blue-btn btn accordian-btn" href="{{ url_for('staff_question_details', question_id=question._id) }}">Full details</a>
-                                    <button type="button" class="btn blue-btn" data-toggle="modal" data-target="#{{question._id}}Modal">Assign Question</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="collapse{{question._id}}" class="collapse" aria-labelledby="heading{{question._id}}" data-parent="#accordion">
-                            <div class="card-body">
-                                <h6>Member: {{question.member_id}}</h6>
-                                <p>{{question.summary}}</p>
-                            </div>
-                        </div>
-                    </div>                    
-<!--Modal - Assign Question-->
-                    <div class="modal fade" id="{{question._id}}Modal" tabindex="-1" role="dialog" aria-labelledby="{{question._id}}ModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content font font-blue">
-                                <div class="modal-header">
-                                    <h5 class="modal-title font-heavy" id="{{question._id}}ModalLabel">Assign Question</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <form action="" method="POST">  
-                                    <input type="hidden" id="question_id" name="question_id" value="{{question._id}}">
-                                    <div class="modal-body">
-                                        <div class="form-group form-row justify-content-center">
-                                            <label for="staff_id" class="col-4 col-form-label">RCN Lead: </label>
-                                            <div class="col-8">
-                                                <select class="form-control" name="staff_id" id="staff_id">
-                                                    <option value="unassigned">unassigned</option>
-                                                    {% for staff in staff_list %}
-                                                    <option value="{{staff.username}}">{{staff.username}}</option>
-                                                    {% endfor %}
-                                                </select>
+                            </div>                    
+        <!--Modal - Assign Question-->
+                            <div class="modal fade" id="{{question._id}}Modal" tabindex="-1" role="dialog" aria-labelledby="{{question._id}}ModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content font font-blue">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title font-heavy" id="{{question._id}}ModalLabel">Assign Question</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <form action="" method="POST">  
+                                            <input type="hidden" id="question_id" name="question_id" value="{{question._id}}">
+                                            <div class="modal-body">
+                                                <div class="form-group form-row justify-content-center">
+                                                    <label for="staff_id" class="col-4 col-form-label">RCN Lead: </label>
+                                                    <div class="col-8">
+                                                        <select class="form-control" name="staff_id" id="staff_id">
+                                                            <option value="unassigned">unassigned</option>
+                                                            {% for staff in staff_list %}
+                                                            <option value="{{staff.username}}">{{staff.username}}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>
+                                                </div> 
                                             </div>
-                                        </div> 
+                                            <div class="modal-footer">
+                                                <button type="submit" class="btn blue-btn">Assign</button>
+                                            </div>
+                                        </form>
                                     </div>
-                                    <div class="modal-footer">
-                                        <button type="submit" class="btn blue-btn">Assign</button>
-                                    </div>
-                                </form>
+                                </div>
                             </div>
+                        {% endfor %}
                         </div>
+                    {% else %}
+                        <div class="col">
+                            <p>There are no unassigned questions. Work's over, you can go home :)</p>
+                        </div>
+                    {% endif %}
                     </div>
-                {% endfor %}
                 </div>
-            {% else %}
-                <div class="col">
-                    <p>There are no unassigned questions. Work's over, you can go home :)</p>
-                </div>
-            {% endif %}
-            </div>
+            </section> 
         </div>
-    </section> 
+    </div>
 {% endblock %}
