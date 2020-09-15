@@ -72,6 +72,10 @@
     background-image: url("https://www.rcn.org.uk/magazines/-/media/royal-college-of-nursing/images/rcn-magazines/background-images/activate/2018/january/library-shelves.jpg?la=en")
 }
 
+.home-background {
+    background-image: url("https://www.rcn.org.uk/magazines/-/media/royal-college-of-nursing/images/rcn-magazines/background-images/students/2017/november/behind-the-scenes.jpg?la=en")
+}
+
 .opaque-white {
     background-color: rgba(255, 255, 255, 0.75);
 }

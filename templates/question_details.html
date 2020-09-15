@@ -10,16 +10,6 @@
     </nav>
         <div class="container">
             <div class="row">
-<!--Question-->        
-                <section class="col-md-6">
-                    <div class="border row">
-                        <div class="col font font-blue">
-                            <h4 class="heading font-heavy font-blue padding-bottom">{{question.question_type}} question</h4>
-                            <p>{{question.start_date}}</p>
-                            <h5>{{question.summary}}</h5>
-                        </div>
-                    </div>
-                </section>  
                 <section class="col-md-6">
                     <div class="border">
 <!--RCN Lead Details-->
@@ -80,6 +70,38 @@
                             <h6><a class="blue-btn btn background-blue" href="{{ url_for('new_contact', question_id=question._id) }}" role="button">Contact your RCN Lead</a></h6>                         
                         </div>
                     </div>                   
+                </section>  
+<!--Question Details-->        
+                <section class="col-md-6">
+                    <div class="border">
+                        <h4 class="heading font-heavy font-blue">Question Details</h4>
+                        <form>
+                            <div class="form-group form-row justify-content-center">
+                                <label for="question_type" class="col-4 col-form-label">Question Type: </label>
+                                <div class="col-8">
+                                    <input type="text" readonly class="form-control-plaintext" id="question_type" name="question_type" value="{{ question.question_type.capitalize() }}">
+                                </div>
+                            </div>
+                            <div class="form-group form-row justify-content-center">
+                                <label for="start_date" class="col-4 col-form-label">Start Date: </label>
+                                <div class="col-8">
+                                    <input type="text" readonly class="form-control-plaintext" id="start_date" name="start_date" value="{{ question.start_date }}">
+                                </div>
+                            </div>
+                            <div class="form-group form-row justify-content-center">
+                                <label for="end_date" class="col-4 col-form-label">End Date: </label>
+                                <div class="col-8">
+                                    <input type="text" class="form-control-plaintext" id="end_date" name="end_date" value="{{ question.end_date }}">
+                                </div>
+                            </div>
+                            <div class="form-group form-row justify-content-center">
+                                <label for="summary" class="col-4 col-form-label">Summary: </label>
+                                <div class="col-8">
+                                    <input type="text" readonly class="form-control-plaintext" id="summary" name="summary" value="{{ question.summary }}">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </section>            
             </div>      
         </div>
@@ -108,10 +130,10 @@
                                         To: {{contact.to}}
                                     </div>
                                     <div class="col-sm-3">
-                                        <button class="btn blue-btn btn-link accordian-btn collapsed" data-toggle="collapse" data-target="#collapse{{contact._id}}" aria-expanded="false" aria-controls="collapse{{contact._id}}">
+                                        <button class="btn blue-btn btn-link accordion-btn collapsed" data-toggle="collapse" data-target="#collapse{{contact._id}}" aria-expanded="false" aria-controls="collapse{{contact._id}}">
                                         Details
                                         </button>
-                                        <a class="blue-btn btn background-blue" href="{{ url_for('edit_contact', contact_id=contact._id) }}" role="button">Edit</a>
+                                        <a class="blue-btn btn background-blue" href="{{ url_for('edit_contact', contact_id=contact._id) }}" role="button"><i class="fas fa-edit"></i></a>
                                     </div>
                                 </div>
                             </div>

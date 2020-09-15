@@ -1,159 +1,161 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="main font">
-    <div class="container">
-        <div class="row">
-<!--Task options-->
-            <section class="col-md-6">
-                <div class="border">
-                    <h4 class="heading font-heavy font-blue">What would you like to do?</h4>
-                    <h5><a class="blue-btn btn background-blue" href="{{ url_for('account', username=session['username']) }}" role="button">Update your account details</a></h5>
-<!--If user role is mbr, shows member btns-->                
-                    {% if role == "member" %}
-                    <h5><a class="blue-btn btn background-blue" href="{{ url_for('new_question') }}" role="button">Ask a new question</a></h5>
-                    <h5><button class="blue-btn btn background-blue" onclick="scrollQuestions()" role="button">See your current/old questions</button></h5>
-                    {% elif role == "staff" %}
-                    <h5><button class="blue-btn btn background-blue" onclick="scrollQuestions()" role="button">See your assigned questions</button></h5>
-                    <h5><a class="blue-btn btn background-blue" href="{{ url_for('unassigned_questions') }}" role="button">Browse all unassigned cases</a></h5>
-                    <h5><a class="blue-btn btn background-blue" href="{{ url_for('member_list') }}" role="button">See all member accounts</a></h5>
-                    {% else %}
-                    <p>Problem with your account. Please contact IT</p>
-                    {% endif %}
-                </div>
-            </section>  
-<!--Account Details--> 
-            <section class="col-md-6 blue-link">
-                <div class="border">
-                    <h4 class="heading font-heavy font-blue">Your Account Details</h4>
-                    <form>
-                        <div class="form-group form-row justify-content-center">
-                            <label for="name" class="col-4 col-form-label">Name: </label>
-                            <div class="col-8">
-                                <input type="text" readonly class="form-control-plaintext" id="name" name="name" value="{{ member.first_name}} {{ member.last_name }}">
-                            </div>
-                        </div>
-                        <div class="form-group form-row justify-content-center">
-                            <label for="username" class="col-4 col-form-label">Username: </label>
-                            <div class="col-8">
-                                <input type="text" readonly class="form-control-plaintext" id="username" name="username" value="{{ member.username }}">
-                            </div>
-                        </div>
-                        <div class="form-group form-row justify-content-center">
-                            <label for="email" class="col-4 col-form-label">Email: </label>
-                            <div class="col-8">
-                                <input type="text" readonly class="form-control-plaintext" id="email" name="email" value="{{ member.email }}">
-                            </div>
-                        </div>
-                        <div class="form-group form-row justify-content-center">
-                            <label for="telephone" class="col-4 col-form-label">Telephone: </label>
-                            <div class="col-8">
-                                <input type="text" class="form-control-plaintext" id="telephone" name="telephone" value="{{ member.telephone }}">
-                            </div>
-                        </div>
-                        <div class="form-group form-row justify-content-center">
+<div class="main font background-picture home-background">
+    <div class="font main opaque-white">
+        <div class="container">
+            <div class="row">
+    <!--Task options-->
+                <section class="col-md-6">
+                    <div class="border">
+                        <h4 class="heading font-heavy font-blue">What would you like to do?</h4>
+                        <h5><a class="blue-btn btn background-blue" href="{{ url_for('account', username=session['username']) }}" role="button">Update your account details</a></h5>
+    <!--If user role is mbr, shows member btns-->                
                         {% if role == "member" %}
-                            <label for="employer" class="col-4 col-form-label">Employer: </label>
-                            <div class="col-8">
-                                <input type="text" readonly class="form-control-plaintext" id="employer" name="employer" value="{{ member.employer }}">
-                            </div>
+                        <h5><a class="blue-btn btn background-blue" href="{{ url_for('new_question') }}" role="button">Ask a new question</a></h5>
+                        <h5><button class="blue-btn btn background-blue" onclick="scrollQuestions()" role="button">See your current/old questions</button></h5>
+                        {% elif role == "staff" %}
+                        <h5><button class="blue-btn btn background-blue" onclick="scrollQuestions()" role="button">See your assigned questions</button></h5>
+                        <h5><a class="blue-btn btn background-blue" href="{{ url_for('unassigned_questions') }}" role="button">Browse all unassigned cases</a></h5>
+                        <h5><a class="blue-btn btn background-blue" href="{{ url_for('member_list') }}" role="button">See all member accounts</a></h5>
                         {% else %}
-                            <label for="workplace" class="col-4 col-form-label">Workplace: </label>
-                            <div class="col-8">
-                                <input type="text" readonly class="form-control-plaintext" id="workplace" name="workplace" value="{{ member.workplace }}">
-                            </div>                                
+                        <p>Problem with your account. Please contact IT</p>
                         {% endif %}
-                        </div>
-                        <div class="form-group form-row justify-content-center">
-                            <label for="job_title" class="col-4 col-form-label">Job Title: </label>
-                            <div class="col-8">
-                                <input type="text" readonly class="form-control-plaintext" id="job_title" name="job_title" value="{{ member.job_title }}">
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </section>           
-        </div>      
-    </div>
-<!--Member Questions-->
-    <section class="container">
-        <div class="border" id="questions">
-        {% if role == "member" %}
-            <h4 class="heading font-heavy font-blue">Your Questions</h4>
-            <div class="row">
-            {% if questions %}
-                <div class="col" id="accordion">
-                {% for question in questions %}
-                    <div class="card">
-                        <div class="card-header" id="heading{{question._id}}">
-                            <div class="mb-0 row align-items-center">
-                                <div class="col-sm-4">
-                                    <h5 class="font-heavy font-blue">{{question.question_type}}</h5>
-                                </div>
-                                <div class="col-sm-4">
-                                    <span>{{question.start_date}}</span>
-                                </div>
-                                <div class="col-sm-4">
-                                    <button class="btn blue-btn btn-link accordian-btn collapsed" data-toggle="collapse" data-target="#collapse{{question._id}}" aria-expanded="false" aria-controls="collapse{{question._id}}">
-                                    Summary
-                                    </button>
-                                    <a class="blue-btn btn accordian-btn" href="{{ url_for('question_details', question_id=question._id) }}">Full details</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="collapse{{question._id}}" class="collapse" aria-labelledby="heading{{question._id}}" data-parent="#accordion">
-                            <div class="card-body">
-                                {{question.summary}}
-                            </div>
-                        </div>
                     </div>
-                {% endfor %}
-                </div>
-            {% else %}
-                <div class="col">
-                    <p>You haven't asked any questions yet. When you do, they will appear here.</p>
-                </div>
-            {% endif %}
-        {% elif role == "staff" %}
-            <h4 class="heading font-heavy font-blue">Your Assigned Cases</h4>
-            <div class="row">
-            {% if assigned %}
-                <div class="col" id="accordion">
-                {% for assigned in assigned %}
-                    <div class="card">
-                        <div class="card-header" id="heading{{assigned._id}}">
-                            <div class="mb-0 row align-items-center">
-                                <div class="col-sm-4">
-                                    <h5 class="font-heavy font-blue">{{assigned.question_type}}</h5>
-                                </div>
-                                <div class="col-sm-4">
-                                    <span>{{assigned.start_date}}</span>
-                                </div>
-                                <div class="col-sm-4">
-                                    <button class="btn blue-btn btn-link accordian-btn collapsed" data-toggle="collapse" data-target="#collapse{{assigned._id}}" aria-expanded="false" aria-controls="collapse{{assigned._id}}">
-                                    Summary
-                                    </button>
-                                    <a class="blue-btn btn accordian-btn" href="{{ url_for('staff_question_details', question_id=assigned._id) }}">Full case</a>
+                </section>  
+    <!--Account Details--> 
+                <section class="col-md-6 blue-link">
+                    <div class="border">
+                        <h4 class="heading font-heavy font-blue">Your Account Details</h4>
+                        <form>
+                            <div class="form-group form-row justify-content-center">
+                                <label for="name" class="col-4 col-form-label">Name: </label>
+                                <div class="col-8">
+                                    <input type="text" readonly class="form-control-plaintext" id="name" name="name" value="{{ member.first_name}} {{ member.last_name }}">
                                 </div>
                             </div>
-                        </div>
-                        <div id="collapse{{assigned._id}}" class="collapse" aria-labelledby="heading{{assigned._id}}" data-parent="#accordion">
-                            <div class="card-body">
-                                {{assigned.summary}}
+                            <div class="form-group form-row justify-content-center">
+                                <label for="username" class="col-4 col-form-label">Username: </label>
+                                <div class="col-8">
+                                    <input type="text" readonly class="form-control-plaintext" id="username" name="username" value="{{ member.username }}">
+                                </div>
                             </div>
-                        </div>
+                            <div class="form-group form-row justify-content-center">
+                                <label for="email" class="col-4 col-form-label">Email: </label>
+                                <div class="col-8">
+                                    <input type="text" readonly class="form-control-plaintext" id="email" name="email" value="{{ member.email }}">
+                                </div>
+                            </div>
+                            <div class="form-group form-row justify-content-center">
+                                <label for="telephone" class="col-4 col-form-label">Telephone: </label>
+                                <div class="col-8">
+                                    <input type="text" class="form-control-plaintext" id="telephone" name="telephone" value="{{ member.telephone }}">
+                                </div>
+                            </div>
+                            <div class="form-group form-row justify-content-center">
+                            {% if role == "member" %}
+                                <label for="employer" class="col-4 col-form-label">Employer: </label>
+                                <div class="col-8">
+                                    <input type="text" readonly class="form-control-plaintext" id="employer" name="employer" value="{{ member.employer }}">
+                                </div>
+                            {% else %}
+                                <label for="workplace" class="col-4 col-form-label">Workplace: </label>
+                                <div class="col-8">
+                                    <input type="text" readonly class="form-control-plaintext" id="workplace" name="workplace" value="{{ member.workplace }}">
+                                </div>                                
+                            {% endif %}
+                            </div>
+                            <div class="form-group form-row justify-content-center">
+                                <label for="job_title" class="col-4 col-form-label">Job Title: </label>
+                                <div class="col-8">
+                                    <input type="text" readonly class="form-control-plaintext" id="job_title" name="job_title" value="{{ member.job_title }}">
+                                </div>
+                            </div>
+                        </form>
                     </div>
-                {% endfor %}
-                </div>
-            {% else %}
-                <div class="col">
-                    <p>You don't have any assigned cases. When you do, they will appear here.</p>
-                </div>
-            {% endif %}
-        {% else %}
-            <p>Error with account, please contact IT</p>
-        {% endif %}
-            </div>
+                </section>           
+            </div>      
         </div>
-    </section> 
-</div>
+    <!--Member Questions-->
+        <section class="container">
+            <div class="border" id="questions">
+            {% if role == "member" %}
+                <h4 class="heading font-heavy font-blue">Your Questions</h4>
+                <div class="row">
+                {% if questions %}
+                    <div class="col" id="accordion">
+                    {% for question in questions %}
+                        <div class="card">
+                            <div class="card-header" id="heading{{question._id}}">
+                                <div class="mb-0 row align-items-center">
+                                    <div class="col-sm-4">
+                                        <h5 class="font-heavy font-blue">{{question.question_type}}</h5>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <span>{{question.start_date}}</span>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <button class="btn blue-btn btn-link accordian-btn collapsed" data-toggle="collapse" data-target="#collapse{{question._id}}" aria-expanded="false" aria-controls="collapse{{question._id}}">
+                                        Summary
+                                        </button>
+                                        <a class="blue-btn btn accordian-btn" href="{{ url_for('question_details', question_id=question._id) }}">Full details</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="collapse{{question._id}}" class="collapse" aria-labelledby="heading{{question._id}}" data-parent="#accordion">
+                                <div class="card-body">
+                                    {{question.summary}}
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="col">
+                        <p>You haven't asked any questions yet. When you do, they will appear here.</p>
+                    </div>
+                {% endif %}
+            {% elif role == "staff" %}
+                <h4 class="heading font-heavy font-blue">Your Assigned Cases</h4>
+                <div class="row">
+                {% if assigned %}
+                    <div class="col" id="accordion">
+                    {% for assigned in assigned %}
+                        <div class="card">
+                            <div class="card-header" id="heading{{assigned._id}}">
+                                <div class="mb-0 row align-items-center">
+                                    <div class="col-sm-4">
+                                        <h5 class="font-heavy font-blue">{{assigned.question_type}}</h5>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <span>{{assigned.start_date}}</span>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <button class="btn blue-btn btn-link accordian-btn collapsed" data-toggle="collapse" data-target="#collapse{{assigned._id}}" aria-expanded="false" aria-controls="collapse{{assigned._id}}">
+                                        Summary
+                                        </button>
+                                        <a class="blue-btn btn accordian-btn" href="{{ url_for('staff_question_details', question_id=assigned._id) }}">Full case</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="collapse{{assigned._id}}" class="collapse" aria-labelledby="heading{{assigned._id}}" data-parent="#accordion">
+                                <div class="card-body">
+                                    {{assigned.summary}}
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="col">
+                        <p>You don't have any assigned cases. When you do, they will appear here.</p>
+                    </div>
+                {% endif %}
+            {% else %}
+                <p>Error with account, please contact IT</p>
+            {% endif %}
+                </div>
+            </div>
+        </section> 
+    </div>
+</div>  
 {% endblock %}

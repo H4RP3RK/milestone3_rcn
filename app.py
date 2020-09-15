@@ -71,7 +71,7 @@ def register(role):
                     users.update_one({'_id': new_user['_id']}, 
                                     {"$set": {'workplace': form.workplace.data}})
                 session['username'] = form.email.data
-                flash(f'{role} account created for {form.first_name.data}', 'success')
+                flash(f'{role.capitalize()} account created for {form.first_name.data}', 'success')
                 return redirect(url_for('home', username=session['username']))
             else:
                 flash(f'{form.email.data} is already registered. You can login by clicking the link below', 'danger')
@@ -202,7 +202,7 @@ def question_details(question_id):
     contacts = mongo.db.contacts.find({'question_id': ObjectId(question_id)}).sort('date', -1)
     question = mongo.db.questions.find_one({'_id': ObjectId(question_id)})
     staff = mongo.db.users.find_one({'username': question['staff_id']})
-    return render_template('question_details.html', contacts=contacts, question=question, staff=staff)
+    return render_template('question_details.html', contacts=contacts, question=question, staff=staff, title="Question Details - Member View")
 
 
 @app.route('/close_question/<question_id>', methods=['GET', 'POST'])
