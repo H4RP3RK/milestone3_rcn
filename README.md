@@ -190,7 +190,7 @@ New_contact.html
     x How do I timestamp contact? - default=datetime.utcnow
     x Edit contact
     - If mbr adds new contact, remove end_date
-    - If staff, redirect to staff question view
+    x If staff, redirect to staff question view
 Home.html
     x scroll to questions
     x highlight question section when button pressed

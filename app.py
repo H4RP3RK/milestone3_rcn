@@ -151,6 +151,13 @@ def new_contact(question_id):
         }
         contacts.insert_one(contact)
         if user['role'] == 'member':
+            mongo.db.questions.update(
+                {'_id': ObjectId(question_id)},
+                {'$unset': 
+                    {
+                        'end_date': ''
+                    }
+                })
             flash("Thanks for getting in touch. Your RCN Lead will be in touch shortly. Check your contacts below for updates", 'success')
             return redirect(url_for('question_details', question_id=question['_id']))
         elif user['role'] == 'staff':
