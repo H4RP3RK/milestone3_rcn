@@ -233,7 +233,7 @@ Staff_question_details.html
     x Alter member question layout - form?
     - Fit form inputs within border
     - Change accordion forms to font awesome to match member_list page
-    - Open two accordions at one time
+    x Open two accordions at one time
 Member_list.html
     x Add JS to filter different queries and/or search
 App.py 

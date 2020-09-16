@@ -30,4 +30,4 @@ class accountForm(FlaskForm):
     employer = StringField('Employer')
     workplace = SelectField('Workplace', choices=[('Belfast', 'Belfast'), ('Cardiff', 'Cardiff'), ('Edinburgh', 'Edinburgh'), ('Glasgow', 'Glasgow'), ('London', 'London'), ('West Midlands', 'West Midlands'), ('Yorkshire', 'Yorkshire')])
     job_title = StringField('Job Title')
-    update = SubmitField('Update')
+    update = SubmitField('Update') 

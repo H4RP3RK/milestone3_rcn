@@ -59,7 +59,7 @@
                             <div class="form-group form-row justify-content-center">
                                 <label for="summary" class="col-4 col-form-label">Summary: </label>
                                 <div class="col-8">
-                                    <input type="text" readonly class="form-control-plaintext" id="summary" name="summary" value="{{ question.summary }}">
+                                    <textarea type="text" readonly class="form-control-plaintext" id="summary" name="summary" rows="3">{{ question.summary }}</textarea>
                                 </div>
                             </div>
                         </form>
@@ -143,7 +143,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div id="collapse{{contact._id}}" class="collapse" aria-labelledby="heading{{contact._id}}" data-parent="#accordion">
+                            <div id="collapse{{contact._id}}" class="collapse" aria-labelledby="heading{{contact._id}}" data-parent="#accordion{{contact._id}}">
                                 <div class="card-body">
                                     <h5 class="font-heavy font-blue">{{contact.contact_type}} contact</h5>
                                     {{contact.summary}}
