@@ -83,12 +83,16 @@ def register(role):
 @app.route('/home/<username>')
 def home(username):
     user = mongo.db.users.find_one({'username': username})
-    questions = mongo.db.questions.find({'member_id': username}).sort('start_date', -1)
+    questions = mongo.db.questions.find({'$and': [{'member_id': username}, {'end_date': {'$exists': False}}]}).sort('start_date', -1)
+    closed_questions = mongo.db.questions.find({'$and': [{'member_id': username}, {'end_date': {'$exists': True}}]}).sort('start_date', -1)
     assigned = mongo.db.questions.find({'$and': [{'staff_id': username}, {'end_date': {'$exists': False}}]}).sort('start_date', -1)
+    closed_assigned = mongo.db.questions.find({'$and': [{'staff_id': username}, {'end_date': {'$exists': True}}]}).sort('start_date', -1)
     return render_template('home.html', 
                             member=user,
                             questions=questions, 
+                            closed_questions=closed_questions,
                             assigned=assigned,
+                            closed_assigned=closed_assigned,
                             role=user['role'],
                             title=f"{user['first_name'].capitalize()}'s {user['role'].capitalize()} Home Page")
 
