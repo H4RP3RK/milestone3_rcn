@@ -19,6 +19,10 @@ bcrypt = Bcrypt(app)
 
 
 @app.route('/')
+def user_role(user_id):
+    user = mongo.db.users.find_one({'_id': ObjectId(user_id)})
+    role = user['role']
+
 @app.route('/shared_login', methods=['GET', 'POST'])
 def shared_login():
     form = loginForm()
@@ -169,7 +173,7 @@ def new_contact(question_id):
             return redirect(url_for('staff_question_details', question_id=question['_id']))
         else:
             flash("Problem with your account. Please contact IT", 'danger')           
-    return render_template('new_contact.html', title='Contact Form', question=question, user=user, member=member)
+    return render_template('new_contact.html', title='Contact Form', question=question, user=user, member=member, role=user['role'])
 
 
 @app.route('/edit_contact/<contact_id>', methods=['GET', 'POST'])

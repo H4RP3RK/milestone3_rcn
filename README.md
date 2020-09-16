@@ -198,7 +198,7 @@ Home.html
     x change datetime to better format
     x all member account btn
     x In staff view, remove case from view once closed
-    - In member view, show end date 
+    x In member view, show end date 
 Account.html
     x make sure update works
     x Change to show workplace if staff
