@@ -152,11 +152,12 @@ def new_contact(question_id):
         contacts.insert_one(contact)
         if user['role'] == 'member':
             flash("Thanks for getting in touch. Your RCN Lead will be in touch shortly. Check your contacts below for updates", 'success')
+            return redirect(url_for('question_details', question_id=question['_id']))
         elif user['role'] == 'staff':
             flash(f"Contact made. Check your contacts below for updates", 'success')
+            return redirect(url_for('staff_question_details', question_id=question['_id']))
         else:
             flash("Problem with your account. Please contact IT", 'danger')           
-        return redirect(url_for('question_details', question_id=question['_id']))
     return render_template('new_contact.html', title='Contact Form', question=question, user=user, member=member)
 
 

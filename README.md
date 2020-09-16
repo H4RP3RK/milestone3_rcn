@@ -186,16 +186,19 @@ Queries.html
     x Why is logo image not showing?
 New_question.html
     x Why won't labels go blue?
-Newcontact.html
+New_contact.html
     x How do I timestamp contact? - default=datetime.utcnow
     x Edit contact
     - If mbr adds new contact, remove end_date
+    - If staff, redirect to staff question view
 Home.html
     x scroll to questions
     x highlight question section when button pressed
-    x Reorder accordian so latest come to the top
+    x Reorder accordion so latest come to the top
     x change datetime to better format
     x all member account btn
+    - In staff view, remove case from view once closed
+    - In member view, show end date 
 Account.html
     x make sure update works
     x Change to show workplace if staff
@@ -206,7 +209,7 @@ Unassigned_questions.html
     x Why won't staff pull through to modal?
 Question_details.html
     x Link contacts to particular query
-    x Restyle accordian
+    x Restyle accordion
     x scroll to contacts
     x highlight contacts section when button pressed
     x change datetime to better format
@@ -214,11 +217,14 @@ Question_details.html
     x Show details of RCN staff dealing with query
     - Show photo of RCN staff 
     - Add edit contacts btn, only on contacts created by user
-    x Reorder accordian so latest come to the top
+    x Reorder accordion so latest come to the top
     - If no contacts, add a generic message (Why is this not working?)
     x add close btn if case open
     x add reopen btn if case closed
     - Upload file
+    - Only edit your own contacts
+    - Change date format
+    - Check that showing in order, once date format corrected
 Staff_question_details.html
     - Changed time format to match other Pages
     x Change workplace to employer in member details
@@ -228,6 +234,7 @@ Staff_question_details.html
     x Alter member question layout - form?
     - Fit form inputs within border
     - Change accordion forms to font awesome to match member_list page
+    - Open two accordions at one time
 Member_list.html
     - Add JS to filter different queries and/or search
 App.py 
