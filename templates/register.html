@@ -1,25 +1,27 @@
 {% extends 'base.html' %}
 {% block content %}
+<!--Tabs-->
+    <div class="container">   
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+            {% if role == "member" %}
+                <a class="nav-link active" href="{{ url_for('register', role='member') }}">Members</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('register', role='staff') }}">Staff</a>
+            {% else %}
+                <a class="nav-link" href="{{ url_for('register', role='member') }}">Members</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="{{ url_for('register', role='staff') }}">Staff</a>
+            {% endif %}
+            </li>
+        </ul>
+    </div> 
 <!--Background image-->
     <div class="main background-picture register-background">   
         <div class="opaque-white">
             <section class="container font font-blue">
-<!--Tabs-->
-                <ul class="nav nav-tabs">
-                    <li class="nav-item">
-                    {% if role == "member" %}
-                        <a class="nav-link active" href="{{ url_for('register', role='member') }}">Members</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('register', role='staff') }}">Staff</a>
-                    {% else %}
-                        <a class="nav-link" href="{{ url_for('register', role='member') }}">Members</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="{{ url_for('register', role='staff') }}">Staff</a>
-                    {% endif %}
-                    </li>
-                </ul>
                 <div class="main row align-items-center">
                     <div class="col">
 <!--Signup Form-->
