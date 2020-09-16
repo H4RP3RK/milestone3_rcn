@@ -84,7 +84,7 @@ def register(role):
 def home(username):
     user = mongo.db.users.find_one({'username': username})
     questions = mongo.db.questions.find({'member_id': username}).sort('start_date', -1)
-    assigned = mongo.db.questions.find({'staff_id': username}).sort('start_date', -1)
+    assigned = mongo.db.questions.find({'$and': [{'staff_id': username}, {'end_date': {'$exists': False}}]}).sort('start_date', -1)
     return render_template('home.html', 
                             member=user,
                             questions=questions, 
