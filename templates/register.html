@@ -57,6 +57,7 @@
                             </div>
                             <div class="form-row">
     <!--email input-->
+                            {% if role == "member" %}
                                 <div class="form-group col-sm-6">
                                     {{ form.email.label(class="form-control-label") }}
                                     {% if form.email.errors %}
@@ -70,6 +71,23 @@
                                         {{ form.email(class="form-control")}}
                                     {% endif %}
                                 </div>
+                            {% elif role == "staff" %}
+                                <div class="form-group col-sm-6">
+                                    {{ form.email.label(class="form-control-label") }}
+                                    {% if form.email.errors %}
+                                        {{ form.email(class="form-control is-invalid")}}
+                                        <div class="invalid-feedback">  
+                                            {% for error in form.email.errors %}
+                                                <span>{{ error }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                        {{ form.email(class="form-control", placeholder="your.name@rcn.org.uk")}}
+                                    {% endif %}
+                                </div>
+                            {% else %}
+                                <p>Error with the registration form. Please contact IT.</p>
+                            {% endif %}
     <!--telephone input-->
                                 <div class="form-group col-sm-6">
                                     {{ form.telephone.label(class="form-control-label") }}

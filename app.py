@@ -112,10 +112,25 @@ def account(username):
                     {
                         'email': form.email.data,
                         'telephone': form.telephone.data,
-                        'employer': form.employer.data,
                         'job_title': form.job_title.data
                     }
                 })
+            if role == 'member':
+                mongo.db.users.update(
+                    {'username': username}, 
+                    { '$set': 
+                        {
+                            'employer': form.employer.data
+                        }
+                    })
+            elif role == 'staff':
+                mongo.db.users.update(    
+                    {'username': username}, 
+                    { '$set': 
+                        {
+                            'workplace': form.workplace.data
+                        }
+                    })
             flash("Your details are now updated.", 'success')
             return redirect(url_for('home', username=session['username']))
         else:
@@ -238,7 +253,6 @@ def close_question(question_id):
 
 @app.route('/reopen_question/<question_id>', methods=['GET', 'POST'])
 def reopen_question(question_id):
-    user = mongo.db.users.find_one({'username': session['username']})
     mongo.db.questions.update( 
         {'_id': ObjectId(question_id)}, 
         { '$unset': 
@@ -247,7 +261,7 @@ def reopen_question(question_id):
             }
         })
     flash('Case reopened', 'success')
-    return redirect(url_for('staff_question_details', question_id=question_id), role=user['role'])    
+    return redirect(url_for('staff_question_details', question_id=question_id))    
 
 
 @app.route('/log_out')
