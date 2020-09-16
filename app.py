@@ -19,10 +19,6 @@ bcrypt = Bcrypt(app)
 
 
 @app.route('/')
-def user_role(user_id):
-    user = mongo.db.users.find_one({'_id': ObjectId(user_id)})
-    role = user['role']
-
 @app.route('/shared_login', methods=['GET', 'POST'])
 def shared_login():
     form = loginForm()
@@ -178,6 +174,7 @@ def new_contact(question_id):
 
 @app.route('/edit_contact/<contact_id>', methods=['GET', 'POST'])
 def edit_contact(contact_id):
+    user = mongo.db.users.find_one({'username': session['username']})
     contact = mongo.db.contacts.find_one({'_id': ObjectId(contact_id)})
     question = mongo.db.questions.find_one({'_id': ObjectId(contact['question_id'])})
     if request.method == 'POST':
@@ -190,16 +187,18 @@ def edit_contact(contact_id):
             })
         flash("Your contact has been updated.", 'success')
         return redirect(url_for('question_details', question_id=question['_id']))        
-    return render_template('edit_contact.html', contact=contact, question=question, title='Edit Contact') 
+    return render_template('edit_contact.html', contact=contact, question=question, title='Edit Contact', role=user['role']) 
 
 
 @app.route('/new_question')
 def new_question():
-    return render_template('new_question.html', title='Ask a New Question')
+    user = mongo.db.users.find_one({'username': session['username']})
+    return render_template('new_question.html', title='Ask a New Question', role=user['role'])
 
 
 @app.route('/submit_question', methods=['POST'])
 def submit_question():
+    user = mongo.db.users.find_one({'username': session['username']})
     questions = mongo.db.questions
     question = {
         'member_id': session['username'],
@@ -210,19 +209,21 @@ def submit_question():
     }
     questions.insert_one(question)
     flash("Thanks for your question. We'll respond shortly. You can click on your question below for updates.", 'success')
-    return redirect(url_for('home', username=session['username']))
+    return redirect(url_for('home', username=session['username'], role=user['role']))
 
 
 @app.route('/question_details/<question_id>')
 def question_details(question_id):
+    user = mongo.db.users.find_one({'username': session['username']})
     contacts = mongo.db.contacts.find({'question_id': ObjectId(question_id)}).sort('date', -1)
     question = mongo.db.questions.find_one({'_id': ObjectId(question_id)})
     staff = mongo.db.users.find_one({'username': question['staff_id']})
-    return render_template('question_details.html', contacts=contacts, question=question, staff=staff, title="Question Details - Member View")
+    return render_template('question_details.html', contacts=contacts, question=question, staff=staff, title="Question Details - Member View", role=user['role'])
 
 
 @app.route('/close_question/<question_id>', methods=['GET', 'POST'])
 def close_question(question_id):
+    user = mongo.db.users.find_one({'username': session['username']})
     question = mongo.db.questions.find_one({'_id': ObjectId(question_id)})
     mongo.db.questions.update( 
         {'_id': ObjectId(question_id)}, 
@@ -232,11 +233,12 @@ def close_question(question_id):
             }
         })
     flash('Case now closed', 'success')
-    return redirect(url_for('staff_question_details', question_id=question_id))
+    return redirect(url_for('staff_question_details', question_id=question_id), role=user['role'])
 
 
 @app.route('/reopen_question/<question_id>', methods=['GET', 'POST'])
 def reopen_question(question_id):
+    user = mongo.db.users.find_one({'username': session['username']})
     mongo.db.questions.update( 
         {'_id': ObjectId(question_id)}, 
         { '$unset': 
@@ -245,7 +247,7 @@ def reopen_question(question_id):
             }
         })
     flash('Case reopened', 'success')
-    return redirect(url_for('staff_question_details', question_id=question_id))    
+    return redirect(url_for('staff_question_details', question_id=question_id), role=user['role'])    
 
 
 @app.route('/log_out')
@@ -260,6 +262,7 @@ def log_out():
 
 @app.route('/unassigned_questions', methods=['GET','POST'])
 def unassigned_questions():
+    user = mongo.db.users.find_one({'username': session['username']})
     questions = mongo.db.questions
     unassigned = list(questions.find({'staff_id': 'unassigned'}).sort('start_date', 1))
     staff_list = list(mongo.db.users.find({'role': 'staff'}))
@@ -272,11 +275,12 @@ def unassigned_questions():
         )
         flash(f'Question assigned to {request.form.get("staff_id")}', 'success')
         return redirect(url_for('unassigned_questions'))
-    return render_template('unassigned_questions.html', unassigned=unassigned, title='Unassigned Questions', staff_list=staff_list)
+    return render_template('unassigned_questions.html', unassigned=unassigned, title='Unassigned Questions', staff_list=staff_list, role=user['role'])
 
 
 @app.route('/staff_question_details/<question_id>', methods=['GET', 'POST'])
 def staff_question_details(question_id):
+    user = mongo.db.users.find_one({'username': session['username']})    
     contacts = mongo.db.contacts.find({'question_id': ObjectId(question_id)}).sort('date', -1)
     question = mongo.db.questions.find_one({'_id': ObjectId(question_id)})
     member = mongo.db.users.find_one({'username': question['member_id']})
@@ -291,11 +295,12 @@ def staff_question_details(question_id):
         )
         flash(f'Question assigned to {request.form.get("staff_id")}', 'success')
         return redirect(url_for('staff_question_details', question_id=question_id))
-    return render_template('staff_question_details.html', contacts=contacts, question=question, member=member, staff=staff, staff_list=staff_list, question_id=question_id, title='Question Details - Staff View')
+    return render_template('staff_question_details.html', contacts=contacts, question=question, member=member, staff=staff, staff_list=staff_list, question_id=question_id, title='Question Details - Staff View', role=user['role'])
 
 
 @app.route('/assign_lead/<question_id>', methods=['POST'])
 def assign_lead(question_id):
+    user = mongo.db.users.find_one({'username': session['username']})    
     staff = mongo.db.users.find_one({'username': request.form.get('staff_id')})
     questions = mongo.db.questions
     question = questions.find_one({'_id': ObjectId(question_id)})
@@ -307,11 +312,12 @@ def assign_lead(question_id):
             }
         })
     flash(f"The question has been assigned to {staff['first_name']}. The question will appear on their Home Page", 'success')
-    return redirect(url_for('staff_question_details', question=question, question_id=question_id))
+    return redirect(url_for('staff_question_details', question=question, question_id=question_id), role=user['role'])
 
 
 @app.route('/staff_new_contact/<question_id>', methods=['GET', 'POST'])
 def staff_new_contact(question_id):
+    user = mongo.db.users.find_one({'username': session['username']})    
     contacts = mongo.db.contacts
     question = mongo.db.questions.find_one({'_id': ObjectId(question_id)})
     member = mongo.db.members.find_one({'username': question['member_id']})
@@ -330,19 +336,21 @@ def staff_new_contact(question_id):
         contacts.insert_one(contact)
         flash("Your contact has been added. The member can now view your contacts", 'success')
         return redirect(url_for('staff_question_details', question_id=question['_id']))
-    return render_template('staff_new_contact.html', title='Add a Contact', question=question)
+    return render_template('staff_new_contact.html', title='Add a Contact', question=question, role=user['role'])
 
 
 @app.route('/member_list')
 def member_list():
+    user = mongo.db.users.find_one({'username': session['username']})
     members = mongo.db.users.find({'role': 'member'})
-    return render_template('member_list.html', members=members)
+    return render_template('member_list.html', members=members, role=user['role'])
 
 @app.route('/member_details/<member_id>')
 def member_details(member_id):
+    user = mongo.db.users.find_one({'username': session['username']})
     member = mongo.db.users.find_one({'_id': ObjectId(member_id)})
     questions = mongo.db.questions.find({'member_id': member['username']})
-    return render_template('member_details.html', title=f"{member['first_name']} {member['last_name']}'s Account Details - Staff View", member=member, questions=questions)
+    return render_template('member_details.html', title=f"{member['first_name']} {member['last_name']}'s Account Details - Staff View", member=member, questions=questions, role=user['role'])
 
 
 # SHARED SITE

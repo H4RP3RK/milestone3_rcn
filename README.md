@@ -216,13 +216,12 @@ Question_details.html
     x If RCN staff unassigned, add a message with general contact details
     x Show details of RCN staff dealing with query
     - Show photo of RCN staff 
-    - Add edit contacts btn, only on contacts created by user
+    x Add edit contacts btn, only on contacts created by user
     x Reorder accordion so latest come to the top
     - If no contacts, add a generic message (Why is this not working?)
     x add close btn if case open
     x add reopen btn if case closed
     - Upload file
-    - Only edit your own contacts
     - Change date format
     - Check that showing in order, once date format corrected
 Staff_question_details.html
@@ -236,9 +235,10 @@ Staff_question_details.html
     - Change accordion forms to font awesome to match member_list page
     - Open two accordions at one time
 Member_list.html
-    - Add JS to filter different queries and/or search
+    x Add JS to filter different queries and/or search
 App.py 
     x set up environ to protect password before pushing
+    - Can I simplify the way to access user role?
     - Can the members.queries.find_one be simplified so it's not duplicated
     - Can one @app.route send to two tables? Want to send to query and contact?
     - Why is secret key not working when in env.py?
