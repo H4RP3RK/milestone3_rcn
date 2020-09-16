@@ -87,13 +87,16 @@
                         <div class="card">
                             <div class="card-header" id="heading{{question._id}}">
                                 <div class="mb-0 row align-items-center">
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-3">
                                         <h5 class="font-heavy font-blue">{{question.question_type.capitalize()}}</h5>
                                     </div>
-                                    <div class="col-sm-4">
-                                        <span>{{question.start_date}}</span>
+                                    <div class="col-sm-3">
+                                        <span>Start Date: {{question.start_date}}</span>
                                     </div>
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-3">
+                                        <span>End Date: {{question.end_date}}</span>                                    
+                                    </div>
+                                    <div class="col-sm-3">
                                         <button class="btn blue-btn btn-link accordion-btn collapsed" data-toggle="collapse" data-target="#collapse{{question._id}}" aria-expanded="false" aria-controls="collapse{{question._id}}">
                                         Summary
                                         </button>

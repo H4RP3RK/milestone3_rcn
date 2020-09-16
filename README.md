@@ -197,7 +197,7 @@ Home.html
     x Reorder accordion so latest come to the top
     x change datetime to better format
     x all member account btn
-    - In staff view, remove case from view once closed
+    x In staff view, remove case from view once closed
     - In member view, show end date 
 Account.html
     x make sure update works
