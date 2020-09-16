@@ -186,11 +186,17 @@ Queries.html
     x Why is logo image not showing?
 New_question.html
     x Why won't labels go blue?
+    - Change the questions
+    - Add back button?
 New_contact.html
     x How do I timestamp contact? - default=datetime.utcnow
     x Edit contact
     x If mbr adds new contact, remove end_date
     x If staff, redirect to staff question view
+    - Add back button?
+Staff_new_contact.html 
+    - Add back button?
+    - Change date format
 Home.html
     x scroll to questions
     x highlight question section when button pressed
@@ -204,7 +210,8 @@ Account.html
     x Change to show workplace if staff
     x change form to flask form 
     - warning message when changing account details
-    - Change staff job_title to select
+    x Change staff job_title to select
+    - Add back button?
 Unassigned_questions.html
     x Why won't staff pull through to modal?
 Question_details.html
@@ -231,11 +238,17 @@ Staff_question_details.html
     x Add edit contacts btn, only on contacts created by user
     x Add top/bottom margins to btns
     x Alter member question layout - form?
-    - Fit form inputs within border
+    x Fit form inputs within border
     - Change accordion forms to font awesome to match member_list page
     x Open two accordions at one time
 Member_list.html
     x Add JS to filter different queries and/or search
+    - padding for button
+    - Add background image
+    - padding under search bar
+    - button goes off col at smaller screen sizes
+Member_details.html
+    - Change background image
 App.py 
     x set up environ to protect password before pushing
     - Can I simplify the way to access user role?

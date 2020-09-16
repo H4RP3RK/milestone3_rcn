@@ -21,7 +21,7 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav font">
                     {% if 'username' in session %}
-                        <li>
+                        <li class="nav-item">
                             <a class="nav-link" href="{{ url_for('log_out') }}">Logout</a>
                         </li>
                         <li class="nav-item">
@@ -31,22 +31,22 @@
                             <a class="nav-link" href="{{ url_for('account', username=session['username']) }}">Update your account details</a>
                         </li>
                         {% if role == "member" %}
-                        <li>
+                        <li class="nav-item">
                             <a class="nav-link" href="{{ url_for('new_question')}}">Ask a new question</a>
                         </li>
                         {% elif role == "staff" %}
                         <li class="nav-item">
                             <a class="nav-link" href="{{ url_for('unassigned_questions') }}">Unassigned questions</a>
                         </li>
-                        <li>
+                        <li class="nav-item">
                             <a class="nav-link" href="{{ url_for('member_list') }}">Member accounts</a>
                         </li>   
                         {% endif %}                    
                     {% else %}
-                        <li>
+                        <li class="nav-item">
                             <a class="nav-link" href="{{ url_for('shared_login') }}">Login</a>
                         </li>
-                        <li>
+                        <li class="nav-item">
                             <a class="nav-link" href="{{ url_for('register', role='member') }}">Register</a>
                         </li>
                     {% endif %}

@@ -238,7 +238,6 @@ def question_details(question_id):
 
 @app.route('/close_question/<question_id>', methods=['GET', 'POST'])
 def close_question(question_id):
-    user = mongo.db.users.find_one({'username': session['username']})
     question = mongo.db.questions.find_one({'_id': ObjectId(question_id)})
     mongo.db.questions.update( 
         {'_id': ObjectId(question_id)}, 
@@ -248,7 +247,7 @@ def close_question(question_id):
             }
         })
     flash('Case now closed', 'success')
-    return redirect(url_for('staff_question_details', question_id=question_id), role=user['role'])
+    return redirect(url_for('staff_question_details', question_id=question_id))
 
 
 @app.route('/reopen_question/<question_id>', methods=['GET', 'POST'])
@@ -340,7 +339,7 @@ def staff_new_contact(question_id):
             'member_id': question['member_id'],
             'question_id': ObjectId(question_id),
             'contact_type': request.form.get('contact_type'),
-            'date': request.form.get('date'),
+            'date': request.form.get('date').strftime('%d/%m/%y  %H:%M'),
             'summary': request.form.get('summary'),
             'from': request.form.get('from'),
             'to': request.form.get('to'),
