@@ -356,7 +356,7 @@ def staff_new_contact(question_id):
 @app.route('/member_list')
 def member_list():
     user = mongo.db.users.find_one({'username': session['username']})
-    members = mongo.db.users.find({'role': 'member'})
+    members = mongo.db.users.find({'role': 'member'}).sort('last_name', 1)
     return render_template('member_list.html', members=members, role=user['role'])
 
 @app.route('/member_details/<member_id>')

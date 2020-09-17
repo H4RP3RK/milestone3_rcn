@@ -21,8 +21,8 @@
                     </form>        
                 </div>
                 <div class="row">
-                    <div class="col" id="accordion">
-                        <div class="card">
+                    <div class="col">
+                        <div class="card d-none d-sm-none d-md-block">
                             <div class="card-header font-blue">
                                 <div class="row align-items-center">
                                     <div class="col-sm-3">
@@ -45,10 +45,10 @@
                                         <h6 class="font-blue list-name">{{member.first_name}} {{member.last_name}}</h6>
                                     </div>
                                     <div class="col-sm-4">
-                                        {{member.job_title}}
+                                        <span class="d-sm-block d-md-none">Job Title: </span><span>{{member.job_title}}</span>
                                     </div>
                                     <div class="col-sm-3">
-                                        {{member.employer}}
+                                        <span class="d-sm-block d-md-none">Employer: </span><span>{{member.employer}}</span>
                                     </div>
                                     <div class="col-sm-2 member-list-btn">
                                         <a class="blue-btn btn accordion-btn" href="{{ url_for('member_details', member_id=member._id) }}"><i class="far fa-address-card"></i></a>
