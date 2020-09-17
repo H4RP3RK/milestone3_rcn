@@ -1,0 +1,274 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="main font background-picture home-background">
+    <div class="font main opaque-white">
+        <div class="container">
+            <div class="row">
+    <!--Task options-->
+                <section class="col-md-6">
+                    <div class="border">
+                        <h4 class="heading font-heavy font-blue">What would you like to do?</h4>
+                        <h5><a class="blue-btn btn background-blue" href="{{ url_for('account', username=session['username']) }}" role="button">Update your account details</a></h5>
+    <!--If user role is mbr, shows member btns-->                
+                        {% if role == "member" %}
+                        <h5><a class="blue-btn btn background-blue" href="{{ url_for('new_question') }}" role="button">Ask a new question</a></h5>
+                        <h5><button class="blue-btn btn background-blue" onclick="scrollQuestions()" role="button">See your current/old questions</button></h5>
+                        {% elif role == "staff" %}
+                        <h5><button class="blue-btn btn background-blue" onclick="scrollQuestions()" role="button">See your assigned questions</button></h5>
+                        <h5><a class="blue-btn btn background-blue" href="{{ url_for('unassigned_questions') }}" role="button">Browse all unassigned cases</a></h5>
+                        <h5><a class="blue-btn btn background-blue" href="{{ url_for('member_list') }}" role="button">See all member accounts</a></h5>
+                        {% else %}
+                        <p>Problem with your account. Please contact IT</p>
+                        {% endif %}
+                    </div>
+                </section>  
+    <!--Account Details--> 
+                <section class="col-md-6 blue-link">
+                    <div class="border">
+                        <h4 class="heading font-heavy font-blue">Your Account Details</h4>
+                        <form>
+                            <div class="form-group form-row justify-content-center">
+                                <label for="name" class="col-4 col-form-label">Name: </label>
+                                <div class="col-8">
+                                    <input type="text" readonly class="form-control-plaintext" id="name" name="name" value="{{ member.first_name}} {{ member.last_name }}">
+                                </div>
+                            </div>
+                            <div class="form-group form-row justify-content-center">
+                                <label for="username" class="col-4 col-form-label">Username: </label>
+                                <div class="col-8">
+                                    <input type="text" readonly class="form-control-plaintext" id="username" name="username" value="{{ member.username }}">
+                                </div>
+                            </div>
+                            <div class="form-group form-row justify-content-center">
+                                <label for="email" class="col-4 col-form-label">Email: </label>
+                                <div class="col-8">
+                                    <input type="text" readonly class="form-control-plaintext" id="email" name="email" value="{{ member.email }}">
+                                </div>
+                            </div>
+                            <div class="form-group form-row justify-content-center">
+                                <label for="telephone" class="col-4 col-form-label">Telephone: </label>
+                                <div class="col-8">
+                                    <input type="text" class="form-control-plaintext" id="telephone" name="telephone" value="{{ member.telephone }}">
+                                </div>
+                            </div>
+                            <div class="form-group form-row justify-content-center">
+                            {% if role == "member" %}
+                                <label for="employer" class="col-4 col-form-label">Employer: </label>
+                                <div class="col-8">
+                                    <input type="text" readonly class="form-control-plaintext" id="employer" name="employer" value="{{ member.employer }}">
+                                </div>
+                            {% else %}
+                                <label for="workplace" class="col-4 col-form-label">Workplace: </label>
+                                <div class="col-8">
+                                    <input type="text" readonly class="form-control-plaintext" id="workplace" name="workplace" value="{{ member.workplace }}">
+                                </div>                                
+                            {% endif %}
+                            </div>
+                            <div class="form-group form-row justify-content-center">
+                                <label for="job_title" class="col-4 col-form-label">Job Title: </label>
+                                <div class="col-8">
+                                    <input type="text" readonly class="form-control-plaintext" id="job_title" name="job_title" value="{{ member.job_title }}">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </section>           
+            </div>      
+        </div>
+<!--Questions Container-->
+        <section class="container">
+            <div class="border" id="questions">
+    <!--Title-->
+    <!--If user is member, title is 'Your Questions'-->
+            {% if role == "member" %}
+                <h4 class="heading font-heavy font-blue">Your Questions</h4>
+    <!--If user is staff, title is 'Your Assigned Questions'-->            
+            {% elif role == "staff" %}
+                <h4 class="heading font-heavy font-blue">Your Assigned Questions</h4>            
+    <!--If user is neither member or staff, show error message-->         
+            {% else %}
+                <p>Error with your account. Please contact IT.</p>
+            {% endif %}
+    <!--Tabs for open and closed questions-->
+                <nav>
+                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                        <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Current</a>
+                        <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Closed</a>
+                    </div>
+                </nav>
+    <!--Current tab content-->
+                <div class="tab-content" id="nav-tabContent">
+                    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+        <!--If user is a member, show questions they have asked that do not have an end date-->
+                        {% if role == "member" %}
+                        <div class="row">
+                        {% if questions %}
+                            <div class="col" id="accordion">
+                            {% for question in questions %}
+                                <div class="card">
+                                    <div class="card-header" id="heading{{question._id}}">
+                                        <div class="mb-0 row align-items-center">
+                                            <div class="col-sm-3">
+                                                <h5 class="font-heavy font-blue">{{question.question_type.capitalize()}}</h5>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <span>Start Date: {{question.start_date}}</span>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <button class="btn blue-btn btn-link accordion-btn collapsed" data-toggle="collapse" data-target="#collapse{{question._id}}" aria-expanded="false" aria-controls="collapse{{question._id}}">
+                                                Summary
+                                                </button>
+                                                <a class="blue-btn btn accordion-btn" href="{{ url_for('question_details', question_id=question._id) }}">Full details</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="collapse{{question._id}}" class="collapse" aria-labelledby="heading{{question._id}}" data-parent="#accordion{{question._id}}">
+                                        <div class="card-body">
+                                            <h6>{{question.summary}}</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                            </div>
+        <!--If member has not asked any questions, show message-->
+                        {% else %}
+                            <div class="col">
+                                <p>You haven't asked any questions yet. When you do, they will appear here.</p>
+                            </div>
+                        {% endif %}
+    <!--If user is staff, show all questions assigned to them that do not have an end date-->
+                    {% elif role == "staff" %}
+                        <div class="row">
+                        {% if assigned %}
+                            <div class="col" id="accordion">
+                            {% for assigned in assigned %}
+                                <div class="card">
+                                    <div class="card-header" id="heading{{assigned._id}}">
+                                        <div class="mb-0 row align-items-center">
+                                            <div class="col-sm-3">
+                                                <h5 class="font-heavy font-blue">{{assigned.question_type.capitalize()}}</h5>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <span>Start Date: {{assigned.start_date}}</span>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <button class="btn blue-btn btn-link accordion-btn collapsed" data-toggle="collapse" data-target="#collapse{{assigned._id}}" aria-expanded="false" aria-controls="collapse{{assigned._id}}">
+                                                Summary
+                                                </button>
+                                                <a class="blue-btn btn accordion-btn" href="{{ url_for('staff_question_details', question_id=assigned._id) }}">Full case</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="collapse{{assigned._id}}" class="collapse" aria-labelledby="heading{{assigned._id}}" data-parent="#accordion{{assigned._id}}">
+                                        <div class="card-body">
+                                            {{assigned.summary}}
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                            </div>
+        <!--If staff has not asked any questions, show message-->
+                        {% else %}
+                            <div class="col">
+                                <p>You don't have any assigned cases. When you do, they will appear here.</p>
+                            </div>
+                        {% endif %}
+    <!--If user is neither member or staff, show error message-->
+                    {% else %}
+                        <p>Error with account, please contact IT</p>
+                    {% endif %}                  
+                    </div>
+                    </div>
+    <!--Closed tab content-->
+                    <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+        <!--If user is a member, show questions with an end date-->
+                        {% if role == "member" %}
+                        <div class="row">                    
+                        {% if closed_questions %}
+                            <div class="col" id="accordion">
+                            {% for question in closed_questions %}
+                                <div class="card">
+                                    <div class="card-header" id="heading{{question._id}}">
+                                        <div class="mb-0 row align-items-center">
+                                            <div class="col-sm-3">
+                                                <h5 class="font-heavy font-blue">{{question.question_type.capitalize()}}</h5>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <span>Start Date: {{question.start_date}}</span>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <span>End Date: {{question.end_date}}</span>                                    
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <button class="btn blue-btn btn-link accordion-btn collapsed" data-toggle="collapse" data-target="#collapse{{question._id}}" aria-expanded="false" aria-controls="collapse{{question._id}}">
+                                                Summary
+                                                </button>
+                                                <a class="blue-btn btn accordion-btn" href="{{ url_for('question_details', question_id=question._id) }}">Full details</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="collapse{{question._id}}" class="collapse" aria-labelledby="heading{{question._id}}" data-parent="#accordion{{question._id}}">
+                                        <div class="card-body">
+                                            <h6>{{question.summary}}</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                            </div>
+        <!--If member has not asked any questions, show message-->
+                        {% else %}
+                            <div class="col">
+                                <p>You haven't asked any questions yet. When you do, they will appear here.</p>
+                            </div>
+                        {% endif %}
+    <!--If user is staff, show all questions assigned to them with an end date-->
+                    {% elif role == "staff" %}
+                        <div class="row">
+                        {% if closed_assigned %}
+                            <div class="col" id="accordion">
+                            {% for assigned in closed_assigned %}
+                                <div class="card">
+                                    <div class="card-header" id="heading{{assigned._id}}">
+                                        <div class="mb-0 row align-items-center">
+                                            <div class="col-sm-3">
+                                                <h5 class="font-heavy font-blue">{{assigned.question_type.capitalize()}}</h5>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <span>Start Date: {{assigned.start_date}}</span>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <span>End Date: {{assigned.end_date}}</span>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <button class="btn blue-btn btn-link accordion-btn collapsed" data-toggle="collapse" data-target="#collapse{{assigned._id}}" aria-expanded="false" aria-controls="collapse{{assigned._id}}">
+                                                Summary
+                                                </button>
+                                                <a class="blue-btn btn accordion-btn" href="{{ url_for('staff_question_details', question_id=assigned._id) }}">Full case</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="collapse{{assigned._id}}" class="collapse" aria-labelledby="heading{{assigned._id}}" data-parent="#accordion{{assigned._id}}">
+                                        <div class="card-body">
+                                            {{assigned.summary}}
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                            </div>
+        <!--If staff has not asked any questions, show message-->
+                        {% else %}
+                            <div class="col">
+                                <p>You don't have any assigned cases. When you do, they will appear here.</p>
+                            </div>
+                        {% endif %}
+    <!--If user is neither member or staff, show error message-->
+                    {% else %}
+                        <p>Error with account, please contact IT</p>
+                    {% endif %}                  
+                    </div>
+                </div>
+            </div>
+        </section> 
+    </div>
+</div>  
+{% endblock %}

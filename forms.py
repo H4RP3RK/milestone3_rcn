@@ -1,5 +1,7 @@
+# Took inspiration from Pretty Printed YouTube videos: https://www.youtube.com/watch?v=jR2aFKuaOBs
+
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, BooleanField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, SelectField
 from wtforms.validators import DataRequired, Email, Length, EqualTo
 
 
@@ -9,9 +11,10 @@ class registrationForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])
     telephone = StringField('Telephone', validators=[Length(min=11)])
     employer = StringField('Employer')
+    workplace = SelectField('Workplace', choices=[('Belfast', 'Belfast'), ('Cardiff', 'Cardiff'), ('Edinburgh', 'Edinburgh'), ('Glasgow', 'Glasgow'), ('London', 'London'), ('West Midlands', 'West Midlands'), ('Yorkshire', 'Yorkshire')])
     job_title = StringField('Job Title')
     password = PasswordField('Password', validators=[DataRequired()])
-    confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
+    confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password', message='Passwords must match')])
     submit = SubmitField('Sign Up')
 
 
@@ -19,3 +22,12 @@ class loginForm(FlaskForm):
     username = StringField('email', validators=[DataRequired(), Email()])
     password = PasswordField('password', validators=[DataRequired()])
     submit = SubmitField('Login')
+
+class accountForm(FlaskForm):
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    username = StringField('Username', validators=[DataRequired(), Email()])
+    telephone = StringField('Telephone', validators=[Length(min=11)])
+    employer = StringField('Employer')
+    workplace = SelectField('Workplace', choices=[('Belfast', 'Belfast'), ('Cardiff', 'Cardiff'), ('Edinburgh', 'Edinburgh'), ('Glasgow', 'Glasgow'), ('London', 'London'), ('West Midlands', 'West Midlands'), ('Yorkshire', 'Yorkshire')])
+    job_title = StringField('Job Title')
+    update = SubmitField('Update') 

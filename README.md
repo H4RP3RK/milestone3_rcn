@@ -162,46 +162,102 @@ Further reading and troubleshooting on cloning a repository from GitHub [here](h
 
 
 ## Questions/To Do
+
+Jonathan 08.09.2020
+- Read up on flask forms documentation
+- Change all to forms
+x Combine different methods to one, particularly Login
+- Can have multiple base.html and pull from it to create staff/member views
+- Avoid duplication of else in methods, means it can be reduced down
+- JS - organise the questions by date etc or close btn on flash messages
+
 Base.html
-x restyle navbar dropdown
+    x restyle navbar dropdown
+    x Change dropdown options for staff
 Welcome.html
-x If session exists, take to member_home rather than log_in
-Login.html
-- link up forgot password
+    x If session exists, take to member_home rather than log_in
+shared_login.html
+    - link up forgot password
+    - Why will this not load up initially?
 Register.html
-x If user exists with email address, can you send error?
+    x If user exists with email address, can you send error?
 Queries.html 
-- Need to show RCN Lead Name rather than RCN Lead ID
-x How do I set up so tables link with each other? 
-x Why is logo image not showing?
+    x Need to show RCN Lead Name rather than RCN Lead ID
+    x How do I set up so tables link with each other? 
+    x Why is logo image not showing?
 New_question.html
-x Why won't labels go blue?
-Newcontact.html
-x How do I timestamp contact? - default=datetime.utcnow
-Member_home.html
-x scroll to questions
-x highlight question section when button pressed
-- Reorder accordian so latest come to the top
-x change datetime to better format
+    x Why won't labels go blue?
+    - Change the questions
+    - Add back button?
+New_contact.html
+    x How do I timestamp contact? - default=datetime.utcnow
+    x Edit contact
+    x If mbr adds new contact, remove end_date
+    x If staff, redirect to staff question view
+    - Add back button?
+Staff_new_contact.html 
+    - Add back button?
+    - Change date format
+Home.html
+    x scroll to questions
+    x highlight question section when button pressed
+    x Reorder accordion so latest come to the top
+    x change datetime to better format
+    x all member account btn
+    x In staff view, remove case from view once closed
+    x In member view, show end date 
 Account.html
-x make sure update works
+    x make sure update works
+    x Change to show workplace if staff
+    x change form to flask form 
+    - warning message when changing account details
+    x Change staff job_title to select
+    - Add back button?
+Unassigned_questions.html
+    x Why won't staff pull through to modal?
+    - JS to filter queries
 Question_details.html
-x Link contacts to particular query
-x Restyle accordian
-- add close case btn if case open
-- add close case btn if case closed
-- Upload file
-x scroll to contacts
-x highlight contacts section when button pressed
-- Show photo and details of RCN staff dealing with query 
-x If RCN staff unassigned, add a message with general contact details
-- Reorder accordian so latest come to the top
-x change datetime to better format
+    x Link contacts to particular query
+    x Restyle accordion
+    x scroll to contacts
+    x highlight contacts section when button pressed
+    x change datetime to better format
+    x If RCN staff unassigned, add a message with general contact details
+    x Show details of RCN staff dealing with query
+    - Show photo of RCN staff 
+    x Add edit contacts btn, only on contacts created by user
+    x Reorder accordion so latest come to the top
+    - If no contacts, add a generic message (Why is this not working?)
+    x add close btn if case open
+    x add reopen btn if case closed
+    - Upload file
+    - Change date format
+    - Check that showing in order, once date format corrected
+Staff_question_details.html
+    - Changed time format to match other Pages
+    x Change workplace to employer in member details
+    x link up close question 
+    x Add edit contacts btn, only on contacts created by user
+    x Add top/bottom margins to btns
+    x Alter member question layout - form?
+    x Fit form inputs within border
+    - Change accordion forms to font awesome to match member_list page
+    x Open two accordions at one time
+Member_list.html
+    x Add JS to filter different queries and/or search
+    - padding for button
+    x Add background image
+    - padding under search bar
+    - button goes off col at smaller screen sizes
+Member_details.html
+    - Change background image
 App.py 
-x set up environ to protect password before pushing
-- Can the members.queries.find_one be simplified so it's not duplicated
-- Can one @app.route send to two tables? Want to send to query and contact?
-- Why is secret key not working when in env.py?
+    x set up environ to protect password before pushing
+    - Can I simplify the way to access user role?
+    - Can the members.queries.find_one be simplified so it's not duplicated
+    - Can one @app.route send to two tables? Want to send to query and contact?
+    x Why is secret key not working when in env.py?
+    - simplify duplication of else methods. Use and with member and password
 
 ## Mandatory Requirements
 A project violating any of these requirements will FAIL

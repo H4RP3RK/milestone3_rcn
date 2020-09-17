@@ -1,14 +1,34 @@
 {% extends 'base.html' %}
 {% block content %}
-<!--Signup Form-->
+<!--Tabs-->
+    <div class="container">   
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+            {% if role == "member" %}
+                <a class="nav-link active" href="{{ url_for('register', role='member') }}">Members</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('register', role='staff') }}">Staff</a>
+            {% else %}
+                <a class="nav-link" href="{{ url_for('register', role='member') }}">Members</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="{{ url_for('register', role='staff') }}">Staff</a>
+            {% endif %}
+            </li>
+        </ul>
+    </div> 
+<!--Background image-->
     <div class="main background-picture register-background">   
         <div class="opaque-white">
             <section class="container font font-blue">
                 <div class="main row align-items-center">
                     <div class="col">
-                        <form action=" " method="POST">  
+<!--Signup Form-->
+                        <form action="" method="POST">  
                             {{ form.hidden_tag() }}
                             <div class="form-row">
+    <!--first name input-->
                                 <div class="form-group col-sm-6">
                                     {{ form.first_name.label(class="form-control-label") }}                    
                                     {% if form.first_name.errors %}
@@ -22,6 +42,7 @@
                                         {{ form.first_name(class="form-control")}}
                                     {% endif %}
                                 </div>
+    <!--last name input-->
                                 <div class="form-group col-sm-6">
                                     {{ form.last_name.label(class="form-control-label") }}
                                     {% if form.last_name.errors %}
@@ -37,6 +58,8 @@
                                 </div>
                             </div>
                             <div class="form-row">
+    <!--email input-->
+                            {% if role == "member" %}
                                 <div class="form-group col-sm-6">
                                     {{ form.email.label(class="form-control-label") }}
                                     {% if form.email.errors %}
@@ -50,6 +73,24 @@
                                         {{ form.email(class="form-control")}}
                                     {% endif %}
                                 </div>
+                            {% elif role == "staff" %}
+                                <div class="form-group col-sm-6">
+                                    {{ form.email.label(class="form-control-label") }}
+                                    {% if form.email.errors %}
+                                        {{ form.email(class="form-control is-invalid")}}
+                                        <div class="invalid-feedback">  
+                                            {% for error in form.email.errors %}
+                                                <span>{{ error }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                        {{ form.email(class="form-control", placeholder="your.name@rcn.org.uk")}}
+                                    {% endif %}
+                                </div>
+                            {% else %}
+                                <p>Error with the registration form. Please contact IT.</p>
+                            {% endif %}
+    <!--telephone input-->
                                 <div class="form-group col-sm-6">
                                     {{ form.telephone.label(class="form-control-label") }}
                                     {% if form.telephone.errors %}
@@ -66,7 +107,10 @@
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-sm-6">
-                                    {{ form.employer.label(class="form-control-label") }}
+        <!--If on member register page, form has employer input-->
+                                    {% if role == "member" %}
+
+                                        {{ form.employer.label(class="form-control-label") }}
                                     {% if form.employer.errors %}
                                         {{ form.employer(class="form-control is-invalid")}}
                                         <div class="invalid-feedback">  
@@ -77,7 +121,24 @@
                                     {% else %}
                                         {{ form.employer(class="form-control")}}
                                     {% endif %}
+        <!--Else, form has workplace input-->
+                                    {% else %}
+
+                                        {{ form.workplace.label(class="form-control-label") }}
+                                    {% if form.workplace.errors %}
+                                            {{ form.workplace(class="form-control is-invalid")}}
+                                            <div class="invalid-feedback">  
+                                                {% for error in form.workplace.errors %}
+                                                    <span>{{ error }}</span>
+                                                {% endfor %}
+                                            </div>
+                                    {% else %}
+                                            {{ form.workplace(class="form-control")}}
+                                    {% endif %}
+
+                                    {% endif %}
                                 </div>
+    <!--job title input-->
                                 <div class="form-group col-sm-6">                
                                     {{ form.job_title.label(class="form-control-label") }}
                                     {% if form.job_title.errors %}
@@ -93,6 +154,7 @@
                                 </div>
                             </div>
                             <div class="form-row">
+    <!--password input-->
                                 <div class="form-group col-sm-6">
                                     {{ form.password.label(class="form-control-label") }}
                                     {% if form.password.errors %}
@@ -106,6 +168,7 @@
                                         {{ form.password(class="form-control")}}
                                     {% endif %}
                                 </div>
+    <!--confirm password input-->
                                 <div class="form-group col-sm-6">                
                                     {{ form.confirm_password.label(class="form-control-label") }}
                                     {% if form.confirm_password.errors %}
@@ -120,12 +183,14 @@
                                     {% endif %}
                                 </div>
                             </div>
+    <!--submit button-->
                             <div class="form-group text-center">
-                                {{ form.submit(class="blue-btn btn") }}
+                                {{form.password}}{{ form.submit(class="blue-btn btn") }}
                             </div>
                         </form>
+<!--Login Link-->
                         <div>
-                            <p>Already have an account? <a href="{{ url_for('log_in') }}">Login</a> </p> 
+                            <h5>Already have an account? <a href="{{ url_for('shared_login') }}">Login</a> </h5> 
                         </div>
                     </div>
                 </div>

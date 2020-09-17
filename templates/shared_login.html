@@ -6,6 +6,7 @@
             <section class="container font font-blue">
                 <div class="main row align-items-center">
                     <div class="col">
+                        <h2 class="question font-blue font-heavy">The RCN app is an easy way for RCN members to ask questions, check advice and keep in touch with the RCN.</h2>
                         <form action=" " method="POST">  
                             {{ form.hidden_tag() }}
                             <div class="form-row font-blue">
@@ -41,12 +42,14 @@
                             <div class="form-group text-center">
                                 {{ form.submit(class="blue-btn btn") }}
                             </div>
+<!--Forgot password
                             <div>
                                 <a href="#">Forgot your password?</a>
                             </div>
+-->
                         </form>
                         <div>
-                            <p>No account? <a href="{{ url_for('register') }}">Signup</a> </p> 
+                            <h5>No account? <a href="{{ url_for('register', role='member') }}">Signup</a> </h5> 
                         </div>
                     </div>
                 </div>

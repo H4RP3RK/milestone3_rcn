@@ -3,7 +3,7 @@
 <!--Breacrumbs-->
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb font">
-            <li class="breadcrumb-item"><a href="{{ url_for('member_home', username=session['username']) }}">Your Home Page</a></li>
+            <li class="breadcrumb-item"><a href="{{ url_for('home', username=session['username']) }}">Your Home Page</a></li>
             <li class="breadcrumb-item active" aria-current="page">Ask New Question</li>
         </ol>
     </nav>
@@ -17,7 +17,7 @@
                         <form action="{{ url_for('submit_question') }}" method="POST">  
                             <div class="form-row">
                                 <div class="form-group">
-                                    <label class="form-control-label" for="from">What's your question about?</label>
+                                    <label class="form-control-label" for="from">Question Type</label>
                                     <select class="form-control" name="question_type" id="question_type">
                                         <option value="work">Work Issue</option>
                                         <option value="nursing">Professional Nursing Advice</option>
@@ -27,7 +27,7 @@
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-10">
-                                    <label class="form-control-label" for="details">What is your new question?</label>
+                                    <label class="form-control-label" for="details">What is your question?</label>
                                     <textarea class="form-control" id="summary" name="summary" rows="5" placeholder="Please provide as much detail as possible to allow us to fully answer your question"></textarea>
                                 </div>       
                             </div>
