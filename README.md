@@ -173,7 +173,7 @@ x Combine different methods to one, particularly Login
 
 Base.html
     x restyle navbar dropdown
-    - Change dropdown options for staff
+    x Change dropdown options for staff
 Welcome.html
     x If session exists, take to member_home rather than log_in
 Login.html
@@ -214,6 +214,7 @@ Account.html
     - Add back button?
 Unassigned_questions.html
     x Why won't staff pull through to modal?
+    - JS to filter queries
 Question_details.html
     x Link contacts to particular query
     x Restyle accordion
@@ -254,7 +255,7 @@ App.py
     - Can I simplify the way to access user role?
     - Can the members.queries.find_one be simplified so it's not duplicated
     - Can one @app.route send to two tables? Want to send to query and contact?
-    - Why is secret key not working when in env.py?
+    x Why is secret key not working when in env.py?
     - simplify duplication of else methods. Use and with member and password
 
 ## Mandatory Requirements
