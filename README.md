@@ -246,7 +246,7 @@ Staff_question_details.html
 Member_list.html
     x Add JS to filter different queries and/or search
     - padding for button
-    - Add background image
+    x Add background image
     - padding under search bar
     - button goes off col at smaller screen sizes
 Member_details.html

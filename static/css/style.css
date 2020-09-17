@@ -179,6 +179,10 @@
     margin-bottom: 0.2rem;
 }
 
+.member-list-btn {
+    text-align: right;
+}
+
 /*--Forms--*/
 
 label {
