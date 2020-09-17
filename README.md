@@ -176,8 +176,9 @@ Base.html
     x Change dropdown options for staff
 Welcome.html
     x If session exists, take to member_home rather than log_in
-Login.html
+shared_login.html
     - link up forgot password
+    - Why will this not load up initially?
 Register.html
     x If user exists with email address, can you send error?
 Queries.html 
