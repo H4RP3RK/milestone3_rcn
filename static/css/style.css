@@ -212,6 +212,6 @@ footer {
 
 /*--Member List--*/
 
-.list-name {
-    margin-bottom: 0;
+.list-bottom-margin {
+    margin-bottom: 0.5rem;
 }
