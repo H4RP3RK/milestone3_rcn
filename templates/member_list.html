@@ -22,12 +22,27 @@
                 </div>
                 <div class="row">
                     <div class="col" id="accordion">
+                        <div class="card">
+                            <div class="card-header font-blue">
+                                <div class="row align-items-center">
+                                    <div class="col-sm-3">
+                                        <h5>Name</h5>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <h5>Job Title</h5>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <h5>Employer</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     {% for member in members %}
-                        <div id="{{member._id}}" class="card member">
-                            <div class="card-header name" id="heading{{member._id}}">
-                                <div class="mb-0 row align-items-center">
+                        <div class="card">
+                            <div class="card-header name">
+                                <div class="row align-items-center">
                                     <div class="col-sm-3" id="{{member.first_name}}{{member.last_name}}">
-                                        <h5 class="font-blue">{{member.first_name}} {{member.last_name}}</h5>
+                                        <h6 class="font-blue list-name">{{member.first_name}} {{member.last_name}}</h6>
                                     </div>
                                     <div class="col-sm-4">
                                         {{member.job_title}}

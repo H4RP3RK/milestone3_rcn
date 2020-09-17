@@ -209,3 +209,9 @@ footer {
 .padding-bottom {
     padding-bottom: 0;
 }
+
+/*--Member List--*/
+
+.list-name {
+    margin-bottom: 0;
+}
