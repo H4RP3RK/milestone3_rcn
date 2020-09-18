@@ -1,7 +1,7 @@
 import os, datetime
 from flask_wtf import FlaskForm
 from flask import Flask, render_template, redirect, request, url_for, flash, session
-from forms import loginForm, registrationForm, accountForm
+from forms import loginForm, registrationForm, accountForm, workplaceForm
 from flask_pymongo import PyMongo
 from flask_bcrypt import Bcrypt
 from bson.objectid import ObjectId
@@ -46,6 +46,7 @@ def register(role):
     if 'username' in session:
         return redirect(url_for('home', username=session['username']))
     form = registrationForm()
+    workplace_form = workplaceForm()
     if request.method == 'POST':
         if form.validate_on_submit():
             users = mongo.db.users
@@ -69,14 +70,14 @@ def register(role):
                                     {"$set": {'employer': form.employer.data}})
                 if role == 'staff':
                     users.update_one({'_id': new_user['_id']}, 
-                                    {"$set": {'workplace': form.workplace.data}})
+                                    {"$set": {'workplace': workplace_form.workplace.data}})
                 session['username'] = form.email.data
                 flash(f'{role.capitalize()} account created for {form.first_name.data}', 'success')
                 return redirect(url_for('home', username=session['username']))
             else:
                 flash(f'{form.email.data} is already registered. You can login by clicking the link below', 'danger')
         else:
-            flash(f'Error submitting form: {form.errors} Please contact IT on 01698428764.', 'danger')
+            flash(f'Error submitting form: {form.errors}. Please contact IT on 01698428764.', 'danger')
     return render_template('register.html', form=form, title=f'{role.capitalize()} Sign Up', role=role)
 
 
@@ -104,38 +105,8 @@ def account(username):
     user = mongo.db.users.find_one({'username': username})
     role = user['role']
     form = accountForm()
-    if request.method == 'POST':
-        if form.validate_on_submit():
-            mongo.db.users.update( 
-                {'username': username}, 
-                { '$set': 
-                    {
-                        'email': form.email.data,
-                        'telephone': form.telephone.data,
-                        'job_title': form.job_title.data
-                    }
-                })
-            if role == 'member':
-                mongo.db.users.update(
-                    {'username': username}, 
-                    { '$set': 
-                        {
-                            'employer': form.employer.data
-                        }
-                    })
-            elif role == 'staff':
-                mongo.db.users.update(    
-                    {'username': username}, 
-                    { '$set': 
-                        {
-                            'workplace': form.workplace.data
-                        }
-                    })
-        flash("Your details are now updated.", 'success')
-        return redirect(url_for('home', username=session['username']))
-        else:
-            flash('Error submitting form. Please contact IT on 01698428764.', 'danger')
-    elif request.method == 'GET':
+    workplace_form = workplaceForm()
+    if request.method == 'GET':
         form.username.data = user['username']
         form.email.data = user['email']
         form.telephone.data = user['telephone']
@@ -143,9 +114,38 @@ def account(username):
         if role == "member":
             form.employer.data = user['employer']
         elif role == "staff":
-            form.workplace.data = user['workplace']
-        else:
-            flash("Error with your account. Please contact IT on 01698428764.", 'danger')            
+            workplace_form.workplace.data = user['workplace']
+    elif form.validate_on_submit():
+        mongo.db.users.update(
+            {'username': username},
+            {'$set':
+                {
+                'email': form.email.data,
+                'telephone': form.telephone.data,
+                'job_title': form.job_title.data
+                }
+            }
+        )
+        if role == 'member':
+            mongo.db.users.update(
+                {'username': username}, 
+                { '$set': 
+                    {
+                        'employer': form.employer.data
+                    }
+                })
+        elif role == 'staff':
+            mongo.db.users.update(    
+                {'username': username}, 
+                { '$set': 
+                    {
+                        'workplace': workplace_form.workplace.data
+                    }
+                })
+        flash("Your details are now updated.", 'success')
+        return redirect(url_for('home', username=session['username'])) 
+    else:
+            flash(f"Error: {form.errors}. Please contact IT on 01698428764.", 'danger')        
     return render_template('account.html', member=user, title="Edit Your Account Details", form=form, role=role)
 
 
@@ -358,6 +358,7 @@ def member_list():
     members = mongo.db.users.find({'role': 'member'}).sort('last_name', 1)
     return render_template('member_list.html', members=members, role=user['role'])
 
+
 @app.route('/member_details/<member_id>')
 def member_details(member_id):
     user = mongo.db.users.find_one({'username': session['username']})
@@ -369,4 +370,4 @@ def member_details(member_id):
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
             port=int(os.environ.get('PORT')),
-            debug=False)
+            debug=True)

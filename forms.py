@@ -11,7 +11,6 @@ class registrationForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])
     telephone = StringField('Telephone', validators=[Length(min=11)])
     employer = StringField('Employer')
-    workplace = SelectField('Workplace', choices=[('Belfast', 'Belfast'), ('Cardiff', 'Cardiff'), ('Edinburgh', 'Edinburgh'), ('Glasgow', 'Glasgow'), ('London', 'London'), ('West Midlands', 'West Midlands'), ('Yorkshire', 'Yorkshire')])
     job_title = StringField('Job Title')
     password = PasswordField('Password', validators=[DataRequired()])
     confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password', message='Passwords must match')])
@@ -28,6 +27,8 @@ class accountForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired(), Email()])
     telephone = StringField('Telephone', validators=[Length(min=11)])
     employer = StringField('Employer')
-    workplace = SelectField('Workplace', choices=[('Belfast', 'Belfast'), ('Cardiff', 'Cardiff'), ('Edinburgh', 'Edinburgh'), ('Glasgow', 'Glasgow'), ('London', 'London'), ('West Midlands', 'West Midlands'), ('Yorkshire', 'Yorkshire')])
     job_title = StringField('Job Title')
     update = SubmitField('Update') 
+
+class workplaceForm(FlaskForm):
+    workplace = SelectField('Workplace', choices=[('Belfast'), ('Cardiff'), ('Edinburgh'), ('Glasgow'), ('London'), ('West Midlands'), ('Yorkshire')])
