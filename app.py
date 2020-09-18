@@ -131,8 +131,8 @@ def account(username):
                             'workplace': form.workplace.data
                         }
                     })
-            flash("Your details are now updated.", 'success')
-            return redirect(url_for('home', username=session['username']))
+        flash("Your details are now updated.", 'success')
+        return redirect(url_for('home', username=session['username']))
         else:
             flash('Error submitting form. Please contact IT on 01698428764.', 'danger')
     elif request.method == 'GET':
