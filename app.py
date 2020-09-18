@@ -148,25 +148,21 @@ def account(username):
                 'email': form.email.data,
                 'telephone': form.telephone.data,
                 'job_title': form.job_title.data
-                }
-            }
-        )
+                }})
         if role == 'member':
             mongo.db.users.update(
                 {'username': username},
                 {'$set':
                     {
                         'employer': form.employer.data
-                    }
-                })
+                    }})
         elif role == 'staff':
             mongo.db.users.update(
                 {'username': username},
                 {'$set':
                     {
                         'workplace': workplace_form.workplace.data
-                    }
-                })
+                    }})
         flash("Your details are now updated.", 'success')
         return redirect(url_for('home', username=session['username']))
     else:
@@ -200,9 +196,7 @@ def new_contact(question_id):
                 {'$unset':
                     {
                         'end_date': ''
-                    }
-                }
-            )
+                    }})
             flash("Thanks for getting in touch. Your RCN Lead will be in touch shortly. Check your contacts below for updates", 'success')
             return redirect(url_for('question_details', question_id=question['_id']))
         elif user['role'] == 'staff':
@@ -225,9 +219,7 @@ def edit_contact(contact_id):
             {'$set':
                 {
                     'summary': request.form.get('summary')
-                }
-            }
-        )
+                }})
         flash("Your contact has been updated.", 'success')
         return redirect(url_for('question_details', question_id=question['_id']))
     return render_template('edit_contact.html', contact=contact, question=question, title='Edit Contact', role=user['role'])
@@ -276,8 +268,7 @@ def close_question(question_id):
         {'$set':
             {
                 'end_date': request.form.get('end_date')
-            }
-        })
+            }})
     flash('Case now closed', 'success')
     return redirect(url_for('staff_question_details', question_id=question_id))
 
@@ -290,9 +281,7 @@ def reopen_question(question_id):
         {'$unset':
             {
                 'end_date': ""
-            }
-        }
-    )
+            }})
     flash('Case reopened', 'success')
     return redirect(url_for('staff_question_details', question_id=question_id))
 
@@ -307,9 +296,7 @@ def unassigned_questions():
         questions.update(
             {'_id': ObjectId(request.form.get('question_id'))},
             {'$set':
-                {'staff_id': request.form.get('staff_id')}
-            }
-        )
+                {'staff_id': request.form.get('staff_id')}})
         flash(f'Question assigned to {request.form.get("staff_id")}', 'success')
         return redirect(url_for('unassigned_questions'))
     return render_template('unassigned_questions.html', unassigned=unassigned, title='Unassigned Questions', staff_list=staff_list, role=user['role'])
@@ -327,9 +314,7 @@ def staff_question_details(question_id):
         mongo.db.questions.update(
             {'_id': ObjectId(request.form.get('question_id'))},
             {'$set':
-                {'staff_id': request.form.get('staff_id')}
-            }
-        )
+                {'staff_id': request.form.get('staff_id')}})
         flash(f'Question assigned to {request.form.get("staff_id")}', 'success')
         return redirect(url_for('staff_question_details', question_id=question_id))
     return render_template('staff_question_details.html', contacts=contacts, question=question, member=member, staff=staff, staff_list=staff_list, question_id=question_id, title='Question Details - Staff View', role=user['role'])
