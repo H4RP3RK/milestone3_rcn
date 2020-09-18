@@ -93,7 +93,7 @@
         <!--Lists open questions-->
                         <div class="row">
                         {% if open_questions != None %}
-                            <div class="col" id="accordion">
+                            <div class="col">
                             {% for question in open_questions %}
                                 <div class="card">
                                     <div class="card-header" id="heading{{question._id}}">
@@ -108,7 +108,11 @@
                                                 <button class="btn blue-btn btn-link accordion-btn collapsed" data-toggle="collapse" data-target="#collapse{{question._id}}" aria-expanded="false" aria-controls="collapse{{question._id}}">
                                                 Summary
                                                 </button>
+                                            {% if role == "member" %}
                                                 <a class="blue-btn btn accordion-btn" href="{{ url_for('question_details', question_id=question._id) }}">Full details</a>
+                                            {% else %}
+                                                <a class="blue-btn btn accordion-btn" href="{{ url_for('staff_question_details', question_id=question._id) }}">Full details</a>
+                                            {% endif %}
                                             </div>
                                         </div>
                                     </div>
@@ -133,7 +137,7 @@
         <!--Shows closed questions-->
                         <div class="row">                    
                         {% if closed_questions != None %}
-                            <div class="col" id="accordion">
+                            <div class="col">
                             {% for question in closed_questions %}
                                 <div class="card">
                                     <div class="card-header" id="heading{{question._id}}">
@@ -151,7 +155,11 @@
                                                 <button class="btn blue-btn btn-link accordion-btn collapsed" data-toggle="collapse" data-target="#collapse{{question._id}}" aria-expanded="false" aria-controls="collapse{{question._id}}">
                                                 Summary
                                                 </button>
+                                            {% if role == "member" %}
                                                 <a class="blue-btn btn accordion-btn" href="{{ url_for('question_details', question_id=question._id) }}">Full details</a>
+                                            {% else %}
+                                                <a class="blue-btn btn accordion-btn" href="{{ url_for('staff_question_details', question_id=question._id) }}">Full details</a>
+                                            {% endif %}
                                             </div>
                                         </div>
                                     </div>

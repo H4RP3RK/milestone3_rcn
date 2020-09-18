@@ -1,7 +1,7 @@
 # Took inspiration from Pretty Printed YouTube videos: https://www.youtube.com/watch?v=jR2aFKuaOBs
 
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, SelectField, TextAreaField
+from wtforms import StringField, PasswordField, SubmitField, SelectField
 from wtforms.validators import DataRequired, Email, Length, EqualTo
 from wtforms.widgets import TextArea
 
@@ -23,16 +23,19 @@ class loginForm(FlaskForm):
     password = PasswordField('password', validators=[DataRequired()])
     submit = SubmitField('Login')
 
+
 class accountForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])
     username = StringField('Username', validators=[DataRequired(), Email()])
     telephone = StringField('Telephone', validators=[Length(min=11)])
     employer = StringField('Employer')
     job_title = StringField('Job Title')
-    submit = SubmitField('Update') 
+    submit = SubmitField('Update')
+
 
 class workplaceForm(FlaskForm):
     workplace = SelectField('Workplace', choices=[('Belfast'), ('Cardiff'), ('Edinburgh'), ('Glasgow'), ('London'), ('West Midlands'), ('Yorkshire')])
+
 
 class questionForm(FlaskForm):
     question_type = SelectField('Question Type', choices=[('Work Issue'), ('Professional Nursing Advice'), ('Careers')])

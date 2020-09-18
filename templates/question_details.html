@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-    <div class="main font">
+<div class="main font">
 <!--Breacrumbs-->
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
@@ -8,157 +8,158 @@
             <li class="breadcrumb-item active" aria-current="page">Question Details</li>
         </ol>
     </nav>
-<div class="main background-picture question-details-background">
-    <div class="font main opaque-white">    
-        <div class="container">
-            <div class="row">
-                <section class="col-md-6">
-                    <div class="border">
-<!--RCN Lead Details-->
-                        <h4 class="heading font-heavy font-blue">Your RCN Lead</h4>
-                        {% if question.staff_id == 'unassigned'%}
-    <!--Generic contact details and message show if RCN Lead hasn't yet been assigned-->
-                        <p class="font-blue">The contact details for your RCN Lead will appear here once the appropriate person has been assigned. In the meantime, please contact RCN Direct using the contact details below.</p>
-                        <form>
-                            <div class="font-blue form-group form-row justify-content-center">
-                                <label for="email" class="col-4 col-form-label">Email: </label>
-                                <div class="col-8">
-                                    <input type="text" readonly class="form-control-plaintext" id="email" name="email" value="support@rcn.org.uk">
-                                </div>
-                            </div>
-                            <div class="font-blue form-group form-row justify-content-center">
-                                <label for="telephone" class="col-4 col-form-label">Telephone: </label>
-                                <div class="col-8">
-                                    <input type="text" class="form-control-plaintext" id="telephone" name="telephone" value="0345 772 6100">
-                                </div>
-                            </div>                        
-                        </form>
-    <!--Details show when RCN Lead has been assigned-->
-                        {% else %}
-                        <form>
-                            <div class="form-group form-row justify-content-center">
-                                <label for="name" class="col-4 col-form-label">Name: </label>
-                                <div class="col-8">
-                                    <input type="text" readonly class="form-control-plaintext" id="name" name="name" value="{{staff.first_name}} {{staff.last_name}}">
-                                </div>
-                            </div>
-                            <div class="form-group form-row justify-content-center">
-                                <label for="email" class="col-4 col-form-label">Email: </label>
-                                <div class="col-8">
-                                    <input type="text" readonly class="form-control-plaintext" id="email" name="email" value="{{staff.email}}">
-                                </div>
-                            </div>
-                            <div class="form-group form-row justify-content-center">
-                                <label for="telephone" class="col-4 col-form-label">Telephone: </label>
-                                <div class="col-8">
-                                    <input type="text" class="form-control-plaintext" id="telephone" name="telephone" value="{{staff.telephone}}">
-                                </div>
-                            </div>
-                            <div class="form-group form-row justify-content-center">
-                                <label for="workplace" class="col-4 col-form-label">Workplace: </label>
-                                <div class="col-8">
-                                    <input type="text" readonly class="form-control-plaintext" id="workplace" name="workplace" value="{{staff.workplace}}">
-                                </div>
-                            </div>
-                            <div class="form-group form-row justify-content-center">
-                                <label for="job_title" class="col-4 col-form-label">Job Title: </label>
-                                <div class="col-8">
-                                    <input type="text" readonly class="form-control-plaintext" id="job_title" name="job_title" value="{{staff.job_title}}">
-                                </div>
-                            </div>
-                        </form>
-                        {% endif %}
-                        <div>
-                            <h6><a class="blue-btn btn background-blue" href="{{ url_for('new_contact', question_id=question._id) }}" role="button">Contact your RCN Lead</a></h6>                         
-                        </div>
-                    </div>                   
-                </section>  
-<!--Question Details-->        
-                <section class="col-md-6">
-                    <div class="border">
-                        <h4 class="heading font-heavy font-blue">Question Details</h4>
-                        <form>
-                            <div class="form-group form-row justify-content-center">
-                                <label for="question_type" class="col-4 col-form-label">Question Type: </label>
-                                <div class="col-8">
-                                    <input type="text" readonly class="form-control-plaintext" id="question_type" name="question_type" value="{{ question.question_type.capitalize() }}">
-                                </div>
-                            </div>
-                            <div class="form-group form-row justify-content-center">
-                                <label for="start_date" class="col-4 col-form-label">Start Date: </label>
-                                <div class="col-8">
-                                    <input type="text" readonly class="form-control-plaintext" id="start_date" name="start_date" value="{{ question.start_date }}">
-                                </div>
-                            </div>
-                            <div class="form-group form-row justify-content-center">
-                                <label for="end_date" class="col-4 col-form-label">End Date: </label>
-                                <div class="col-8">
-                                    <input type="text" class="form-control-plaintext" id="end_date" name="end_date" value="{{ question.end_date }}">
-                                </div>
-                            </div>
-                            <div class="form-group form-row justify-content-center">
-                                <label for="summary" class="col-4 col-form-label">Summary: </label>
-                                <div class="col-8">
-                                    <textarea type="text" readonly class="form-control-plaintext" id="summary" name="summary" rows="3">{{ question.summary }}</textarea>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </section>            
-            </div>      
-        </div>
-<!--Contacts-->
-        <section class="container">
-            <div class="border" id="contacts">
+    <div class="main background-picture question-details-background">
+        <div class="font main opaque-white">    
+            <div class="container">
                 <div class="row">
-                    <div class="col">
-                        <h4 class="heading font-heavy font-blue">Contacts</h4>                    
-                    </div>
-                </div>
-                <div class="row">
-                {% if contacts %}
-                    <div class="col" id="accordion">
-                    {% for contact in contacts %}
-                        <div class="card">
-                            <div class="card-header" id="heading{{contact._id}}">
-                                <div class="mb-0 row align-items-center">
-                                    <div class="col-sm-3">
-                                        <span>{{contact.date}}</span>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        From: {{contact.from}}
-                                    </div>
-                                    <div class="col-sm-3">
-                                        To: {{contact.to}}
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <button class="btn blue-btn btn-link accordion-btn collapsed" data-toggle="collapse" data-target="#collapse{{contact._id}}" aria-expanded="false" aria-controls="collapse{{contact._id}}">
-                                        Details
-                                        </button>
-                                        {% if contact.recorded_by == session['username'] %}
-                                        <a class="blue-btn btn background-blue" href="{{ url_for('edit_contact', contact_id=contact._id) }}" role="button"><i class="fas fa-edit"></i></a>
-                                        {% else %}
-                                        {% endif %}                                    
+                    <section class="col-md-6">
+                        <div class="border">
+    <!--RCN Lead Details-->
+                            <h4 class="heading font-heavy font-blue">Your RCN Lead</h4>
+                            {% if question.staff_id == 'unassigned'%}
+        <!--Generic contact details and message show if RCN Lead hasn't yet been assigned-->
+                            <p class="font-blue">The contact details for your RCN Lead will appear here once the appropriate person has been assigned. In the meantime, please contact RCN Direct using the contact details below.</p>
+                            <form>
+                                <div class="font-blue form-group form-row justify-content-center">
+                                    <label for="holder-email" class="col-4 col-form-label">Email: </label>
+                                    <div class="col-8">
+                                        <input type="text" readonly class="form-control-plaintext" id="holder-email" name="holder-email" value="support@rcn.org.uk">
                                     </div>
                                 </div>
-                            </div>
-                            <div id="collapse{{contact._id}}" class="collapse" aria-labelledby="heading{{contact._id}}" data-parent="#accordion{{contact._id}}">
-                                <div class="card-body">
-                                    <h5 class="font-heavy font-blue">{{contact.contact_type}} contact</h5>
-                                    {{contact.summary}}
+                                <div class="font-blue form-group form-row justify-content-center">
+                                    <label for="holder-telephone" class="col-4 col-form-label">Telephone: </label>
+                                    <div class="col-8">
+                                        <input type="text" class="form-control-plaintext" id="holder-telephone" name="holder-telephone" value="0345 772 6100">
+                                    </div>
+                                </div>                        
+                            </form>
+        <!--Details show when RCN Lead has been assigned-->
+                            {% else %}
+                            <form>
+                                <div class="form-group form-row justify-content-center">
+                                    <label for="name" class="col-4 col-form-label">Name: </label>
+                                    <div class="col-8">
+                                        <input type="text" readonly class="form-control-plaintext" id="name" name="name" value="{{staff.first_name}} {{staff.last_name}}">
+                                    </div>
                                 </div>
+                                <div class="form-group form-row justify-content-center">
+                                    <label for="email" class="col-4 col-form-label">Email: </label>
+                                    <div class="col-8">
+                                        <input type="text" readonly class="form-control-plaintext" id="email" name="email" value="{{staff.email}}">
+                                    </div>
+                                </div>
+                                <div class="form-group form-row justify-content-center">
+                                    <label for="telephone" class="col-4 col-form-label">Telephone: </label>
+                                    <div class="col-8">
+                                        <input type="text" class="form-control-plaintext" id="telephone" name="telephone" value="{{staff.telephone}}">
+                                    </div>
+                                </div>
+                                <div class="form-group form-row justify-content-center">
+                                    <label for="workplace" class="col-4 col-form-label">Workplace: </label>
+                                    <div class="col-8">
+                                        <input type="text" readonly class="form-control-plaintext" id="workplace" name="workplace" value="{{staff.workplace}}">
+                                    </div>
+                                </div>
+                                <div class="form-group form-row justify-content-center">
+                                    <label for="job_title" class="col-4 col-form-label">Job Title: </label>
+                                    <div class="col-8">
+                                        <input type="text" readonly class="form-control-plaintext" id="job_title" name="job_title" value="{{staff.job_title}}">
+                                    </div>
+                                </div>
+                            </form>
+                            {% endif %}
+                            <div>
+                                <h6><a class="blue-btn btn background-blue" href="{{ url_for('new_contact', question_id=question._id) }}" role="button">Contact your RCN Lead</a></h6>                         
                             </div>
+                        </div>                   
+                    </section>  
+    <!--Question Details-->        
+                    <section class="col-md-6">
+                        <div class="border">
+                            <h4 class="heading font-heavy font-blue">Question Details</h4>
+                            <form>
+                                <div class="form-group form-row justify-content-center">
+                                    <label for="question_type" class="col-4 col-form-label">Question Type: </label>
+                                    <div class="col-8">
+                                        <input type="text" readonly class="form-control-plaintext" id="question_type" name="question_type" value="{{ question.question_type.capitalize() }}">
+                                    </div>
+                                </div>
+                                <div class="form-group form-row justify-content-center">
+                                    <label for="start_date" class="col-4 col-form-label">Start Date: </label>
+                                    <div class="col-8">
+                                        <input type="text" readonly class="form-control-plaintext" id="start_date" name="start_date" value="{{ question.start_date }}">
+                                    </div>
+                                </div>
+                                <div class="form-group form-row justify-content-center">
+                                    <label for="end_date" class="col-4 col-form-label">End Date: </label>
+                                    <div class="col-8">
+                                        <input type="text" class="form-control-plaintext" id="end_date" name="end_date" value="{{ question.end_date }}">
+                                    </div>
+                                </div>
+                                <div class="form-group form-row justify-content-center">
+                                    <label for="summary" class="col-4 col-form-label">Summary: </label>
+                                    <div class="col-8">
+                                        <textarea type="text" readonly class="form-control-plaintext" id="summary" name="summary" rows="3">{{ question.summary }}</textarea>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
-                    {% endfor %}
-                    </div>
-                {% else %}
-                    <div class="col">
-                        <p>There are no contacts for this case yet. If you contact your RCN Lead or they contact you, details will appear here.</p>
-                    </div>
-                {% endif %}
-                </div>
+                    </section>            
+                </div>      
             </div>
-        </section> 
+    <!--Contacts-->
+            <section class="container">
+                <div class="border" id="contacts">
+                    <div class="row">
+                        <div class="col">
+                            <h4 class="heading font-heavy font-blue">Contacts</h4>                    
+                        </div>
+                    </div>
+                    <div class="row">
+                    {% if contacts %}
+                        <div class="col" id="accordion">
+                        {% for contact in contacts %}
+                            <div class="card">
+                                <div class="card-header" id="heading{{contact._id}}">
+                                    <div class="mb-0 row align-items-center">
+                                        <div class="col-sm-3">
+                                            <span>{{contact.date}}</span>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            From: {{contact.from}}
+                                        </div>
+                                        <div class="col-sm-3">
+                                            To: {{contact.to}}
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <button class="btn blue-btn btn-link accordion-btn collapsed" data-toggle="collapse" data-target="#collapse{{contact._id}}" aria-expanded="false" aria-controls="collapse{{contact._id}}">
+                                            Details
+                                            </button>
+                                            {% if contact.recorded_by == session['username'] %}
+                                            <a class="blue-btn btn background-blue" href="{{ url_for('edit_contact', contact_id=contact._id) }}" role="button"><i class="fas fa-edit"></i></a>
+                                            {% else %}
+                                            {% endif %}                                    
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="collapse{{contact._id}}" class="collapse" aria-labelledby="heading{{contact._id}}" data-parent="#accordion{{contact._id}}">
+                                    <div class="card-body">
+                                        <h5 class="font-heavy font-blue">{{contact.contact_type}} contact</h5>
+                                        {{contact.summary}}
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                        </div>
+                    {% else %}
+                        <div class="col">
+                            <p>There are no contacts for this case yet. If you contact your RCN Lead or they contact you, details will appear here.</p>
+                        </div>
+                    {% endif %}
+                    </div>
+                </div>
+            </section> 
+        </div>
     </div>
 </div>
 {% endblock %}

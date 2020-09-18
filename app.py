@@ -1,5 +1,5 @@
-import os, datetime
-from flask_wtf import FlaskForm
+import os
+import datetime
 from flask import Flask, render_template, redirect, request, url_for, flash, session
 from forms import loginForm, registrationForm, accountForm, workplaceForm, questionForm
 from flask_pymongo import PyMongo
@@ -18,7 +18,10 @@ app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 mongo = PyMongo(app)
 bcrypt = Bcrypt(app)
 
+# PAGES SHARED BY MEMBERS AND STAFF
 
+
+# Login - site opens on login page as site only intended for existing RCN members and RCN staff
 @app.route('/', methods=['GET', 'POST'])
 def shared_login():
     form = loginForm()
@@ -38,6 +41,15 @@ def shared_login():
     return render_template('shared_login.html', form=form, title='Login')
 
 
+# Logout
+@app.route('/log_out')
+def log_out():
+    session.pop('username', None)
+    flash('You are now logged out', 'success')
+    return redirect(url_for('shared_login'))
+
+
+# Register - same method used for member and staff register form
 @app.route('/register/<role>', methods=['GET', 'POST'])
 def register(role):
     form = registrationForm()
@@ -62,10 +74,10 @@ def register(role):
                 }
                 users.insert_one(new_user)
                 if role == 'member':
-                    users.update_one({'_id': new_user['_id']}, 
+                    users.update_one({'_id': new_user['_id']},
                                     {"$set": {'employer': form.employer.data}})
                 if role == 'staff':
-                    users.update_one({'_id': new_user['_id']}, 
+                    users.update_one({'_id': new_user['_id']},
                                     {"$set": {'workplace': workplace_form.workplace.data}})
                 session['username'] = form.email.data
                 flash(f'{role.capitalize()} account created for {form.first_name.data}', 'success')
@@ -77,41 +89,42 @@ def register(role):
     return render_template('register.html', form=form, workplace_form=workplace_form, title=f'{role.capitalize()} Sign Up', role=role)
 
 
+# Home page - shows account details and member/staff questions
 @app.route('/home/<username>')
 def home(username):
     user = mongo.db.users.find_one({'username': username})
     if user['role'] == 'member':
-        open_questions = mongo.db.questions.find({'$and': 
-                                        [{'member_id': username}, 
+        open_questions = mongo.db.questions.find({'$and':
+                                        [{'member_id': username},
                                         {'end_date': {'$exists': False}}]
                                         }).sort('start_date', -1)
-        closed_questions = mongo.db.questions.find({'$and': 
-                                        [{'member_id': username}, 
+        closed_questions = mongo.db.questions.find({'$and':
+                                        [{'member_id': username},
                                         {'end_date': {'$exists': True}}]
                                         }).sort('start_date', -1)
         open_question_message = "You haven't asked any questions yet. When you do, they will appear here"
         question_heading = "Your Questions"
     elif user['role'] == 'staff':
-        open_questions = mongo.db.questions.find({'$and': [{'staff_id': username}, 
+        open_questions = mongo.db.questions.find({'$and': [{'staff_id': username},
                                         {'end_date': {'$exists': False}}]
                                         }).sort('start_date', -1)
-        closed_questions = mongo.db.questions.find({'$and': [{'staff_id': username}, 
+        closed_questions = mongo.db.questions.find({'$and': [{'staff_id': username},
                                         {'end_date': {'$exists': True}}]
                                         }).sort('start_date', -1)
         open_question_message = "You have no assigned cases. When you do, they will appear here"
         question_heading = "Your Assigned Questions"
-    return render_template('home.html', 
+    return render_template('home.html',
                             member=user,
-                            open_questions=open_questions, 
+                            open_questions=open_questions,
                             closed_questions=closed_questions,
                             role=user['role'],
-                            open_question_message = open_question_message,
-                            question_heading = question_heading,
+                            open_question_message=open_question_message,
+                            question_heading=question_heading,
                             title=f"{user['first_name'].capitalize()}'s {user['role'].capitalize()} Home Page")
 
 
+# Account - allows user to edit account details
 # Took inspiration from Corey Schafer YouTube tutorials: https://www.youtube.com/watch?v=803Ei2Sq-Zs&t=134s
-
 @app.route('/account/<username>', methods=['GET', 'POST'])
 def account(username):
     user = mongo.db.users.find_one({'username': username})
@@ -140,27 +153,28 @@ def account(username):
         )
         if role == 'member':
             mongo.db.users.update(
-                {'username': username}, 
-                { '$set': 
+                {'username': username},
+                {'$set':
                     {
                         'employer': form.employer.data
                     }
                 })
         elif role == 'staff':
-            mongo.db.users.update(    
-                {'username': username}, 
-                { '$set': 
+            mongo.db.users.update(
+                {'username': username},
+                {'$set':
                     {
                         'workplace': workplace_form.workplace.data
                     }
                 })
         flash("Your details are now updated.", 'success')
-        return redirect(url_for('home', username=session['username'])) 
+        return redirect(url_for('home', username=session['username']))
     else:
-        flash(f"Error: {form.errors}. Please contact IT on 01698428764.", 'danger')        
+        flash(f"Error: {form.errors}. Please contact IT on 01698428764.", 'danger')
     return render_template('account.html', member=user, title="Edit Your Account Details", form=form, workplace_form=workplace_form, role=role)
 
 
+# Adds a new contact onto an existing question. Member can send contact to RCN Lead and vice versa
 @app.route('/new_contact/<question_id>', methods=['GET', 'POST'])
 def new_contact(question_id):
     question = mongo.db.questions.find_one({'_id': ObjectId(question_id)})
@@ -168,7 +182,6 @@ def new_contact(question_id):
     users = mongo.db.users
     user = users.find_one({'username': session['username']})
     member = users.find_one({'username': question['member_id']})
-    staff = users.find_one({'username': question['staff_id']})
     if request.method == 'POST':
         contact = {
             'question_id': ObjectId(question_id),
@@ -184,39 +197,44 @@ def new_contact(question_id):
         if user['role'] == 'member':
             mongo.db.questions.update(
                 {'_id': ObjectId(question_id)},
-                {'$unset': 
+                {'$unset':
                     {
                         'end_date': ''
                     }
-                })
+                }
+            )
             flash("Thanks for getting in touch. Your RCN Lead will be in touch shortly. Check your contacts below for updates", 'success')
             return redirect(url_for('question_details', question_id=question['_id']))
         elif user['role'] == 'staff':
-            flash(f"Contact made. Check your contacts below for updates", 'success')
+            flash("Contact made. Check your contacts below for updates", 'success')
             return redirect(url_for('staff_question_details', question_id=question['_id']))
         else:
-            flash("Error with your account. Please contact IT on 01698428764.", 'danger')           
+            flash("Error with your account. Please contact IT on 01698428764.", 'danger')
     return render_template('new_contact.html', title='Contact Form', question=question, user=user, member=member, role=user['role'])
 
 
+# User can edit their own contacts
 @app.route('/edit_contact/<contact_id>', methods=['GET', 'POST'])
 def edit_contact(contact_id):
     user = mongo.db.users.find_one({'username': session['username']})
     contact = mongo.db.contacts.find_one({'_id': ObjectId(contact_id)})
     question = mongo.db.questions.find_one({'_id': ObjectId(contact['question_id'])})
     if request.method == 'POST':
-        mongo.db.contacts.update( 
-            {'_id': ObjectId(contact_id)}, 
-            { '$set': 
+        mongo.db.contacts.update(
+            {'_id': ObjectId(contact_id)},
+            {'$set':
                 {
                     'summary': request.form.get('summary')
                 }
-            })
+            }
+        )
         flash("Your contact has been updated.", 'success')
-        return redirect(url_for('question_details', question_id=question['_id']))        
-    return render_template('edit_contact.html', contact=contact, question=question, title='Edit Contact', role=user['role']) 
+        return redirect(url_for('question_details', question_id=question['_id']))
+    return render_template('edit_contact.html', contact=contact, question=question, title='Edit Contact', role=user['role'])
 
 
+# PAGES ONLY AVAILABLE TO MEMBERS
+# Member can ask a question
 @app.route('/new_question', methods=['GET', 'POST'])
 def new_question():
     form = questionForm()
@@ -239,6 +257,7 @@ def new_question():
     return render_template('new_question.html', title='Ask a New Question', role=user['role'], form=form)
 
 
+# Shows member details of the question they've asked, include the RCN Lead for their question and any associated contacts from both themselves or RCN Lead
 @app.route('/question_details/<question_id>')
 def question_details(question_id):
     user = mongo.db.users.find_one({'username': session['username']})
@@ -248,12 +267,13 @@ def question_details(question_id):
     return render_template('question_details.html', contacts=contacts, question=question, staff=staff, title="Question Details - Member View", role=user['role'])
 
 
+# PAGES ONLY AVAILABLE TO STAFF
+# Allows staff to close a question once it is complete
 @app.route('/close_question/<question_id>', methods=['GET', 'POST'])
 def close_question(question_id):
-    question = mongo.db.questions.find_one({'_id': ObjectId(question_id)})
-    mongo.db.questions.update( 
-        {'_id': ObjectId(question_id)}, 
-        { '$set': 
+    mongo.db.questions.update(
+        {'_id': ObjectId(question_id)},
+        {'$set':
             {
                 'end_date': request.form.get('end_date')
             }
@@ -262,30 +282,22 @@ def close_question(question_id):
     return redirect(url_for('staff_question_details', question_id=question_id))
 
 
+# Staff can reopen a closed question
 @app.route('/reopen_question/<question_id>', methods=['GET', 'POST'])
 def reopen_question(question_id):
-    mongo.db.questions.update( 
-        {'_id': ObjectId(question_id)}, 
-        { '$unset': 
+    mongo.db.questions.update(
+        {'_id': ObjectId(question_id)},
+        {'$unset':
             {
                 'end_date': ""
             }
-        })
+        }
+    )
     flash('Case reopened', 'success')
-    return redirect(url_for('staff_question_details', question_id=question_id))    
+    return redirect(url_for('staff_question_details', question_id=question_id))
 
 
-@app.route('/log_out')
-def log_out():
-    session.pop('username', None)
-    flash('You are now logged out', 'success')
-    return redirect(url_for('shared_login'))
-
-
-#STAFF SIDE OF SITE
-
-
-@app.route('/unassigned_questions', methods=['GET','POST'])
+@app.route('/unassigned_questions', methods=['GET', 'POST'])
 def unassigned_questions():
     user = mongo.db.users.find_one({'username': session['username']})
     questions = mongo.db.questions
@@ -294,7 +306,7 @@ def unassigned_questions():
     if request.method == 'POST':
         questions.update(
             {'_id': ObjectId(request.form.get('question_id'))},
-            { '$set': 
+            {'$set':
                 {'staff_id': request.form.get('staff_id')}
             }
         )
@@ -305,7 +317,7 @@ def unassigned_questions():
 
 @app.route('/staff_question_details/<question_id>', methods=['GET', 'POST'])
 def staff_question_details(question_id):
-    user = mongo.db.users.find_one({'username': session['username']})    
+    user = mongo.db.users.find_one({'username': session['username']})
     contacts = mongo.db.contacts.find({'question_id': ObjectId(question_id)}).sort('date', -1)
     question = mongo.db.questions.find_one({'_id': ObjectId(question_id)})
     member = mongo.db.users.find_one({'username': question['member_id']})
@@ -314,7 +326,7 @@ def staff_question_details(question_id):
     if request.method == 'POST':
         mongo.db.questions.update(
             {'_id': ObjectId(request.form.get('question_id'))},
-            { '$set': 
+            {'$set':
                 {'staff_id': request.form.get('staff_id')}
             }
         )
@@ -325,27 +337,25 @@ def staff_question_details(question_id):
 
 @app.route('/assign_lead/<question_id>', methods=['POST'])
 def assign_lead(question_id):
-    user = mongo.db.users.find_one({'username': session['username']})    
+    user = mongo.db.users.find_one({'username': session['username']})
     staff = mongo.db.users.find_one({'username': request.form.get('staff_id')})
     questions = mongo.db.questions
     question = questions.find_one({'_id': ObjectId(question_id)})
     questions.update(
         {'_id': ObjectId(question_id)},
-        { '$set':
+        {'$set':
             {
                 'staff_id': request.form.get('staff_id')
-            }
-        })
+            }})
     flash(f"The question has been assigned to {staff['first_name']}. The question will appear on their Home Page", 'success')
     return redirect(url_for('staff_question_details', question=question, question_id=question_id), role=user['role'])
 
 
 @app.route('/staff_new_contact/<question_id>', methods=['GET', 'POST'])
 def staff_new_contact(question_id):
-    user = mongo.db.users.find_one({'username': session['username']})    
+    user = mongo.db.users.find_one({'username': session['username']})
     contacts = mongo.db.contacts
     question = mongo.db.questions.find_one({'_id': ObjectId(question_id)})
-    member = mongo.db.members.find_one({'username': question['member_id']})
     if request.method == 'POST':
         contact = {
             'member_id': question['member_id'],
