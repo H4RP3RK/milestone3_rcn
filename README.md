@@ -164,12 +164,12 @@ Further reading and troubleshooting on cloning a repository from GitHub [here](h
 ## Questions/To Do
 
 Jonathan 08.09.2020
-- Read up on flask forms documentation
+x Read up on flask forms documentation
 - Change all to forms
 x Combine different methods to one, particularly Login
-- Can have multiple base.html and pull from it to create staff/member views
-- Avoid duplication of else in methods, means it can be reduced down
-- JS - organise the questions by date etc or close btn on flash messages
+x Can have multiple base.html and pull from it to create staff/member views
+x Avoid duplication of else in methods, means it can be reduced down
+x JS - organise the questions by date etc or close btn on flash messages
 
 Base.html
     x restyle navbar dropdown
@@ -178,7 +178,7 @@ Welcome.html
     x If session exists, take to member_home rather than log_in
 shared_login.html
     - link up forgot password
-    - Why will this not load up initially?
+    x Why will this not load up initially?
 Register.html
     x If user exists with email address, can you send error?
 Queries.html 
@@ -188,6 +188,7 @@ Queries.html
 New_question.html
     x Why won't labels go blue?
     - Change the questions
+    - Put questio/input in one row
     - Add back button?
 New_contact.html
     x How do I timestamp contact? - default=datetime.utcnow
@@ -210,10 +211,10 @@ Account.html
     x make sure update works
     x Change to show workplace if staff
     x change form to flask form 
-    - warning message when changing account details
+    x warning message when changing account details
     x Change staff job_title to select
     - Add back button?
-    - error message with mbr updates
+    x error message with mbr updates
 Unassigned_questions.html
     x Why won't staff pull through to modal?
     - JS to filter queries
@@ -247,10 +248,10 @@ Staff_question_details.html
     x Open two accordions at one time
 Member_list.html
     x Add JS to filter different queries and/or search
-    - padding for button
+    x padding for button
     x Add background image
-    - padding under search bar
-    - button goes off col at smaller screen sizes
+    x padding under search bar
+    x button goes off col at smaller screen sizes
 Member_details.html
     - Change background image
 App.py 

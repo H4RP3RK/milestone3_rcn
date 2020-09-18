@@ -26,32 +26,28 @@ def shared_login():
     if 'username' in session:
         user = users.find_one({'username': session['username']})
         return redirect(url_for('home', username=session['username']))
-    if request.method == 'POST':
-        if form.validate_on_submit():
-            user = users.find_one({'username': form.username.data})
-            if user and bcrypt.check_password_hash(user['password'], form.password.data):
-                session['username'] = form.username.data
-                flash(f'Welcome {user["first_name"].capitalize()}. You are logged in to your {user["role"].capitalize()} account.', 'success')
-                return redirect(url_for('home', username=session['username']))
-            else:
-                flash('Email/password combination is not recognised', 'danger')
-                return render_template('shared_login.html', form=form, title='Login')
+    elif form.validate_on_submit():
+        user = users.find_one({'username': form.username.data})
+        if user and bcrypt.check_password_hash(user['password'], form.password.data):
+            session['username'] = form.username.data
+            flash(f'Welcome {user["first_name"].capitalize()}. You are logged in to your {user["role"].capitalize()} account.', 'success')
+            return redirect(url_for('home', username=session['username']))
         else:
-            flash('Error logging in. Please contact IT on 01698428764.', 'danger')
+            flash('Email/password combination is not recognised', 'danger')
+            return render_template('shared_login.html', form=form, title='Login')
     return render_template('shared_login.html', form=form, title='Login')
 
 
 @app.route('/register/<role>', methods=['GET', 'POST'])
 def register(role):
-    if 'username' in session:
-        return redirect(url_for('home', username=session['username']))
     form = registrationForm()
     workplace_form = workplaceForm()
-    if request.method == 'POST':
+    if 'username' in session:
+        return redirect(url_for('home', username=session['username']))
+    elif request.method == 'POST':
         if form.validate_on_submit():
             users = mongo.db.users
             current_user = users.find_one({'username': request.form['email']})
-
             if current_user is None:
                 hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
                 new_user = {
@@ -78,7 +74,7 @@ def register(role):
                 flash(f'{form.email.data} is already registered. You can login by clicking the link below', 'danger')
         else:
             flash(f'Error submitting form: {form.errors}. Please contact IT on 01698428764.', 'danger')
-    return render_template('register.html', form=form, title=f'{role.capitalize()} Sign Up', role=role)
+    return render_template('register.html', form=form, workplace_form=workplace_form, title=f'{role.capitalize()} Sign Up', role=role)
 
 
 @app.route('/home/<username>')
@@ -145,8 +141,8 @@ def account(username):
         flash("Your details are now updated.", 'success')
         return redirect(url_for('home', username=session['username'])) 
     else:
-            flash(f"Error: {form.errors}. Please contact IT on 01698428764.", 'danger')        
-    return render_template('account.html', member=user, title="Edit Your Account Details", form=form, role=role)
+        flash(f"Error: {form.errors}. Please contact IT on 01698428764.", 'danger')        
+    return render_template('account.html', member=user, title="Edit Your Account Details", form=form, workplace_form=workplace_form, role=role)
 
 
 @app.route('/new_contact/<question_id>', methods=['GET', 'POST'])

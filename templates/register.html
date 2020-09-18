@@ -124,16 +124,16 @@
         <!--Else, form has workplace input-->
                                     {% else %}
 
-                                        {{ form.workplace.label(class="form-control-label") }}
-                                    {% if form.workplace.errors %}
-                                            {{ form.workplace(class="form-control is-invalid")}}
+                                        {{ workplace_form.workplace.label(class="form-control-label") }}
+                                    {% if workplace_form.workplace.errors %}
+                                            {{ workplace_form.workplace(class="form-control is-invalid")}}
                                             <div class="invalid-feedback">  
-                                                {% for error in form.workplace.errors %}
+                                                {% for error in workplace_form.workplace.errors %}
                                                     <span>{{ error }}</span>
                                                 {% endfor %}
                                             </div>
                                     {% else %}
-                                            {{ form.workplace(class="form-control")}}
+                                            {{ workplace_form.workplace(class="form-control")}}
                                     {% endif %}
 
                                     {% endif %}

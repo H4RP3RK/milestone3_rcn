@@ -80,17 +80,17 @@
     <!--Else if role is staff, show Workplace input--> 
                             {% elif role == "staff" %}
                             <div class="form-group form-row justify-content-center align-items-center">                                    
-                                {{ form.workplace.label(class="col-sm-4 form-control-label") }}
-                                {% if form.workplace.errors %}
-                                {{ form.workplace(class="form-control is-invalid")}}
+                                {{ workplace_form.workplace.label(class="col-sm-4 form-control-label") }}
+                                {% if workplace_form.workplace.errors %}
+                                {{ workplace_form.workplace(class="form-control is-invalid")}}
                                 <div class="invalid-feedback">  
-                                    {% for error in form.workplace.errors %}
+                                    {% for error in workplace_form.workplace.errors %}
                                         <span>{{ error }}</span>
                                     {% endfor %}
                                 </div>
                                 {% else %}
                                 <div class="col-sm-4">
-                                    {{ form.workplace(class="form-control")}}                                        
+                                    {{ workplace_form.workplace(class="form-control")}}                                        
                                 </div>
                                 {% endif %}
                             </div>
