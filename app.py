@@ -19,7 +19,7 @@ mongo = PyMongo(app)
 bcrypt = Bcrypt(app)
 
 
-@app.route('/shared_login', methods=['GET', 'POST'])
+@app.route('/', methods=['GET', 'POST'])
 def shared_login():
     form = loginForm()
     users = mongo.db.users
