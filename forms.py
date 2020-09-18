@@ -1,8 +1,9 @@
 # Took inspiration from Pretty Printed YouTube videos: https://www.youtube.com/watch?v=jR2aFKuaOBs
 
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, SelectField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, SelectField, TextAreaField
 from wtforms.validators import DataRequired, Email, Length, EqualTo
+from wtforms.widgets import TextArea
 
 
 class registrationForm(FlaskForm):
@@ -32,3 +33,7 @@ class accountForm(FlaskForm):
 
 class workplaceForm(FlaskForm):
     workplace = SelectField('Workplace', choices=[('Belfast'), ('Cardiff'), ('Edinburgh'), ('Glasgow'), ('London'), ('West Midlands'), ('Yorkshire')])
+
+class questionForm(FlaskForm):
+    question_type = SelectField('Question Type', choices=[('Work Issue'), ('Professional Nursing Advice'), ('Careers')])
+    question_details = StringField('Question Details', widget=TextArea()))
