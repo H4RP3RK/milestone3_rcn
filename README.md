@@ -213,6 +213,7 @@ Account.html
     - warning message when changing account details
     x Change staff job_title to select
     - Add back button?
+    - error message with mbr updates
 Unassigned_questions.html
     x Why won't staff pull through to modal?
     - JS to filter queries
@@ -233,6 +234,7 @@ Question_details.html
     - Upload file
     - Change date format
     - Check that showing in order, once date format corrected
+    - Better way to show end date
 Staff_question_details.html
     - Changed time format to match other Pages
     x Change workplace to employer in member details

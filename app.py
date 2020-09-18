@@ -38,7 +38,7 @@ def shared_login():
                 flash('Email/password combination is not recognised', 'danger')
                 return render_template('shared_login.html', form=form, title='Login')
         else:
-            flash('Error logging in. Please refresh the page and try again.', 'danger')
+            flash('Error logging in. Please contact IT on 01698428764.', 'danger')
     return render_template('shared_login.html', form=form, title='Login')
 
 
@@ -77,7 +77,7 @@ def register(role):
             else:
                 flash(f'{form.email.data} is already registered. You can login by clicking the link below', 'danger')
         else:
-            flash(f'Error submitting form: {form.errors} Please contact IT', 'danger')
+            flash(f'Error submitting form: {form.errors} Please contact IT on 01698428764.', 'danger')
     return render_template('register.html', form=form, title=f'{role.capitalize()} Sign Up', role=role)
 
 
@@ -135,7 +135,7 @@ def account(username):
             flash("Your details are now updated.", 'success')
             return redirect(url_for('home', username=session['username']))
         else:
-            flash('Error submitting form. Please refresh the page and try again.', 'danger')
+            flash('Error submitting form. Please contact IT on 01698428764.', 'danger')
     elif request.method == 'GET':
         form.username.data = user['username']
         form.email.data = user['email']
@@ -146,7 +146,7 @@ def account(username):
         elif role == "staff":
             form.workplace.data = user['workplace']
         else:
-            flash("Error with your account. Unsure whether you are an RCN member or staff. Please contact IT for support", 'danger')            
+            flash("Error with your account. Please contact IT on 01698428764.", 'danger')            
     return render_template('account.html', member=user, title="Edit Your Account Details", form=form, role=role)
 
 
@@ -184,7 +184,7 @@ def new_contact(question_id):
             flash(f"Contact made. Check your contacts below for updates", 'success')
             return redirect(url_for('staff_question_details', question_id=question['_id']))
         else:
-            flash("Problem with your account. Please contact IT", 'danger')           
+            flash("Error with your account. Please contact IT on 01698428764.", 'danger')           
     return render_template('new_contact.html', title='Contact Form', question=question, user=user, member=member, role=user['role'])
 
 
