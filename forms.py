@@ -29,11 +29,12 @@ class accountForm(FlaskForm):
     telephone = StringField('Telephone', validators=[Length(min=11)])
     employer = StringField('Employer')
     job_title = StringField('Job Title')
-    update = SubmitField('Update') 
+    submit = SubmitField('Update') 
 
 class workplaceForm(FlaskForm):
     workplace = SelectField('Workplace', choices=[('Belfast'), ('Cardiff'), ('Edinburgh'), ('Glasgow'), ('London'), ('West Midlands'), ('Yorkshire')])
 
 class questionForm(FlaskForm):
     question_type = SelectField('Question Type', choices=[('Work Issue'), ('Professional Nursing Advice'), ('Careers')])
-    question_details = StringField('Question Details', widget=TextArea()))
+    question_details = StringField('Question Details', widget=TextArea())
+    submit = SubmitField('Submit')

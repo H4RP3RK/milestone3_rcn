@@ -1,7 +1,7 @@
 import os, datetime
 from flask_wtf import FlaskForm
 from flask import Flask, render_template, redirect, request, url_for, flash, session
-from forms import loginForm, registrationForm, accountForm, workplaceForm
+from forms import loginForm, registrationForm, accountForm, workplaceForm, questionForm
 from flask_pymongo import PyMongo
 from flask_bcrypt import Bcrypt
 from bson.objectid import ObjectId
@@ -201,26 +201,26 @@ def edit_contact(contact_id):
     return render_template('edit_contact.html', contact=contact, question=question, title='Edit Contact', role=user['role']) 
 
 
-@app.route('/new_question')
+@app.route('/new_question', methods=['GET', 'POST'])
 def new_question():
+    form = questionForm()
     user = mongo.db.users.find_one({'username': session['username']})
-    return render_template('new_question.html', title='Ask a New Question', role=user['role'])
-
-
-@app.route('/submit_question', methods=['POST'])
-def submit_question():
-    user = mongo.db.users.find_one({'username': session['username']})
-    questions = mongo.db.questions
-    question = {
-        'member_id': session['username'],
-        'question_type': request.form.get('question_type'),
-        'start_date': datetime.datetime.utcnow().strftime('%d/%m/%y  %H:%M'),
-        'summary': request.form.get('summary'),
-        'staff_id': 'unassigned'
-    }
-    questions.insert_one(question)
-    flash("Thanks for your question. We'll respond shortly. You can click on your question below for updates.", 'success')
-    return redirect(url_for('home', username=session['username'], role=user['role']))
+    if request.method == 'POST':
+        if form.validate_on_submit():
+            questions = mongo.db.questions
+            question = {
+                'member_id': session['username'],
+                'question_type': form.question_type.data,
+                'start_date': datetime.datetime.utcnow().strftime('%d/%m/%y  %H:%M'),
+                'summary': form.question_details.data,
+                'staff_id': 'unassigned'
+            }
+            questions.insert_one(question)
+            flash("Thanks for your question. We'll respond shortly. You can click on your question below for updates.", 'success')
+            return redirect(url_for('home', username=session['username'], role=user['role']))
+        else:
+            flash(f"Error submitting form: {form.errors}. Please contact IT on ", "danger")
+    return render_template('new_question.html', title='Ask a New Question', role=user['role'], form=form)
 
 
 @app.route('/question_details/<question_id>')
