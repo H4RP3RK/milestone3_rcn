@@ -215,3 +215,9 @@ footer {
 .list-bottom-margin {
     margin-bottom: 0.5rem;
 }
+
+/*--Shared Login--*/
+
+.top-padding {
+    padding-top: 10rem;
+}
