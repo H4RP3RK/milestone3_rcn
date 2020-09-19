@@ -5,7 +5,7 @@
         <ol class="breadcrumb font">
             <li class="breadcrumb-item"><a href="{{ url_for('home', username=session['username']) }}">Your Home Page</a></li>
             {% if user.role == "member" %}
-            <li class="breadcrumb-item"><a href="{{ url_for('question_details', question_id=question._id) }}">Question Details</a></li>
+            <li class="breadcrumb-item"><a href="{{ url_for('member_question_details', question_id=question._id) }}">Question Details</a></li>
             {% elif user.role == "staff" %}
             <li class="breadcrumb-item"><a href="{{ url_for('staff_question_details', question_id=question._id) }}">Question Details</a></li>
             {% else %}     

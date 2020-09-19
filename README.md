@@ -114,25 +114,119 @@ This website/app helps the users achieve these goals by providing:
 Every page has a consistent layout and design, which features:
 * Headers and footers coloured blue and white, in line with the RCN brand.
 * The RCN logo is in the top left corner of the header, in keeping with the layout of existing [RCN websites](https://www.rcn.org.uk/).
+* The logo also doubles as a link back to the user's home page, if logged in, or the login page.
 * A drop down navigation menu is used to minimise clutter on the page. The navigation menu differs, dependent on whether the user is a member or staff.
 * There is a banner across each page with a title that clearly explains the page's purpose.
 * The footer features links to related sites and their associated logos. On the left side of the footer there are the RCN sites; [RCN Website](https://www.rcn.org.uk/), [RCNi](https://rcni.com/) and [RCNXtra](https://my.rcn.org.uk/RCNXtra/login).
 * On the right hand side of the footer, there are links to the RCN's social media sites; [Twitter](https://twitter.com/theRCN), [Facebook](https://www.facebook.com/index.php?next=https%3A%2F%2Fwww.facebook.com%2Froyalcollegeofnursing), [Instgram](https://www.instagram.com/thercn/) and [YouTube](https://www.youtube.com/user/RCNonline)
 * Breadcrumbs are used throughout the website to map the site layout and allow for easy navigation back and forth through the webpages.
 * Flash messages are used throughout the website to confirm successful user actions or alert the user to errors.
+* Different background images are used on each page. These are both aesthetically pleasing and help to differentiate each page. The images are layered with white opacity to ensure that they are not distracting to the main content of the page. All images are taken from the RCN's existing website.
 * Consistent and simple styling of rounded border boxes breaks each web page's information into easily digestible chunks.
 * A responsive grid design ensures that the content is organised in an aesthetically pleasing and practical format on all screen sizes.
 
 ### Login
 The website is intended only for RCN members and RCN staff. There is no functionality for those who do not login, therefore, the website opens on the login page to make this clear to the visitor.
-A strap line is used to easily explain the purpose of the website to the user. 
+A strap line is used to easily explain the purpose of the website to the user. A link is provided to the Sign Up page for those who do not yet have login details. A danger flash message appears if the wrong username/password combination is entered.
 
 ### Sign Up
+The sign up page includes a tab which switches between the member and staff sign up forms. A flask form is used for the form functionality. Error messages highlight incompatible inputs for each form section and a flash message is also used to highlight errors, such as the email address is already registered.
+There is a link to the log in page for those who have already signed up. If the form is succesfully submitted, the user is redirected to their personalised home page and a flash message appears to confirm that an account has successfully been created for the user.
+
+### User's Home Page 
+The user's home page can differ dependent upon whether the user is a member or staff. The overall look is similar. The page is split into three sections. Responsive grids display these sections in a single column in smaller screens. On larger screens, one row has two equally sized sections side by side and there is a second row that is the full length of the container.
+#### Member View
+Section one asks the member what they would like to do and offers three options in the form of buttons
+* update account details - takes the user to a separate page (details below)
+* ask new question - takes the user to a separate page (details below)
+* see current/closed questions - scrolls the screen down to the last section of the page.
+
+Section two outlines the member's account details. It provides the member's name, username, email address, telephone number, employer and job title. 
+
+Section three lists the questions that the member has submitted. These are displayed using Bootstrap accordion so each question can be expanded to show a summary of the question asked. The accordion header also provides a link to a separate page that gives more detail about the question.
+Questions are listed in order of start date, with those asked most recently at the top. Closed questions drop to the bottom of the list.
+
+#### Staff View
+Section one also asks the staff user questions and provides accompanying buttons. They are
+* update account details
+* see assigned questions
+* browse unassigned questions
+* see all member accounts.
+
+Section two also provides the user's account details. Instead of stating the employer, the staff user's account shows their workplace. 
+
+Section three provides details of all the questions assigned to the staff user. Again, they are listed by start date, with most recent at the top. Closed questions drop to the bottom of the list. The accordion
+expands to provide a summary of the question and there's a link to take the user to full details of the question.
+
+### Account 
+Allows the user to update their account details. The form is prepopulated by the user's existing account details. All inputs except the username can be altered. The username is greyed out to make this apparent to the user.
+Responsive grid design shows the labels and inputs in one full width column on smaller screens. On larger screens the form is centred in the screen and labels and inputs are shown side by side. This aids with readability.
+When the user submits the form, they are redirected back to their home page and a flash message confirms that the update has been successful. Breadcrumbs are provided incase the user wishes to direct back to the home page without
+making any updates.
+
+### Ask New Question - Members Only 
+This page is available for members only, to allow them to submit a question to be answered by an RCN staff member. A simple form allows the member to easily submit their question. A select box allows them to choose the question type that most suits their question and
+a free text box allows them to ask their question. The form is consistent with the responsive grid layout described in the form above.
+
+A placeholder message encourages them to provide as much detail as possible. The breadcrumbs allows the member to direct back to the home page without submitting a question. On submission, the member is redirected back to
+their home page and a flash message confirms that the question has been submitted. It also reminds the member that they can check on the "Questions" section of their home page for details of the question they have just submitted.
+
+### Member Question Details - Members Only 
+This page is available for members only as staff see a different view of the question details. Members can direct to this page from their home page once they have submitted a question. 
+
+The page has a similar layout to the home page - three sections that have the same responsive layout that changes dependent on the size of the screen. Section one provides the RCN Lead's contact details. If an RCN Lead hasn't yet been assigned, it provides general RCN contact details. It also 
+provides a button that allows the member to contact their RCN Lead. This is logged as a contact on the question.
+
+Section two provides detail of the question, including the question type, start date, end date (which remains blank if the question is open) and the question summary.
+
+Section three provides all contacts associated with the question. This could be further contacts made by the member or contacts logged by the RCN Lead. The contacts are displayed in a similar format to the questions on the home page. They are listed in date order, most recent at the top. Bootstrap accordions are used. 
+On expansion, contact details are provided. For those contacts that are made by the member, an edit button appears to allow them to make changes to their contact.
+
+### Staff Question Details - Staff Only 
+This page is available for staff only. It provides details of the question the member has asked and provides the staff user with a number of options for actions that can be taken. 
+
+Responsive grid design is used for the layout of the page. It is broken into four sections for readbility. In smaller screens, these sections are displayed in one column. On larger screens, section one is full width of the container, section two and three are equal width side by side and column four is full width. 
+The overall layout is similar to the home page and member question details page, in order to ensure consistency and ease of use for the user. 
+
+Section one displays at the top of the page and asks the staff what they would like to do, and provide corresponding buttons. Options are:
+* Contact member - this leads to the contact form section below.
+* Add contact - leads to a new page
+* Assign question - displays a modal that allows staff with a one question form that allows them to choose to whom to assign the question. This could be the user or a colleague. 
+* Browse contacts - scrolls the page to section four, where the contacts are listed 
+* Close/reopen question - this button differs dependent on whether the question is open or closed. If open, a modal appears to ask the staff user if they are sure they wish to close the question and provides a close button. If the button is pressed, the modal closes and the question details of the page is updated with an end date. The end date is the date that the close button is pressed. If the question is already closed, the reopen button simply removes the end date from the question details section.
+
+Section two of the page provides the question details and is the same as the question details described in the Member Question Details page above. Section three provides the member's account details. 
+Section four lists the contacts related to the question in the same way described in the Member Question Details page above. 
+
+### Contact Form 
+This page is accessible to both members and staff, although accessed in a different way for each group of users. Members can access this through the "Contact your RCN Lead" button on their home page, described above. 
+The page consists of a simple form, that has the same responsive grid format as those forms described above. The form has two greyed out readonly inputs; from and to. From is always the website user. For members, the "To" input will either state the RCN Lead or, if the RCN Lead hasn't yet been assigned, simply the RCN.
+For staff, the "To" section will state the member who submitted the overarching question. 
+
+Breadcrumbs allow the user to return to their home page or details of the overarching question without submitting a contact.
+
+### Detailed Contact Form - Staff Only 
+This page provides a more detailed contact form that allows staff to log all contacts they have had in relation to the question. The page contains a form that uses the same responsive grid design that is described for forms above. The staff user is given a select option as to the type of contact eg this app, email, telephone, in person etc. 
+The date of the contact is prepopulated with the current date and time but this can be overwritten by the user. The "From" section is prepopulated by the user's name but can also be overwritten. The "To" section and "Contact Details" are free text to allow the user to complete these details. 
+On submit, the user is redirected back to the Staff Question Details page and a flash message confirms that the contact has been logged. The contact should also appear on the question details page. If the user chooses not to submit a contact, they can redirect back to their home page, unassigned questions page or question details page using the breadcrumbs. 
+
+### Unassigned Questions - Staff Only 
+This page is accessible only to staff. It provides a list of all questions that have not yet been assigned to an RCN Lead. The questions are listed using the Bootstrap accordion, to remain consistent with the rest of the site. The accordion header describes the question type and the date the question was asked. There are also three buttons:
+* Summary button - allows the accordion to be expanded to show the details of the question without the need to navigate to a new page.
+* Details button - directs the user to the Staff Question Details page for the associated question
+* Assign question button - a modal appears that allows the question to be assigned to the user or a colleague without the need to navigate from the page 
+
+### All Member Accounts - Staff Only 
+This page is accessible only to staff. It provides a list of all the members accounts. The layout is very similar to the unassigned questions page to ensure good user experience. However, the expandable accordion was not considered necessary for this list as all pertinent information can be included in the header. Members are listed in alphabetical order (in accordance with their surname).
+A search bar allows the user to search by name, job title or employer. For each member, a button is provided that leads the user to further details. 
+
+### 
+
 
 ### Existing Features 
 
 ### Features Left to Implement 
-
+* Functionality to reset the user password and change the username. As authentication was not the focus of this project, it was not considered a priority.
 
 ---
 

@@ -46,7 +46,7 @@ class questionForm(FlaskForm):
 class contactForm(FlaskForm):
     contact_from = StringField('From')
     contact_to = StringField('To')
-    contact_details = StringField('Contact Details', widget=TextArea())
+    contact_details = StringField('Question Details', widget=TextArea())
     submit = SubmitField('Submit')
 
 

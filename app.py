@@ -213,7 +213,7 @@ def new_contact(question_id):
                             'end_date': ''
                         }})
                 flash("Thanks for getting in touch. Your RCN Lead will be in touch shortly. Check your contacts below for updates", 'success')
-                return redirect(url_for('question_details', question_id=question['_id']))
+                return redirect(url_for('member_question_details', question_id=question['_id']))
             elif user['role'] == 'staff':
                 mongo.db.questions
                 flash("Contact made. Check your contacts below for updates", 'success')
@@ -271,8 +271,8 @@ def new_question():
 
 
 # Shows member details of the question they've asked, include the RCN Lead for their question and any associated contacts from both themselves or RCN Lead
-@app.route('/question_details/<question_id>')
-def question_details(question_id):
+@app.route('/member_question_details/<question_id>')
+def member_question_details(question_id):
     user = mongo.db.users.find_one({'username': session['username']})
     contacts = mongo.db.contacts.find({'question_id': ObjectId(question_id)}).sort('date', -1)
     question = mongo.db.questions.find_one({'_id': ObjectId(question_id)})
