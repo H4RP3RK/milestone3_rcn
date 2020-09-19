@@ -85,8 +85,6 @@ def register(role):
                 return redirect(url_for('home', username=session['username']))
             else:
                 flash(f'{form.email.data} is already registered. You can login by clicking the link below', 'danger')
-        else:
-            flash(f'Error submitting form: {form.errors}. Please contact IT on 01698428764.', 'danger')
     return render_template('register.html', form=form, workplace_form=workplace_form, title=f'{role.capitalize()} Sign Up', role=role)
 
 
@@ -168,8 +166,6 @@ def account(username):
                     }})
         flash("Your details are now updated.", 'success')
         return redirect(url_for('home', username=session['username']))
-    else:
-        flash(f"Error: {form.errors}. Please contact IT on 01698428764.", 'danger')
     return render_template('account.html', member=user, title="Edit Your Account Details", form=form, workplace_form=workplace_form, role=role)
 
 

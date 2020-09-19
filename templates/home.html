@@ -12,10 +12,10 @@
     <!--If user role is mbr, shows member btns-->                
                         {% if role == "member" %}
                         <h5><a class="blue-btn btn background-blue" href="{{ url_for('new_question') }}" role="button">Ask a new question</a></h5>
-                        <h5><button class="blue-btn btn background-blue" onclick="scrollQuestions()" role="button">See your current/old questions</button></h5>
+                        <h5><button class="blue-btn btn background-blue" onclick="scrollQuestions()" role="button">See your current/closed questions</button></h5>
                         {% elif role == "staff" %}
                         <h5><button class="blue-btn btn background-blue" onclick="scrollQuestions()" role="button">See your assigned questions</button></h5>
-                        <h5><a class="blue-btn btn background-blue" href="{{ url_for('unassigned_questions') }}" role="button">Browse all unassigned cases</a></h5>
+                        <h5><a class="blue-btn btn background-blue" href="{{ url_for('unassigned_questions') }}" role="button">Browse all unassigned questions</a></h5>
                         <h5><a class="blue-btn btn background-blue" href="{{ url_for('member_list') }}" role="button">See all member accounts</a></h5>
                         {% else %}
                         <p>Problem with your account. Please contact IT</p>

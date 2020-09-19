@@ -237,16 +237,27 @@ Another button leads to the Staff Question Details page for the associated quest
 
 ### Features Left to Implement 
 * Functionality to reset the user password and change the username. As authentication was not the focus of this project, it was not considered a priority.
+* A Date Time Picker on the Detailed Contact Form page. A Date Picker had initially been used but later removed due to lack of functionality on certain web browsers.
 * Upload files. Could be added in future to allow both members and staff to upload related documents to the member's question. 
-
+* Add user photos. This could help to build rapport between members and their RCN Leads.
 
 ---
 
 ## Technologies Used 
 
 * [Gitpod](https://www.gitpod.io/)
-* [Github](https://github.com/)
+* [Github](https://github.com/) - version control and storage of the project
+* [Heroku](https://dashboard.heroku.com/) - for deployment of the completed website
 * HTML and CSS 
+* Javascript - used for the search function for the All Member Accounts page, Scroll buttons on the Question Details and Home pages.
+* [MongoDB](https://www.mongodb.com/) - A NoSQL database used to store project data.
+* [PyMongo](https://pymongo.readthedocs.io/en/stable/#) - for writing Python code that would be compatible with Mongo DB.
+* [Jinja](https://jinja.palletsprojects.com/en/2.11.x/) - Python templating language used throughout the HTML files.
+* [Flask](https://flask.palletsprojects.com/en/1.1.x/) - Web framework used to construct the web pages.
+* [JQuery](https://jquery.com/) - Javascript library user for the navbar and accordions.
+* [Bootstrap](https://getbootstrap.com/) - for the responsive grid layout, navbar, modals and forms. All templates were tailored to the needs of the site. 
+* [Google Fonts](https://fonts.google.com/) - used to style the website fonts. PT Sans as the closest match to the current RCN branding.
+* [Font Awesome](https://fontawesome.com/) - icons for certain buttons.
 
 ---
 
@@ -275,17 +286,28 @@ To deploy this page to GitHub Pages from its [GitHub repository](https://github.
 
 To clone this project from GitHub:
 
-1. Under the repository name, click "Clone or download".
-2. In the Clone with HTTPs section, copy the clone URL for the repository. 
-3. In your local IDE open Git Bash.
-4. Change the current working directory to the location where you want the cloned directory to be made.
-5. Type ```git clone```, and then paste the URL you copied in Step 3.
+1. In order to download, you will require a local IDE, Python, MongoDB, PIP and Git installed.
+2. From the [GitHub repository](https://github.com/H4RP3RK/milestone3_rcn), click on the green "Code" button, which gives the option to download the ZIP file.
+3. Download the ZIP file
+4. In the Clone with HTTPs section, copy the clone URL for the repository. 
+5. In your local IDE open Git Bash.
+5. Change the current working directory to the location where you want the cloned directory to be made.
+6. Type ```git clone```, and then paste the URL you copied in Step 3.
 ```console
 git clone https://github.com/H4RP3RK/milestone3_rcn.git
 ```
-6. Press Enter. Your local clone will be created.
+7. Install all the modules outlined in requirements.txt.
+8. Create your own SECRET_KEY and MONGO_URI to link with your own MONGO_DB database. The database should be name rcndatabase, with three collections; users, questions and contacts.
 
 Further reading and troubleshooting on cloning a repository from GitHub [here](https://help.github.com/en/articles/cloning-a-repository).
+
+### Heroku Deployment 
+
+1. Create a requirements.txt file and a Procfile.
+2. Create a new app on your Heroku account.
+3. Git push your project to Heroku.
+4. Set your SECRET_KEY, MONGO_URI, IP and PORT config variables on your Heroku account.
+5. Deploy from your Heroku dashboard.
 
 ---
 ## Credits 
@@ -313,9 +335,12 @@ x JS - organise the questions by date etc or close btn on flash messages
 shared_login.html
     - link up forgot password
     x more padding at top/bottom
+register.html 
+    - can enter letters into telephone 
 Home.html
     - question tabs showing all questions
     - account details fall of page on small screen
+    - why are accordion tabs not working?
 New_question.html
     - Change the questions
     x Put question/input in one row

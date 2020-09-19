@@ -2,7 +2,7 @@
 
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, SelectField, DateTimeField
-from wtforms.validators import DataRequired, Email, Length, EqualTo
+from wtforms.validators import DataRequired, Email, Length, EqualTo, NumberRange
 from wtforms.widgets import TextArea
 
 
@@ -39,14 +39,14 @@ class workplaceForm(FlaskForm):
 
 class questionForm(FlaskForm):
     question_type = SelectField('Question Type', choices=[('Work Issue'), ('Professional Nursing Advice'), ('Careers')])
-    question_details = StringField('Question Details', widget=TextArea())
+    question_details = StringField('Question Details', widget=TextArea(), validators=[DataRequired()])
     submit = SubmitField('Submit')
 
 
 class contactForm(FlaskForm):
     contact_from = StringField('From')
     contact_to = StringField('To')
-    contact_details = StringField('Question Details', widget=TextArea())
+    contact_details = StringField('Question Details', widget=TextArea(), validators=[DataRequired()])
     submit = SubmitField('Submit')
 
 
@@ -55,5 +55,5 @@ class detailedContactForm(FlaskForm):
     contact_from = StringField('From')
     contact_to = StringField('To')
     contact_date = DateTimeField('Date', format='%d-%m-%Y %H:%M')
-    contact_details = StringField('Contact Details', widget=TextArea())
+    contact_details = StringField('Contact Details', widget=TextArea(), validators=[DataRequired()])
     submit = SubmitField('Submit')
