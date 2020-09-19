@@ -258,7 +258,7 @@ def new_question():
             question = {
                 'member_id': session['username'],
                 'question_type': form.question_type.data,
-                'start_date': datetime.utcnow(),
+                'start_date': datetime.utcnow().strftime('%y/%m/%d  %H:%M'),
                 'summary': form.question_details.data,
                 'staff_id': 'unassigned'
             }
@@ -403,4 +403,5 @@ def member_details(member_id):
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
             port=int(os.environ.get('PORT')),
-            debug=True)
+            debug=False)
+ß
