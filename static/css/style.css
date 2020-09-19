@@ -218,6 +218,7 @@ footer {
 
 /*--Shared Login--*/
 
-.top-padding {
-    padding-top: 10rem;
+.login-padding {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
 }
