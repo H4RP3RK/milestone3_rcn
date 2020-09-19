@@ -106,10 +106,12 @@ def home(username):
         open_question_message = "You haven't asked any questions yet. When you do, they will appear here"
         question_heading = "Your Questions"
     elif user['role'] == 'staff':
-        open_questions = mongo.db.questions.find({'$and': [{'staff_id': username},
+        open_questions = mongo.db.questions.find({'$and':
+                                        [{'staff_id': username},
                                         {'end_date': {'$exists': False}}]
                                         }).sort('start_date', -1)
-        closed_questions = mongo.db.questions.find({'$and': [{'staff_id': username},
+        closed_questions = mongo.db.questions.find({'$and':
+                                        [{'staff_id': username},
                                         {'end_date': {'$exists': True}}]
                                         }).sort('start_date', -1)
         open_question_message = "You have no assigned cases. When you do, they will appear here"
@@ -184,12 +186,15 @@ def new_contact(question_id):
     if request.method == 'GET':
         form.contact_from.data = f"{user['first_name']} {user['last_name']}"
         if user['role'] == 'member': 
-            form.contact_to.data = f"{staff['first_name']} {staff['last_name']}"
+            if question['staff_id'] == 'unassigned':
+                form.contact_to.data = "RCN"
+            else:
+                form.contact_to.data = f"{staff['first_name']} {staff['last_name']}"
         elif user['role'] == 'staff':
             form.contact_to.data = f"{member['first_name']} {member['last_name']}"
     elif request.method == 'POST':
         if form.validate_on_submit():
-            contacontact = {
+            contact = {
                 'question_id': ObjectId(question_id),
                 'contact_type': 'database',
                 'date': datetime.utcnow().strftime('%d/%m/%y  %H:%M'),
@@ -253,7 +258,7 @@ def new_question():
             question = {
                 'member_id': session['username'],
                 'question_type': form.question_type.data,
-                'start_date': datetime.utcnow().strftime('%d/%m/%y  %H:%M'),
+                'start_date': datetime.utcnow(),
                 'summary': form.question_details.data,
                 'staff_id': 'unassigned'
             }
@@ -272,7 +277,7 @@ def question_details(question_id):
     contacts = mongo.db.contacts.find({'question_id': ObjectId(question_id)}).sort('date', -1)
     question = mongo.db.questions.find_one({'_id': ObjectId(question_id)})
     staff = mongo.db.users.find_one({'username': question['staff_id']})
-    return render_template('question_details.html', contacts=contacts, question=question, staff=staff, title="Question Details - Member View", role=user['role'])
+    return render_template(f"{user['role']}_question_details.html", contacts=contacts, question=question, staff=staff, title="Question Details - Member View", role=user['role'])
 
 
 # PAGES ONLY AVAILABLE TO STAFF
