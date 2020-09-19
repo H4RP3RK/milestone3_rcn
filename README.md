@@ -171,10 +171,12 @@ x JS - organise the questions by date etc or close btn on flash messages
 
 shared_login.html
     - link up forgot password
-    - more padding at top/bottom
+    x more padding at top/bottom
+Home.html
+    - question tabs showing all questions
 New_question.html
     - Change the questions
-    - Put question/input in one row
+    x Put question/input in one row
     - Add back button?
 New_contact.html
     - Add back button?
@@ -188,19 +190,19 @@ Account.html
     - Add back button?
 Unassigned_questions.html
     - JS to filter queries
-    - btn margins
-    - targets only one accordion
+    x btn margins
+    x targets only one accordion
 Question_details.html
     - Show photo of RCN staff 
     - If no contacts, add a generic message (Why is this not working?)
     - Upload file
-    - Change date format
-    - Check that showing in order, once date format corrected
+    x Change date format
+    x Check that showing in order, once date format corrected
     - Better way to show end date
 Staff_question_details.html
-    - Changed time format to match other Pages
+    x Changed time format to match other Pages
     - Change accordion forms to font awesome to match member_list page
-    - Button margins top/bottom
+    x Button margins top/bottom
 Member_details.html
     - Change background image
 App.py 

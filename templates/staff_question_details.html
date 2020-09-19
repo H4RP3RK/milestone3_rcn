@@ -16,14 +16,14 @@
                 <section class="col-12">
                     <div class="border">
                         <h4 class="heading font-heavy font-blue">What would you like to do?</h4>
-                        <a class="blue-btn btn background-blue accordian-btn" href="{{ url_for('new_contact', question_id=question._id)}}" role="button">Contact Member</a>                         
-                        <a class="blue-btn btn background-blue accordian-btn" href="{{ url_for('staff_new_contact', question_id=question._id) }}" role="button">Add Contact</a>
-                        <button type="button" class="btn blue-btn accordian-btn" data-toggle="modal" data-target="#{{question._id}}Modal">Assign Question</button>
-                        <button class="blue-btn btn background-blue accordian-btn" onclick="scrollContacts()" role="button">Browse Contacts</button>  
+                        <a class="blue-btn btn background-blue accordion-btn" href="{{ url_for('new_contact', question_id=question._id)}}" role="button">Contact Member</a>                         
+                        <a class="blue-btn btn background-blue accordion-btn" href="{{ url_for('staff_new_contact', question_id=question._id) }}" role="button">Add Contact</a>
+                        <button type="button" class="btn blue-btn accordion-btn" data-toggle="modal" data-target="#{{question._id}}Modal">Assign Question</button>
+                        <button class="blue-btn btn background-blue accordion-btn" onclick="scrollContacts()" role="button">Browse Contacts</button>  
                         {% if question.end_date %}   
-                        <a class="blue-btn btn background-blue accordian-btn" href="{{ url_for('reopen_question', question_id=question._id)}}" role="button">Reopen Question</a>
+                        <a class="blue-btn btn background-blue accordion-btn" href="{{ url_for('reopen_question', question_id=question._id)}}" role="button">Reopen Question</a>
                         {% else %}  
-                        <button type="button" class="btn blue-btn background-blue accordian-btn" data-toggle="modal" data-target="#{{question._id}}CloseModal">Close Question</button> 
+                        <button type="button" class="btn blue-btn background-blue accordion-btn" data-toggle="modal" data-target="#{{question._id}}CloseModal">Close Question</button> 
                         {% endif %} 
                     </div>
                 </section>  
@@ -133,7 +133,7 @@
                                         To: {{contact.to}}
                                     </div>
                                     <div class="col-sm-3">
-                                        <button class="btn blue-btn btn-link accordian-btn collapsed" data-toggle="collapse" data-target="#collapse{{contact._id}}" aria-expanded="false" aria-controls="collapse{{contact._id}}">
+                                        <button class="btn blue-btn btn-link accordion-btn collapsed" data-toggle="collapse" data-target="#collapse{{contact._id}}" aria-expanded="false" aria-controls="collapse{{contact._id}}">
                                         Details
                                         </button>
                                         {% if contact.recorded_by == session['username'] %}

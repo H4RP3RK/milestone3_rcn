@@ -23,7 +23,7 @@
                                         <div class="col-sm-4">
                                             <h5 class="font-heavy font-blue">{{question.question_type}}</h5>
                                         </div>
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-3 list-bottom-margin">
                                             <span>{{question.start_date}}</span>
                                         </div>
                                         <div class="col-sm-5">
@@ -31,11 +31,11 @@
                                             Summary
                                             </button>
                                             <a class="blue-btn btn accordian-btn" href="{{ url_for('staff_question_details', question_id=question._id) }}">Full details</a>
-                                            <button type="button" class="btn blue-btn" data-toggle="modal" data-target="#{{question._id}}Modal">Assign Question</button>
+                                            <button type="button" class="btn blue-btn accordion-btn" data-toggle="modal" data-target="#{{question._id}}Modal">Assign Question</button>
                                         </div>
                                     </div>
                                 </div>
-                                <div id="collapse{{question._id}}" class="collapse" aria-labelledby="heading{{question._id}}" data-parent="#accordion">
+                                <div id="collapse{{question._id}}" class="collapse" aria-labelledby="heading{{question._id}}" data-parent="#accordion{{question._id}}">
                                     <div class="card-body">
                                         <h6>Member: {{question.member_id}}</h6>
                                         <p>{{question.summary}}</p>
