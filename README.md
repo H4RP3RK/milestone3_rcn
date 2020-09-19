@@ -220,13 +220,25 @@ This page is accessible only to staff. It provides a list of all questions that 
 This page is accessible only to staff. It provides a list of all the members accounts. The layout is very similar to the unassigned questions page to ensure good user experience. However, the expandable accordion was not considered necessary for this list as all pertinent information can be included in the header. Members are listed in alphabetical order (in accordance with their surname).
 A search bar allows the user to search by name, job title or employer. For each member, a button is provided that leads the user to further details. 
 
-### 
-
+### Member Details - Staff Only 
+This page is accessible only to staff. It provides details of each member account. The layout is very similar to the user home page and question details pages. Section one provides the member's account details and section two provides details of all questions the member has asked. The accordion format is used to display the questions. A button allow each accordion to be expanded to show the question details. 
+Another button leads to the Staff Question Details page for the associated question. This allows staff users to see all questions, even those who are assigned to another staff user.
 
 ### Existing Features 
+* Header Logo - on every page. Acts as a navigation link back to the user's home page (or login page, if not logged in).
+* Navigation Bar - on every page, with different content dependent on whether user is member or staff. Allows users to easily identify the website pages and navigate to the area of their choosing.
+* Banner - on every page. Acts as a title to clearly show the purpose of the page.
+* Breadcrumbs - on most pages. Allows the user to easily navigate between pages and outlines the layout of the site. 
+* Footer Links - on every page. Identifies related sites and provides accessible links to each.
+* Forms - Flask Forms are used extensively throughout the site for login, registration, account updates, questions and contacts.
+* Search Bar - on All Member Accounts page. Allows user to search through the list by member name, employer or job title. 
+* Accordions - used extensively through the site in order to provide easily accessible information on the one page without cluttering the layout. 
+* Modals - used throughout the site to allow actions to be taken without navigating the user away from the necessary page.
 
 ### Features Left to Implement 
 * Functionality to reset the user password and change the username. As authentication was not the focus of this project, it was not considered a priority.
+* Upload files. Could be added in future to allow both members and staff to upload related documents to the member's question. 
+
 
 ---
 
