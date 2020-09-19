@@ -174,6 +174,17 @@ The following tools were used to test the website code and layout throughout the
     3. Assign question and close question buttons should display modal.
     4. All other buttons should redirect to the suitable page. 
 
+* Assign Modal 
+    1. Check that all staff are select options and unassigned is also an option.
+    2. Check that modal closes when clicked outside the modal box.
+    3. Check that X button closes the modal.
+    4. Check that submit button assigns the question to the appropriate staff.
+
+* Close Modal 
+    1. Check that modal closes when clicked outside the modal box.
+    2. Check that X button closes the modal.
+    3. Check that button closes question and end date appears in question details.
+
 * Question Details 
     1. Check that details match question data. 
     2. End date should be empty if question open. End date should display if question closed. 
@@ -214,4 +225,72 @@ The following tools were used to test the website code and layout throughout the
 
 #### Detailed Contact Form 
 * Form
-    1. 
+    1. Check that From input has prepopulated value of user's name. 
+    2. Make sure this can be altered.
+    3. Check that date is prepopulated with current date and time.
+    4. Check that can only submit date in specified format.
+    5. Check that cannot submit form without contact details input.
+    6. Once submitted, member should be redirected to Member Question Details and staff should be redirected to Staff Question Details. Success flash message should appear.
+
+* Breadcrumbs 
+    1. Check that all links direct to appropriate site for user.
+
+* Responsive Grid 
+    1. For smaller screens, labels and inputs should show as one column.
+    2. For larger screens, form should be displayed in centre of screen and labels side by side with inputs.
+
+#### Unassigned Questions 
+* Accordions 
+    1. Check that accordions open to display question summary.
+    2. Check that more than one accordion can be open at a time.
+    3. Check that questions display in start date order, earliest at the top. 
+    4. Client can check database to ensure that all unassigned questions appear. 
+    5. Check that full details redirects to appropriate Staff Question Details page for that question. 
+    6. Check that assign question button displays modal. 
+
+* Assign Modal 
+    1. Check that all staff are select options and unassigned is also an option.
+    2. Check that modal closes when clicked outside the modal box.
+    3. Check that X button closes the modal.
+    4. Check that submit button assigns the question to the appropriate staff.
+
+* Breadcrumbs 
+    1. Check that all links direct to appropriate site for user.
+
+* Responsive Grid 
+    1. Check that accordion remains full width at all screen sizes. 
+    2. Check that accordion information is easily readable in all screen sizes.
+
+#### All Member Accounts 
+* Member List 
+    1. Client can check with database that all member users are listed.
+    2. Members should display in alphabetical order, according to their last name. 
+    3. Button should direct to appropriate Staff Member Details page for that member.
+
+* Search Bar 
+    1. Try to search with name, job title and employer. Ensure that results are accurate. 
+    2. Delete search input to ensure that full list reappears. 
+
+* Breadcrumbs 
+    1. Check that home page directs to user's home page. 
+
+* Responsive Grid 
+    1. On smaller screens, member name, job title and employer should be listed and labels appear.
+    2. On larger screens, details show in a table format with titles for each column.
+
+#### Member Account Details - Staff View 
+* Member's Account Details 
+    1. Check that details correspond to the member and all information displays. 
+
+* Member's Questions
+    1. If the member has not asked any questions, nothing should appear.
+    2. Check that questions show in start date order, most recent at top. 
+    3. Click on summary button, should expand to show question summary.
+    4. Full Details button should redirect user to appropriate Staff Question Details page.
+
+* Breadcrumbs 
+    1. Check that all links direct to appropriate site for user.
+
+* Responsive Grid 
+    1. On smaller screens, containers should be in one column whole width of screen.
+    2. On larger screens, container one should be half the width of the screen and contianer two should be whole width.

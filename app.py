@@ -392,7 +392,7 @@ def member_list():
 def member_details(member_id):
     user = mongo.db.users.find_one({'username': session['username']})
     member = mongo.db.users.find_one({'_id': ObjectId(member_id)})
-    questions = mongo.db.questions.find({'member_id': member['username']})
+    questions = mongo.db.questions.find({'member_id': member['username']}).sort('date', -1)
     return render_template('member_details.html', title=f"{member['first_name']} {member['last_name']}'s Account Details - Staff View", member=member, questions=questions, role=user['role'])
 
 
