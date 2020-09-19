@@ -171,6 +171,7 @@ x JS - organise the questions by date etc or close btn on flash messages
 
 shared_login.html
     - link up forgot password
+    - more padding at top/bottom
 New_question.html
     - Change the questions
     - Put question/input in one row
@@ -188,6 +189,7 @@ Account.html
 Unassigned_questions.html
     - JS to filter queries
     - btn margins
+    - targets only one accordion
 Question_details.html
     - Show photo of RCN staff 
     - If no contacts, add a generic message (Why is this not working?)
