@@ -17,11 +17,9 @@ The website/app has a number of features, some of which are only accessible to p
 RCN members are also able to ask a question using an online form and access details of the questions they have asked, including the RCN staff leading on the question response. The member can add additional contacts onto the question, if they would like to add follow up questions/comments.
 RCN staff can also add contacts onto questions members have created. RCN staff have additional accessability to see all questions asked by any member, assign the question to themselves or other staff and close the question. They are also able to see a list of all RCN members, their account details and questions they have asked.
 
-The client requested this website to address issues with current methods of communication with its members. Up until now, RCN members have mainly used phone or email to contact the RCN. RCN staff would then respond by phone, email or, in some cases, a face-to-face meeting would be arranged.
-
-Member queries can differ greatly. Some matters can be resolved with only one response but more complicated matters could require ongoing correspondence for many weeks or months. It may also require the RCN contacting third parties on behalf of the member. 
-
-RCN staff are responsible for keeping a record of all interactions with members and third parties on an internal database. This database can be viewed by RCN staff but not by RCN members. It is expected that RCN members keep their own records of their ongoing cases or simply remember the information provided to them.
+The client requested this website to address issues with current methods of communication with its members. Up until now, RCN members have mainly used phone or email to contact the RCN. RCN staff would then respond by phone, email or, in some cases, a face-to-face meeting would be arranged. Member queries can differ in complexity. 
+Some matters can be resolved with only one response but more complicated matters could require ongoing correspondence for many weeks or months. It may also require the RCN contacting third parties on behalf of the member. RCN staff are responsible for keeping a record of all interactions with members and third parties on an internal database. 
+This database can be viewed by RCN staff but not by RCN members. It is expected that RCN members keep their own records of their ongoing cases or simply remember the information provided to them.
 This leaves room for misunderstandings and misinterpretation of information in what can often be complicated and high stakes matters. In order to reduce this risk, RCN staff are encouraged to follow up telephone calls and face-to-face meetings with an email that confirms the advice given and actions agreed. This approach is followed sporadically by RCN staff.
 
 The client goals for this new website/app are to:
@@ -44,30 +42,37 @@ The user goals for the new website/app are to:
 
 ### Target Audience
 
-The primary audience for the RCN Member Query Database are:
-* RCN members.
+There are two target audiences for the RCN app - RCN members and RCN staff 
+
+RCN members are:
 * Nursing staff or nursing students.
 * Practicing or studying in the UK.
+* Ranging in age from 18 to 70 years old.
 * In need of advice or support with a workplace or professional nursing issue.
 
-A secondary audience to consider are RCN staff who provides the advice and support to the RCN member.
-They will be required to update the database with their advice.
+RCN staff are:
+* Employed by the RCN.
+* May also be trained nurses.
+* Ranging in age from 18 to 70 years old.
+* Trained in the use of IT systems and databases.
 
 ### User Journey
 
 An RCN member is expected to use the website/app in the following way:
-1. They encounter a workplace or professional nursing issue.
-2. They go to the website/app to write and submit their query.
-3. They receive a response to their query from the appropriate RCN department.
-4. They can choose to ask further questions by writing and submitting through the website/app or close their query.
-5. Their question and response is logged on their app, which allows them to read it at a later date, if they wish.
-6. If their case requires further investigation, they can keep updated with third party involvement through the database.
+1. Go to the website/app to write and submit their question.
+2. The question is logged on member's home page.
+3. The member can check the question details, including the details of the RCN Lead for their question, the response to their question and/or any work the RCN Lead has undertaken to resolve their question.
+4. The member can choose to ask follow up questions by adding a new contact to their question.
+5. Details of questions they have asked are logged on their home page, so can be consulted again at a later date.
 
 An RCN staff member is expected to use the website/app in the following way:
-1. They receive a notification that a query has been asked by a member through the website/app.
-2. They provide a response to the query through the Member Query Database. 
-3. This database can be read by other RCN staff and the individual member so there is no need to keep a record of this contact anywhere else.
-4. If a member case requires further telephone conversations, face-to-face meetings or communication with third parties, these are all logged on the Member Query Database.
+1. Check the website/app for questions that have been asked by RCN members.
+2. Assign questions to themself or the most appropriate RCN staff.
+3. Questions assigned to the user are logged on the staff member's home page.
+4. Respond to the question by adding a contact under the question details.
+5. Log any additional contacts with third parties as a contact on the question, so the member is aware of the contact and can read the details.
+6. Once the question has been answered, close the question.
+7. All member accounts are listed so all staff can see member's accounts and their question details.
 
 ### User Aim 
 
@@ -89,10 +94,40 @@ This website/app helps the users achieve these goals by providing:
 
 ### User Stories
 
+1. As a new visitor to the site, I want to sign up so I can get access to the site's features.
+2. As an existing user of the site, I want to update my account details.
+3. As a member, I want to use the site to ask the RCN a question.
+4. As a member, I would like to check the progress of my ongoing question.
+5. As a member, I would like to ask a follow up question to my existing question.
+6. As a member, I want to check the contact details of my RCN Lead so I can phone them.
+7. As a member, I want to check back on a question I previously asked.
+8. As staff, I want an way for me and my colleagues to see the outstanding workload (ie unassigned questions). 
+9. As staff, I want to be able to organise the workload by assigning questions to myself or colleagues.
+10. As staff, I would like an easy way to monitor my workload and close completed questions.
+11. As staff, I want an efficient way to simultaneously keep my own records and update the member.
+12. As staff, I would like an easy way to browse search through our members.
+
 ### Wireframes
 
 ---
 ## Features 
+Every page has a consistent layout and design, which features:
+* Headers and footers coloured blue and white, in line with the RCN brand.
+* The RCN logo is in the top left corner of the header, in keeping with the layout of existing [RCN websites](https://www.rcn.org.uk/).
+* A drop down navigation menu is used to minimise clutter on the page. The navigation menu differs, dependent on whether the user is a member or staff.
+* There is a banner across each page with a title that clearly explains the page's purpose.
+* The footer features links to related sites and their associated logos. On the left side of the footer there are the RCN sites; [RCN Website](https://www.rcn.org.uk/), [RCNi](https://rcni.com/) and [RCNXtra](https://my.rcn.org.uk/RCNXtra/login).
+* On the right hand side of the footer, there are links to the RCN's social media sites; [Twitter](https://twitter.com/theRCN), [Facebook](https://www.facebook.com/index.php?next=https%3A%2F%2Fwww.facebook.com%2Froyalcollegeofnursing), [Instgram](https://www.instagram.com/thercn/) and [YouTube](https://www.youtube.com/user/RCNonline)
+* Breadcrumbs are used throughout the website to map the site layout and allow for easy navigation back and forth through the webpages.
+* Flash messages are used throughout the website to confirm successful user actions or alert the user to errors.
+* Consistent and simple styling of rounded border boxes breaks each web page's information into easily digestible chunks.
+* A responsive grid design ensures that the content is organised in an aesthetically pleasing and practical format on all screen sizes.
+
+### Login
+The website is intended only for RCN members and RCN staff. There is no functionality for those who do not login, therefore, the website opens on the login page to make this clear to the visitor.
+A strap line is used to easily explain the purpose of the website to the user. 
+
+### Sign Up
 
 ### Existing Features 
 
@@ -174,6 +209,7 @@ shared_login.html
     x more padding at top/bottom
 Home.html
     - question tabs showing all questions
+    - account details fall of page on small screen
 New_question.html
     - Change the questions
     x Put question/input in one row
