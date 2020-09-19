@@ -1,7 +1,7 @@
 import os
 import datetime
 from flask import Flask, render_template, redirect, request, url_for, flash, session
-from forms import loginForm, registrationForm, accountForm, workplaceForm, questionForm
+from forms import loginForm, registrationForm, accountForm, workplaceForm, questionForm, contactForm
 from flask_pymongo import PyMongo
 from flask_bcrypt import Bcrypt
 from bson.objectid import ObjectId
@@ -173,38 +173,48 @@ def account(username):
 # Adds a new contact onto an existing question. Member can send contact to RCN Lead and vice versa
 @app.route('/new_contact/<question_id>', methods=['GET', 'POST'])
 def new_contact(question_id):
+    form = contactForm()
     question = mongo.db.questions.find_one({'_id': ObjectId(question_id)})
     contacts = mongo.db.contacts
     users = mongo.db.users
     user = users.find_one({'username': session['username']})
     member = users.find_one({'username': question['member_id']})
-    if request.method == 'POST':
-        contact = {
-            'question_id': ObjectId(question_id),
-            'contact_type': 'database',
-            'date': datetime.datetime.utcnow().strftime('%d/%m/%y  %H:%M'),
-            'summary': request.form.get('summary'),
-            'from': request.form.get('from'),
-            'to': request.form.get('to'),
-            'recorded_by': session['username'],
-            'recorded_on': datetime.datetime.utcnow().strftime('%d/%m/%y  %H:%M')
-        }
-        contacts.insert_one(contact)
-        if user['role'] == 'member':
-            mongo.db.questions.update(
-                {'_id': ObjectId(question_id)},
-                {'$unset':
-                    {
-                        'end_date': ''
-                    }})
-            flash("Thanks for getting in touch. Your RCN Lead will be in touch shortly. Check your contacts below for updates", 'success')
-            return redirect(url_for('question_details', question_id=question['_id']))
+    staff = users.find_one({'username': question['staff_id']})
+    if request.method == 'GET':
+        form.contact_from.data = f"{user['first_name']} {user['last_name']}"
+        if user['role'] == 'member': 
+            form.contact_to.data = f"{staff['first_name']} {staff['last_name']}"
         elif user['role'] == 'staff':
-            flash("Contact made. Check your contacts below for updates", 'success')
-            return redirect(url_for('staff_question_details', question_id=question['_id']))
-        else:
-            flash("Error with your account. Please contact IT on 01698428764.", 'danger')
-    return render_template('new_contact.html', title='Contact Form', question=question, user=user, member=member, role=user['role'])
+            form.contact_to.data = f"{member['first_name']} {member['last_name']}"
+    elif request.method == 'POST':
+        if form.validate_on_submit():
+            contact = {
+                'question_id': ObjectId(question_id),
+                'contact_type': 'database',
+                'date': datetime.datetime.utcnow().strftime('%d/%m/%y  %H:%M'),
+                'summary': form.contact_details.data,
+                'from': form.contact_from.data,
+                'to': form.contact_to.data,
+                'recorded_by': session['username'],
+                'recorded_on': datetime.datetime.utcnow().strftime('%d/%m/%y  %H:%M')
+            }
+            contacts.insert_one(contact)
+            if user['role'] == 'member':
+                mongo.db.questions.update(
+                    {'_id': ObjectId(question_id)},
+                    {'$unset':
+                        {
+                            'end_date': ''
+                        }})
+                flash("Thanks for getting in touch. Your RCN Lead will be in touch shortly. Check your contacts below for updates", 'success')
+                return redirect(url_for('question_details', question_id=question['_id']))
+            elif user['role'] == 'staff':
+                mongo.db.questions
+                flash("Contact made. Check your contacts below for updates", 'success')
+                return redirect(url_for('staff_question_details', question_id=question['_id']))
+            else:
+                flash("Error with your account. Please contact IT on 01698428764.", 'danger')
+    return render_template('new_contact.html', title='Contact Form', question=question, user=user, member=member, role=user['role'], form=form)
 
 
 # User can edit their own contacts
@@ -213,16 +223,21 @@ def edit_contact(contact_id):
     user = mongo.db.users.find_one({'username': session['username']})
     contact = mongo.db.contacts.find_one({'_id': ObjectId(contact_id)})
     question = mongo.db.questions.find_one({'_id': ObjectId(contact['question_id'])})
-    if request.method == 'POST':
+    form = contactForm()
+    if request.method == 'GET':
+        form.contact_from.data = contact['from']
+        form.contact_to.data = contact['to']
+        form.contact_details.data = contact['summary']
+    elif form.validate_on_submit():
         mongo.db.contacts.update(
             {'_id': ObjectId(contact_id)},
             {'$set':
                 {
-                    'summary': request.form.get('summary')
+                    'summary': form.contact_details.data
                 }})
         flash("Your contact has been updated.", 'success')
         return redirect(url_for('question_details', question_id=question['_id']))
-    return render_template('edit_contact.html', contact=contact, question=question, title='Edit Contact', role=user['role'])
+    return render_template('new_contact.html', contact=contact, question=question, title='Edit Contact', role=user['role'], form=form, user=user)
 
 
 # PAGES ONLY AVAILABLE TO MEMBERS

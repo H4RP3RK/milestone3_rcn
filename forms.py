@@ -41,3 +41,9 @@ class questionForm(FlaskForm):
     question_type = SelectField('Question Type', choices=[('Work Issue'), ('Professional Nursing Advice'), ('Careers')])
     question_details = StringField('Question Details', widget=TextArea())
     submit = SubmitField('Submit')
+
+class contactForm(FlaskForm):
+    contact_from = StringField('From')
+    contact_to = StringField('To')
+    contact_details = StringField('Contact Details', widget=TextArea())
+    submit = SubmitField('Submit')

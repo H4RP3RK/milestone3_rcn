@@ -175,6 +175,9 @@ New_question.html
     - Add back button?
 New_contact.html
     - Add back button?
+    - for staff, doesn't record member contact 
+    x Change to form
+    x Sort app route, need if 'GET'
 Staff_new_contact.html 
     - Add back button?
     - Change date forma
@@ -182,6 +185,7 @@ Account.html
     - Add back button?
 Unassigned_questions.html
     - JS to filter queries
+    - btn margins
 Question_details.html
     - Show photo of RCN staff 
     - If no contacts, add a generic message (Why is this not working?)
@@ -192,6 +196,7 @@ Question_details.html
 Staff_question_details.html
     - Changed time format to match other Pages
     - Change accordion forms to font awesome to match member_list page
+    - Button margins top/bottom
 Member_details.html
     - Change background image
 App.py 

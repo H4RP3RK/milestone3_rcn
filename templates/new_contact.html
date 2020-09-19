@@ -20,42 +20,32 @@
 <!--New Contact Form-->
             <div class="container">
                 <div class="main row align-items-center justify-content-center">
-                    <div class="col-sm-8">    
-                        <form action=" " method="POST">  
-                            <div class="form-row">
-                                <div class="form-group col-lg-5">
-                                    <div class="form-row">
-                                        <label class="form-control-label col-4" for="from">From:</label>
-                                        <div class="col-8">
-                                            <input class="form-control-plaintext" type="text" id="from" name="from" value="{{user.first_name}} {{user.last_name}}">                                              
-                                        </div>                              
+                        <div class="col-lg-10">    
+                            <form action="" method="POST">  
+                                {{ form.hidden_tag() }}
+                                <div class="form-group row">
+                                    {{ form.contact_from.label(class="col-sm-4 form-control-label") }}
+                                    <div class="col-sm-8">
+                                        {{ form.contact_from(class="form-control", readonly=true) }}
                                     </div>
                                 </div>
-                                <div class="form-group col-lg-5">
-                                    <div class="form-row">
-                                        <label class="form-control-label col-4" for="to">To:</label>
-                                        <div class="col-8">
-                                        {% if user.role == "member" %}
-                                            <input class="form-control-plaintext" type="text" id="from" name="from" value="{{question.staff_id}}">
-                                        {% elif user.role == "staff" %}  
-                                            <input class="form-control-plaintext" type="text" id="from" name="from" value="{{member.first_name}} {{member.last_name}}">
-                                        {% else %}  
-                                            <p>Error with your account, please contact IT</p>  
-                                        {% endif %}                                          
-                                        </div>                                    
-                                    </div>                        
-                                </div>                                
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-10">
-                                    <textarea class="form-control" id="summary" name="summary" rows="5" placeholder="What would you like to say?"></textarea>
-                                </div>       
-                            </div>
-                            <div class="form-group">
-                                <button type="submit" class="blue-btn btn btn-primary">Submit</button>
-                            </div>
-                        </form>
-                    </div>
+                                <div class="form-group row">
+                                    {{ form.contact_to.label(class="col-sm-4 form-control-label") }}
+                                    <div class="col-sm-8">
+                                        {{ form.contact_to(class="form-control", readonly=true) }}
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                        {{ form.contact_details.label(class="col-sm-4 form-control-label")}}
+                                    <div class="col-sm-8">
+                                        {{ form.contact_details(class="form-control", rows="5", placeholder="Please provide as much detail as possible to allow us to fully answer your question") }}
+                                    </div>       
+                                </div>
+                                <div class="form-group text-center">
+                                    {{ form.submit(class="blue-btn btn") }}
+                                </div>
+                            </form>
+                        </div>
                 </div>
             </div>
         </section>
