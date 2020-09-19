@@ -242,6 +242,13 @@ Another button leads to the Staff Question Details page for the associated quest
 * Add user photos. This could help to build rapport between members and their RCN Leads.
 
 ---
+## Data 
+A NoSQL database was used for this project, as were the requirements of the course. Relationships were structured between the three different three different collections;
+users, questions and contacts. The information structure and relationships are displayed below. 
+
+
+
+---
 
 ## Technologies Used 
 
@@ -262,14 +269,7 @@ Another button leads to the Staff Question Details page for the associated quest
 ---
 
 ## Testing 
-
-### Tools 
-
-### User Testing 
-
-### User Feedback
-
-### Problem Solving 
+Testing details can be found here in [testing.md](testing.md)
 
 ---
 ## Deployment 
@@ -332,14 +332,18 @@ x Can have multiple base.html and pull from it to create staff/member views
 x Avoid duplication of else in methods, means it can be reduced down
 x JS - organise the questions by date etc or close btn on flash messages
 
+Readme
+    - update wireframes 
+    - update image of data 
+    - Credits
 shared_login.html
     - link up forgot password
     x more padding at top/bottom
 register.html 
-    - can enter letters into telephone 
+    x can enter letters into telephone 
 Home.html
     - question tabs showing all questions
-    - account details fall of page on small screen
+    - account details fall off page on small screen
     - why are accordion tabs not working?
 New_question.html
     - Change the questions

@@ -294,3 +294,16 @@ The following tools were used to test the website code and layout throughout the
 * Responsive Grid 
     1. On smaller screens, containers should be in one column whole width of screen.
     2. On larger screens, container one should be half the width of the screen and contianer two should be whole width.
+
+### User Feedback
+Friends, family and colleagues were enlisted to test the site on mobile phones, tablets, laptops and desktops. They also tested the site using different bandwidths to ensure that the there were no significant loading time lags.
+
+The following changes were made in response to user feedback:
+* Some button and form inputs were relabelled to make clear what was expected of the user.
+* Additional padding was added to some areas, to make more readable on smaller screen sizes.
+
+### Problem Solving 
+User testing was carried out throughout the project, which indentified some bugs or potential problems.
+* It was recognised that using an email address as the session identifier for the user may not be best security practice. Since authentication was not the focus of this project, it was decided that changing this was not a priority but learning would be done for future projects.
+* The Date Time Picker initially used for some of the forms was not compatible with some web browsers, so was removed. Alternatives attempted, such as JQuery, caused interference with other parts of the site so were dropped from the final project. 
+* Although it should not be possible for a user to be logged in as neither member or staff, failsafes were put into the methods to throw an error message if this did occur. 
