@@ -197,12 +197,12 @@ def new_contact(question_id):
             contact = {
                 'question_id': ObjectId(question_id),
                 'contact_type': 'database',
-                'date': datetime.utcnow().strftime('%d/%m/%y  %H:%M'),
+                'date': datetime.utcnow().strftime('%y/%m/%d  %H:%M'),
                 'summary': form.contact_details.data,
                 'from': form.contact_from.data,
                 'to': form.contact_to.data,
                 'recorded_by': session['username'],
-                'recorded_on': datetime.utcnow().strftime('%d/%m/%y  %H:%M')
+                'recorded_on': datetime.utcnow().strftime('%y/%m/%d  %H:%M')
             }
             contacts.insert_one(contact)
             if user['role'] == 'member':
@@ -288,7 +288,7 @@ def close_question(question_id):
         {'_id': ObjectId(question_id)},
         {'$set':
             {
-                'end_date': request.form.get('end_date')
+                'end_date': datetime.utcnow().strftime('%y/%m/%d  %H:%M')
             }})
     flash('Case now closed', 'success')
     return redirect(url_for('staff_question_details', question_id=question_id))
@@ -370,12 +370,12 @@ def staff_new_contact(question_id):
         contact = {
             'question_id': ObjectId(question_id),
             'contact_type': form.contact_type.data,
-            'date': form.contact_date.data.strftime('%d/%m/%y  %H:%M'),
+            'date': form.contact_date.data.strftime('%y/%m/%d  %H:%M'),
             'summary': form.contact_details.data,
             'from': form.contact_from.data,
             'to': form.contact_to.data,
             'recorded_by': session['username'],
-            'recorded_on': datetime.utcnow().strftime('%d/%m/%y  %H:%M')
+            'recorded_on': datetime.utcnow().strftime('%y/%m/%d  %H:%M')
         }
         contacts.insert_one(contact)
         flash("Your contact has been added. The member can now view your contacts", 'success')
