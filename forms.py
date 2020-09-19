@@ -1,7 +1,7 @@
 # Took inspiration from Pretty Printed YouTube videos: https://www.youtube.com/watch?v=jR2aFKuaOBs
 
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, SelectField
+from wtforms import StringField, PasswordField, SubmitField, SelectField, DateTimeField
 from wtforms.validators import DataRequired, Email, Length, EqualTo
 from wtforms.widgets import TextArea
 
@@ -42,15 +42,18 @@ class questionForm(FlaskForm):
     question_details = StringField('Question Details', widget=TextArea())
     submit = SubmitField('Submit')
 
+
 class contactForm(FlaskForm):
     contact_from = StringField('From')
     contact_to = StringField('To')
     contact_details = StringField('Contact Details', widget=TextArea())
     submit = SubmitField('Submit')
 
+
 class detailedContactForm(FlaskForm):
     contact_type = SelectField('Contact Type', choices=['Database', 'Email', 'In Person', 'Telephone', 'Teleconference', 'Videoconference'])
     contact_from = StringField('From')
     contact_to = StringField('To')
+    contact_date = DateTimeField('Date', format='%d-%m-%Y %H:%M')
     contact_details = StringField('Contact Details', widget=TextArea())
     submit = SubmitField('Submit')

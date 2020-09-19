@@ -1,5 +1,6 @@
 import os
 import datetime
+from datetime import datetime, date, time
 from flask import Flask, render_template, redirect, request, url_for, flash, session
 from forms import loginForm, registrationForm, accountForm, workplaceForm, questionForm, contactForm, detailedContactForm
 from flask_pymongo import PyMongo
@@ -191,12 +192,12 @@ def new_contact(question_id):
             contacontact = {
                 'question_id': ObjectId(question_id),
                 'contact_type': 'database',
-                'date': datetime.datetime.utcnow().strftime('%d/%m/%y  %H:%M'),
+                'date': datetime.utcnow().strftime('%d/%m/%y  %H:%M'),
                 'summary': form.contact_details.data,
                 'from': form.contact_from.data,
                 'to': form.contact_to.data,
                 'recorded_by': session['username'],
-                'recorded_on': datetime.datetime.utcnow().strftime('%d/%m/%y  %H:%M')
+                'recorded_on': datetime.utcnow().strftime('%d/%m/%y  %H:%M')
             }
             contacts.insert_one(contact)
             if user['role'] == 'member':
@@ -252,7 +253,7 @@ def new_question():
             question = {
                 'member_id': session['username'],
                 'question_type': form.question_type.data,
-                'start_date': datetime.datetime.utcnow().strftime('%d/%m/%y  %H:%M'),
+                'start_date': datetime.utcnow().strftime('%d/%m/%y  %H:%M'),
                 'summary': form.question_details.data,
                 'staff_id': 'unassigned'
             }
@@ -359,20 +360,23 @@ def staff_new_contact(question_id):
     question = mongo.db.questions.find_one({'_id': ObjectId(question_id)})
     if request.method == 'GET':
         form.contact_from.data = f"{user['first_name']} {user['last_name']}"
+        form.contact_date.data = datetime.utcnow()
     elif form.validate_on_submit():
         contact = {
             'question_id': ObjectId(question_id),
             'contact_type': form.contact_type.data,
-            'date': request.form.get('picker'),
+            'date': form.contact_date.data.strftime('%d/%m/%y  %H:%M'),
             'summary': form.contact_details.data,
             'from': form.contact_from.data,
             'to': form.contact_to.data,
             'recorded_by': session['username'],
-            'recorded_on': datetime.datetime.utcnow().strftime('%d/%m/%y  %H:%M')
+            'recorded_on': datetime.utcnow().strftime('%d/%m/%y  %H:%M')
         }
         contacts.insert_one(contact)
         flash("Your contact has been added. The member can now view your contacts", 'success')
         return redirect(url_for('staff_question_details', question_id=question['_id']))
+    else:
+        flash(f'Error submitting form: {form.errors}. Please contact IT on 01698428764.', 'danger')
     return render_template('staff_new_contact.html', title='Add a Contact', question=question, role=user['role'], form=form)
 
 
