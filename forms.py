@@ -47,3 +47,10 @@ class contactForm(FlaskForm):
     contact_to = StringField('To')
     contact_details = StringField('Contact Details', widget=TextArea())
     submit = SubmitField('Submit')
+
+class detailedContactForm(FlaskForm):
+    contact_type = SelectField('Contact Type', choices=['Database', 'Email', 'In Person', 'Telephone', 'Teleconference', 'Videoconference'])
+    contact_from = StringField('From')
+    contact_to = StringField('To')
+    contact_details = StringField('Contact Details', widget=TextArea())
+    submit = SubmitField('Submit')

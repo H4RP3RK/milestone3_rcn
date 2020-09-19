@@ -2,7 +2,7 @@
 {% block content %}
 <!--Breacrumbs-->
     <nav aria-label="breadcrumb">
-        <ol class="breadcrumb font">
+        <ol class="breadcrumb ">
             <li class="breadcrumb-item">
                 <a href="{{ url_for('home', username=session['username']) }}">Your Home Page</a>
             </li>
@@ -11,11 +11,11 @@
     </nav>
     <!--Background Image-->
     <div class="main background-picture account-background">
-        <section class="font main opaque-white">
+        <section class=" main opaque-white">
     <!--Account Form-->
             <div class="container">
                 <div class="main row align-items-center justify-content-center">
-                    <div class="col-lg-8 font-blue">
+                    <div class="col-lg-10 font-blue">
                         <form action="{{ url_for('account', username=session['username']) }}" method="POST">
                             {{ form.hidden_tag() }}
                             <div class="form-group form-row justify-content-center">

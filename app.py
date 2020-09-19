@@ -1,7 +1,7 @@
 import os
 import datetime
 from flask import Flask, render_template, redirect, request, url_for, flash, session
-from forms import loginForm, registrationForm, accountForm, workplaceForm, questionForm, contactForm
+from forms import loginForm, registrationForm, accountForm, workplaceForm, questionForm, contactForm, detailedContactForm
 from flask_pymongo import PyMongo
 from flask_bcrypt import Bcrypt
 from bson.objectid import ObjectId
@@ -188,7 +188,7 @@ def new_contact(question_id):
             form.contact_to.data = f"{member['first_name']} {member['last_name']}"
     elif request.method == 'POST':
         if form.validate_on_submit():
-            contact = {
+            contacontact = {
                 'question_id': ObjectId(question_id),
                 'contact_type': 'database',
                 'date': datetime.datetime.utcnow().strftime('%d/%m/%y  %H:%M'),
@@ -236,7 +236,7 @@ def edit_contact(contact_id):
                     'summary': form.contact_details.data
                 }})
         flash("Your contact has been updated.", 'success')
-        return redirect(url_for('question_details', question_id=question['_id']))
+        return redirect(url_for(f"{user['role']}_question_details", question_id=question['_id']))
     return render_template('new_contact.html', contact=contact, question=question, title='Edit Contact', role=user['role'], form=form, user=user)
 
 
@@ -353,25 +353,27 @@ def assign_lead(question_id):
 
 @app.route('/staff_new_contact/<question_id>', methods=['GET', 'POST'])
 def staff_new_contact(question_id):
+    form = detailedContactForm()
     user = mongo.db.users.find_one({'username': session['username']})
     contacts = mongo.db.contacts
     question = mongo.db.questions.find_one({'_id': ObjectId(question_id)})
-    if request.method == 'POST':
+    if request.method == 'GET':
+        form.contact_from.data = f"{user['first_name']} {user['last_name']}"
+    elif form.validate_on_submit():
         contact = {
-            'member_id': question['member_id'],
             'question_id': ObjectId(question_id),
-            'contact_type': request.form.get('contact_type'),
-            'date': request.form.get('date').strftime('%d/%m/%y  %H:%M'),
-            'summary': request.form.get('summary'),
-            'from': request.form.get('from'),
-            'to': request.form.get('to'),
+            'contact_type': form.contact_type.data,
+            'date': request.form.get('picker'),
+            'summary': form.contact_details.data,
+            'from': form.contact_from.data,
+            'to': form.contact_to.data,
             'recorded_by': session['username'],
             'recorded_on': datetime.datetime.utcnow().strftime('%d/%m/%y  %H:%M')
         }
         contacts.insert_one(contact)
         flash("Your contact has been added. The member can now view your contacts", 'success')
         return redirect(url_for('staff_question_details', question_id=question['_id']))
-    return render_template('staff_new_contact.html', title='Add a Contact', question=question, role=user['role'])
+    return render_template('staff_new_contact.html', title='Add a Contact', question=question, role=user['role'], form=form)
 
 
 @app.route('/member_list')

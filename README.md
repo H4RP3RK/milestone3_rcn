@@ -175,7 +175,7 @@ New_question.html
     - Add back button?
 New_contact.html
     - Add back button?
-    - for staff, doesn't record member contact 
+    x for staff, doesn't record member contact 
     x Change to form
     x Sort app route, need if 'GET'
 Staff_new_contact.html 

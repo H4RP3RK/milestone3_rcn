@@ -39,3 +39,9 @@ $('#myTab a').on('click', function (e) {
   e.preventDefault()
   $(this).tab('show')
 })
+
+/*--Date/Time Picker--*/
+$(function() {
+    $('#datetimepicker').datetimepicker(
+    );
+});
