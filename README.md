@@ -108,6 +108,27 @@ This website/app helps the users achieve these goals by providing:
 12. As staff, I would like an easy way to browse search through our members.
 
 ### Wireframes
+Arrows indicate the navigation between the site pages.
+
+#### Member Journey
+##### Small Screens
+<img src="static/wireframes/member_small_screen.png" style="center" alt="Wireframe for small screen, member view">
+
+##### Medium Screens
+<img src="static/wireframes/member_medium_screen.png" style="center" alt="Wireframe for small screen, member view">
+
+##### Large Screens
+<img src="static/wireframes/member_large_screen.png" style="center" alt="Wireframe for small screen, member view">
+
+#### Staff Journey
+##### Small Screens
+<img src="static/wireframes/staff_small_screen.png" style="center" alt="Wireframe for small screen, member view">
+
+##### Medium Screens
+<img src="static/wireframes/staff_medium_screen.png" style="center" alt="Wireframe for small screen, member view">
+
+##### Large Screens
+<img src="static/wireframes/staff_large_screen.png" style="center" alt="Wireframe for small screen, member view">
 
 ---
 ## Features 
