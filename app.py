@@ -1,5 +1,4 @@
 import os
-import datetime
 from datetime import datetime, date, time
 from flask import Flask, render_template, redirect, request, url_for, flash, session
 from forms import loginForm, registrationForm, accountForm, workplaceForm, questionForm, contactForm, detailedContactForm
@@ -181,7 +180,7 @@ def new_contact(question_id):
     staff = users.find_one({'username': question['staff_id']})
     if request.method == 'GET':
         form.contact_from.data = f"{user['first_name']} {user['last_name']}"
-        if user['role'] == 'member': 
+        if user['role'] == 'member':
             if question['staff_id'] == 'unassigned':
                 form.contact_to.data = "RCN"
             else:
@@ -407,7 +406,7 @@ def staff_edit_contact(contact_id):
                     'to': form.contact_to.data,
                     'date': form.contact_date.data.strftime('%y/%m/%d  %H:%M'),
                     'summary': form.contact_details.data
-                }})       
+                }})
         flash("Your contact has been successfully edited.", 'success')
         return redirect(url_for('staff_question_details', question_id=question['_id']))
     return render_template('staff_new_contact.html', title='Edit Contact', question=question, question_id=question['_id'], contact=contact, form=form)
@@ -442,4 +441,4 @@ def member_details(member_id):
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
             port=int(os.environ.get('PORT')),
-            debug=True)
+            debug=False)
