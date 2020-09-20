@@ -303,6 +303,7 @@ def reopen_question(question_id):
     return redirect(url_for('staff_question_details', question_id=question_id))
 
 
+# Staff can see list of questions that are not yet assigned to a staff user
 @app.route('/unassigned_questions', methods=['GET', 'POST'])
 def unassigned_questions():
     user = mongo.db.users.find_one({'username': session['username']})
@@ -319,6 +320,7 @@ def unassigned_questions():
     return render_template('unassigned_questions.html', unassigned=unassigned, title='Unassigned Questions', staff_list=staff_list, role=user['role'])
 
 
+# View of member's questions with enhanced accessability and editing/deleting rights
 @app.route('/staff_question_details/<question_id>', methods=['GET', 'POST'])
 def staff_question_details(question_id):
     user = mongo.db.users.find_one({'username': session['username']})
@@ -337,6 +339,7 @@ def staff_question_details(question_id):
     return render_template('staff_question_details.html', contacts=contacts, question=question, member=member, staff=staff, staff_list=staff_list, question_id=question_id, title='Question Details - Staff View', role=user['role'])
 
 
+# Allows staff user to assign a staff user as RCN Lead
 @app.route('/assign_lead/<question_id>', methods=['POST'])
 def assign_lead(question_id):
     user = mongo.db.users.find_one({'username': session['username']})
@@ -350,9 +353,10 @@ def assign_lead(question_id):
                 'staff_id': request.form.get('staff_id')
             }})
     flash(f"The question has been assigned to {staff['first_name']}. The question will appear on their Home Page", 'success')
-    return redirect(url_for('staff_question_details', question=question, question_id=question_id), role=user['role'])
+    return redirect(url_for('staff_question_details', question=question, question_id=question_id, role=user['role']))
 
 
+# Allows staff user to add a more detailed contact input to the question
 @app.route('/staff_new_contact/<question_id>', methods=['GET', 'POST'])
 def staff_new_contact(question_id):
     form = detailedContactForm()
@@ -381,6 +385,7 @@ def staff_new_contact(question_id):
     return render_template('staff_new_contact.html', title='Add a Contact', question=question, role=user['role'], form=form)
 
 
+# Allows staff enhanced editing rights for contacts
 @app.route('/staff_edit_contact/<contact_id>', methods=['GET', 'POST'])
 def staff_edit_contact(contact_id):
     form = detailedContactForm()
@@ -400,10 +405,23 @@ def staff_edit_contact(contact_id):
                     'contact_type': form.contact_type.data,
                     'from': form.contact_from.data,
                     'to': form.contact_to.data,
-                    'date': form.contact_date.data,
+                    'date': form.contact_date.data.strftime('%y/%m/%d  %H:%M'),
                     'summary': form.contact_details.data
                 }})       
+        flash("Your contact has been successfully edited.", 'success')
+        return redirect(url_for('staff_question_details', question_id=question['_id']))
     return render_template('staff_new_contact.html', title='Edit Contact', question=question, question_id=question['_id'], contact=contact, form=form)
+
+
+# Allows staff to delete contacts
+@app.route('/delete_contact/<question_id>/<contact_id>', methods=['GET', 'POST'])
+def delete_contact(question_id, contact_id):
+    user = mongo.db.users.find_one({'username': session['username']})
+    contact = mongo.db.contacts.find_one({'_id': ObjectId(contact_id)})
+    question = mongo.db.questions.find_one({'_id': ObjectId(question_id)})
+    mongo.db.contacts.delete_one({'_id': ObjectId(contact_id)})
+    flash("Your contact has been successfully deleted.", 'success')
+    return redirect(url_for(f"{user['role']}_question_details", contact=contact, question_id=question['_id']))
 
 
 @app.route('/member_list')

@@ -138,6 +138,7 @@
                                         </button>
                                         {% if contact.recorded_by == session['username'] %}
                                         <a class="blue-btn btn background-blue" href="{{ url_for('staff_edit_contact', contact_id=contact._id) }}" role="button"><i class="fas fa-edit"></i></a>
+                                        <a class="blue-btn btn background-blue" href="{{ url_for('delete_contact', contact_id=contact._id, question_id=question._id) }}" role="button"><i class="fas fa-trash-alt"></i></a>
                                         {% else %}
                                         {% endif %}
                                     </div>
