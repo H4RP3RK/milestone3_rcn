@@ -267,7 +267,7 @@ Another button leads to the Staff Question Details page for the associated quest
 A NoSQL database was used for this project, as were the requirements of the course. Relationships were structured between the three different three different collections;
 users, questions and contacts. The information structure and relationships are displayed below. 
 
-
+<img src="static/images/data_relationships.png" style="center" alt="Data relationships">
 
 ---
 
