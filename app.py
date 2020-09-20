@@ -381,6 +381,31 @@ def staff_new_contact(question_id):
     return render_template('staff_new_contact.html', title='Add a Contact', question=question, role=user['role'], form=form)
 
 
+@app.route('/staff_edit_contact/<contact_id>', methods=['GET', 'POST'])
+def staff_edit_contact(contact_id):
+    form = detailedContactForm()
+    contact = mongo.db.contacts.find_one({'_id': ObjectId(contact_id)})
+    question = mongo.db.questions.find_one({'_id': ObjectId(contact['question_id'])})
+    if request.method == 'GET':
+        form.contact_type.data = contact['contact_type']
+        form.contact_from.data = contact['from']
+        form.contact_to.data = contact['to']
+        form.contact_date.data = datetime.strptime(contact['date'], '%y/%m/%d  %H:%M')
+        form.contact_details.data = contact['summary']
+    elif form.validate_on_submit():
+        mongo.db.contacts.update(
+            {'_id': ObjectId(contact_id)},
+            {'$set':
+                {
+                    'contact_type': form.contact_type.data,
+                    'from': form.contact_from.data,
+                    'to': form.contact_to.data,
+                    'date': form.contact_date.data,
+                    'summary': form.contact_details.data
+                }})       
+    return render_template('staff_new_contact.html', title='Edit Contact', question=question, question_id=question['_id'], contact=contact, form=form)
+
+
 @app.route('/member_list')
 def member_list():
     user = mongo.db.users.find_one({'username': session['username']})

@@ -333,13 +333,14 @@ Further reading and troubleshooting on cloning a repository from GitHub [here](h
 ---
 ## Credits 
 
-### Content
-
-### Media 
-
-### Code 
+* The background images are existing RCN promotional photos.
+* The website tutorials consulted in the creation of the project are credited throughout the code comments.
 
 ### Acknowledgements 
+* Thanks to my mentor, Jonathan Munz, for his guidance.
+* Thanks to the Slack Community for always being so supportive and generous with their time.
+* Thanks to the Code Institute tutors for their patience with me.
+* Thanks to my employer, RCN, for the inspiration for this project.
 
 ******MY OWN NOTES - NOT PART OF FINAL README******
 
