@@ -6,10 +6,10 @@ The following tools were used to test the website code and layout throughout the
 * Google Chrome Developer Tool - used throughout the project to test code and scalability.
 * Unicorn Revealer - used throughout the project to resolve layout issues with web pages.
 * Contrast Ratio - used to ensure that colours meet readability guidelines.
-* W3C Markup Validation - used to validate HTML code.
+* W3C Markup Validation - used to validate HTML code, although this proved difficult with JINJA also included in the code.
 * W3C CSS Validation - used to validate CSS code.
 * JS Hint - used to validate JS code
-* Pylint - to validate Python code.
+* Pylint - to validate Python code. Some "line too long" errors were ignored as it was felt that the code was most reader friendly in its current format. Some warnings of ID duplication on HTML files were also ignored because these were incorporated into JINJA If statements so only one ID would appear in the code at a time in production.
 
 ### User Testing 
 

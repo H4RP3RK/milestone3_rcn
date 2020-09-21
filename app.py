@@ -18,6 +18,7 @@ app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 mongo = PyMongo(app)
 bcrypt = Bcrypt(app)
 
+
 # PAGES SHARED BY MEMBERS AND STAFF
 # Login - site opens on login page as site only intended for existing RCN members and RCN staff
 @app.route('/', methods=['GET', 'POST'])

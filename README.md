@@ -11,16 +11,23 @@
 </div>
 
 The Royal College of Nursing (RCN) is a professional body and trade union for nursing staff in the UK. It is a membership organisation that provides advice and support on workplace and professional nursing issues. 
-The RCN Member Query Database is a website/app created with the primary goal of improving communication and transparency between RCN staff and RCN members. It is intended to be used by both RCN members and RCN staff.
+The RCN Member Query Database is a website/app created with the primary goal of improving communication and transparency between RCN staff and RCN members. It is intended to be used by both RCN members and RCN staff. 
+Members can ask questions to be picked up by staff and staff can respond and/or provide updates on the work being done to resolve their question.
 
 The website/app has a number of features, some of which are only accessible to particular user groups. For all users, there is a login and registration page, a home page with details of the user's account details and the ability to edit these account details.
 RCN members are also able to ask a question using an online form and access details of the questions they have asked, including the RCN staff leading on the question response. The member can add additional contacts onto the question, if they would like to add follow up questions/comments.
 RCN staff can also add contacts onto questions members have created. RCN staff have additional accessability to see all questions asked by any member, assign the question to themselves or other staff and close the question. They are also able to see a list of all RCN members, their account details and questions they have asked.
 
+---
+
+## User experience
+
 The client requested this website to address issues with current methods of communication with its members. Up until now, RCN members have mainly used phone or email to contact the RCN. RCN staff would then respond by phone, email or, in some cases, a face-to-face meeting would be arranged. Member queries can differ in complexity. 
 Some matters can be resolved with only one response but more complicated matters could require ongoing correspondence for many weeks or months. It may also require the RCN contacting third parties on behalf of the member. RCN staff are responsible for keeping a record of all interactions with members and third parties on an internal database. 
 This database can be viewed by RCN staff but not by RCN members. It is expected that RCN members keep their own records of their ongoing cases or simply remember the information provided to them.
 This leaves room for misunderstandings and misinterpretation of information in what can often be complicated and high stakes matters. In order to reduce this risk, RCN staff are encouraged to follow up telephone calls and face-to-face meetings with an email that confirms the advice given and actions agreed. This approach is followed sporadically by RCN staff.
+
+### Goals 
 
 The client goals for this new website/app are to:
 * Improve communication and transparency between RCN staff and RCN members.
@@ -35,10 +42,6 @@ The user goals for the new website/app are to:
 * Keep a record of previous advice that can be readily accessed at a later date.
 * Track the progress of long-running cases.
 * Reduce the need for email correspondence.
-
----
-
-## User experience
 
 ### Target Audience
 

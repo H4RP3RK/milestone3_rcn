@@ -8,59 +8,59 @@
         </ol>
     </nav>
 <!--Unassigned cases accordion-->
-<div class="main background-picture member-list-background">
-    <div class="main opaque-white">
-        <section class="container">
-            <div class="border" id="members">
-                <div class="row align-items-center">
-                    <div class="col-sm-6">
-                        <h4 class="heading font-heavy font-blue">All Members</h4>                
-                    </div>
-                    <form class="col-sm-6 ">
-                        <input class="form-control mr-sm-2 list-bottom-margin" type="member_name" id="member_name" onkeyup="search();" name="member_name" placeholder="Search by name, job title or employer" aria-label="Search">
-                    </form>        
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <div class="card d-none d-sm-none d-md-block">
-                            <div class="card-header font-blue">
-                                <div class="row align-items-center">
-                                    <div class="col-sm-3">
-                                        <h5>Name</h5>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <h5>Job Title</h5>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <h5>Employer</h5>
-                                    </div>
-                                </div>
-                            </div>
+    <div class="main background-picture member-list-background">
+        <div class="main opaque-white">
+            <section class="container">
+                <div class="border" id="members">
+                    <div class="row align-items-center">
+                        <div class="col-sm-6">
+                            <h4 class="heading font-heavy font-blue">All Members</h4>                
                         </div>
-                    {% for member in members %}
-                        <div class="card">
-                            <div class="card-header name">
-                                <div class="row align-items-center">
-                                    <div class="col-sm-3" id="{{member.first_name}}{{member.last_name}}">
-                                        <h6 class="font-blue">{{member.first_name}} {{member.last_name}}</h6>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <p class="list-bottom-margin"><span class="d-sm-block d-md-none">Job Title: </span><span>{{member.job_title}}</span></p>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <p class="list-bottom-margin"><span class="d-sm-block d-md-none">Employer: </span><span>{{member.employer}}</span></p>
-                                    </div>
-                                    <div class="col-sm-2 member-list-btn">
-                                        <a class="blue-btn btn accordion-btn" href="{{ url_for('member_details', member_id=member._id) }}"><i class="far fa-address-card"></i></a>
+                        <form class="col-sm-6 ">
+                            <input class="form-control mr-sm-2 list-bottom-margin" type="member_name" id="member_name" onkeyup="search();" name="member_name" placeholder="Search by name, job title or employer" aria-label="Search">
+                        </form>        
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="card d-none d-sm-none d-md-block">
+                                <div class="card-header font-blue">
+                                    <div class="row align-items-center">
+                                        <div class="col-sm-3">
+                                            <h5>Name</h5>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <h5>Job Title</h5>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <h5>Employer</h5>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>                    
-                    {% endfor %}
+                        {% for member in members %}
+                            <div class="card">
+                                <div class="card-header name">
+                                    <div class="row align-items-center">
+                                        <div class="col-sm-3" id="{{member.first_name}}{{member.last_name}}">
+                                            <h6 class="font-blue">{{member.first_name}} {{member.last_name}}</h6>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <p class="list-bottom-margin"><span class="d-sm-block d-md-none">Job Title: </span><span>{{member.job_title}}</span></p>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <p class="list-bottom-margin"><span class="d-sm-block d-md-none">Employer: </span><span>{{member.employer}}</span></p>
+                                        </div>
+                                        <div class="col-sm-2 member-list-btn">
+                                            <a class="blue-btn btn accordion-btn" href="{{ url_for('member_details', member_id=member._id) }}"><i class="far fa-address-card"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>                    
+                        {% endfor %}
+                        </div>
                     </div>
                 </div>
-            </div>
-        </section> 
+            </section> 
+        </div>
     </div>
-</div>
 {% endblock %}

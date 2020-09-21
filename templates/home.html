@@ -1,158 +1,158 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="main background-picture home-background">
-    <div class="main opaque-white">
-        <div class="container">
-            <div class="row">
-    <!--Task options-->
-                <section class="col-md-6">
-                    <div class="border">
-                        <h4 class="heading font-heavy font-blue">What would you like to do?</h4>
-                        <h5><a class="blue-btn btn background-blue" href="{{ url_for('account', username=session['username']) }}" role="button">Update your account details</a></h5>
-    <!--If user role is mbr, shows member btns-->                
-                        {% if role == "member" %}
-                        <h5><a class="blue-btn btn background-blue" href="{{ url_for('new_question') }}" role="button">Ask a new question</a></h5>
-                        <h5><button class="blue-btn btn background-blue" onclick="scrollQuestions()" role="button">See your current/closed questions</button></h5>
-                        {% elif role == "staff" %}
-                        <h5><button class="blue-btn btn background-blue" onclick="scrollQuestions()" role="button">See your assigned questions</button></h5>
-                        <h5><a class="blue-btn btn background-blue" href="{{ url_for('unassigned_questions') }}" role="button">Browse all unassigned questions</a></h5>
-                        <h5><a class="blue-btn btn background-blue" href="{{ url_for('member_list') }}" role="button">See all member accounts</a></h5>
-                        {% else %}
-                        <p>Problem with your account. Please contact IT</p>
-                        {% endif %}
-                    </div>
-                </section>  
-    <!--Account Details--> 
-                <section class="col-md-6 blue-link">
-                    <div class="border">
-                        <h4 class="heading font-heavy font-blue">Your Account Details</h4>
-                        <form>
-                            <div class="form-group form-row justify-content-center">
-                                <label for="name" class="col-4 col-form-label">Name: </label>
-                                <div class="col-8">
-                                    <input type="text" readonly class="form-control-plaintext" id="name" name="name" value="{{ member.first_name}} {{ member.last_name }}">
-                                </div>
-                            </div>
-                            <div class="form-group form-row justify-content-center">
-                                <label for="username" class="col-4 col-form-label">Username: </label>
-                                <div class="col-8">
-                                    <input type="text" readonly class="form-control-plaintext" id="username" name="username" value="{{ member.username }}">
-                                </div>
-                            </div>
-                            <div class="form-group form-row justify-content-center">
-                                <label for="email" class="col-4 col-form-label">Email: </label>
-                                <div class="col-8">
-                                    <input type="text" readonly class="form-control-plaintext" id="email" name="email" value="{{ member.email }}">
-                                </div>
-                            </div>
-                            <div class="form-group form-row justify-content-center">
-                                <label for="telephone" class="col-4 col-form-label">Telephone: </label>
-                                <div class="col-8">
-                                    <input type="text" class="form-control-plaintext" id="telephone" name="telephone" value="{{ member.telephone }}">
-                                </div>
-                            </div>
-                            <div class="form-group form-row justify-content-center">
-                            {% if role == "member" %}
-                                <label for="employer" class="col-4 col-form-label">Employer: </label>
-                                <div class="col-8">
-                                    <input type="text" readonly class="form-control-plaintext" id="employer" name="employer" value="{{ member.employer }}">
-                                </div>
-                            {% else %}
-                                <label for="workplace" class="col-4 col-form-label">Workplace: </label>
-                                <div class="col-8">
-                                    <input type="text" readonly class="form-control-plaintext" id="workplace" name="workplace" value="{{ member.workplace }}">
-                                </div>                                
-                            {% endif %}
-                            </div>
-                            <div class="form-group form-row justify-content-center">
-                                <label for="job_title" class="col-4 col-form-label">Job Title: </label>
-                                <div class="col-8">
-                                    <input type="text" readonly class="form-control-plaintext" id="job_title" name="job_title" value="{{ member.job_title }}">
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </section>           
-            </div>      
-        </div>
-<!--Questions Container-->
-        <section class="container">
-            <div class="border" id="questions">
-    <!--Title-->
-                <h4 class="heading font-heavy font-blue">{{ question_heading}}</h4>
-        <!--Lists open questions-->
+    <div class="main background-picture home-background">
+        <div class="main opaque-white">
+            <div class="container">
                 <div class="row">
-                    <div class="col">
-                    {% for question in open_questions %}
-                        <div class="card">
-                            <div class="card-header" id="heading{{question._id}}">
-                                <div class="mb-0 row align-items-center">
-                                    <div class="col-sm-3">
-                                        <h5 class="font-heavy font-blue">{{question.question_type.capitalize()}}</h5>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <span>Start Date: {{question.start_date}}</span>
-                                    </div>
-                                    <div class="col-sm-3 member-list-btn">
-                                        <button class="btn blue-btn btn-link accordion-btn collapsed" data-toggle="collapse" data-target="#collapse{{question._id}}" aria-expanded="false" aria-controls="collapse{{question._id}}">
-                                        Summary
-                                        </button>
-                                    {% if role == "member" %}
-                                        <a class="blue-btn btn accordion-btn" href="{{ url_for('member_question_details', question_id=question._id) }}">Full details</a>
-                                    {% else %}
-                                        <a class="blue-btn btn accordion-btn" href="{{ url_for('staff_question_details', question_id=question._id) }}">Full details</a>
-                                    {% endif %}
-                                    </div>
-                                </div>
-                            </div>
-                            <div id="collapse{{question._id}}" class="collapse" aria-labelledby="heading{{question._id}}" data-parent="#accordion{{question._id}}">
-                                <div class="card-body">
-                                    <h6 class="font-blue"><span class="font-heavy">Member: </span>{{question.member_id}}</h6>
-                                    <h6 class="font-blue"><span class="font-heavy">RCN Lead: </span>{{question.staff_id}}</h6>
-                                    <h6>{{question.summary}}</h6>
-                                </div>
-                            </div>
+        <!--Task options-->
+                    <section class="col-md-6">
+                        <div class="border">
+                            <h4 class="heading font-heavy font-blue">What would you like to do?</h4>
+                            <h5><a class="blue-btn btn background-blue" href="{{ url_for('account', username=session['username']) }}" role="button">Update your account details</a></h5>
+        <!--If user role is mbr, shows member btns-->                
+                            {% if role == "member" %}
+                            <h5><a class="blue-btn btn background-blue" href="{{ url_for('new_question') }}" role="button">Ask a new question</a></h5>
+                            <h5><button class="blue-btn btn background-blue" onclick="scrollQuestions()" role="button">See your current/closed questions</button></h5>
+                            {% elif role == "staff" %}
+                            <h5><button class="blue-btn btn background-blue" onclick="scrollQuestions()" role="button">See your assigned questions</button></h5>
+                            <h5><a class="blue-btn btn background-blue" href="{{ url_for('unassigned_questions') }}" role="button">Browse all unassigned questions</a></h5>
+                            <h5><a class="blue-btn btn background-blue" href="{{ url_for('member_list') }}" role="button">See all member accounts</a></h5>
+                            {% else %}
+                            <p>Problem with your account. Please contact IT</p>
+                            {% endif %}
                         </div>
-                    {% endfor %}
-<!--Shows closed questions-->
-                    {% for question in closed_questions %}
-                        <div class="card">
-                            <div class="card-header" id="heading{{question._id}}">
-                                <div class="mb-0 row align-items-center">
-                                    <div class="col-sm-3">
-                                        <h5 class="font-heavy font-blue">{{question.question_type.capitalize()}}</h5>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <span>Start Date: {{question.start_date}}</span>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <span>End Date: {{question.end_date}}</span>                                    
-                                    </div>
-                                    <div class="col-sm-3 member-list-btn">
-                                        <button class="btn blue-btn btn-link accordion-btn collapsed" data-toggle="collapse" data-target="#collapse{{question._id}}" aria-expanded="false" aria-controls="collapse{{question._id}}">
-                                        Summary
-                                        </button>
-                                    {% if role == "member" %}
-                                        <a class="blue-btn btn accordion-btn" href="{{ url_for('question_details', question_id=question._id) }}">Full details</a>
-                                    {% else %}
-                                        <a class="blue-btn btn accordion-btn" href="{{ url_for('staff_question_details', question_id=question._id) }}">Full details</a>
-                                    {% endif %}
+                    </section>  
+        <!--Account Details--> 
+                    <section class="col-md-6 blue-link">
+                        <div class="border">
+                            <h4 class="heading font-heavy font-blue">Your Account Details</h4>
+                            <form>
+                                <div class="form-group form-row justify-content-center">
+                                    <label for="name" class="col-4 col-form-label">Name: </label>
+                                    <div class="col-8">
+                                        <input type="text" readonly class="form-control-plaintext" id="name" name="name" value="{{ member.first_name}} {{ member.last_name }}">
                                     </div>
                                 </div>
-                            </div>
-                            <div id="collapse{{question._id}}" class="collapse" aria-labelledby="heading{{question._id}}" data-parent="#accordion{{question._id}}">
-                                <div class="card-body">
-                                    <h6 class="font-blue">Member: {{question.member_id}}</h6>
-                                    <h6 class="font-blue">RCN Lead: {{question.staff_id}}</h6>
-                                    <h6>{{question.summary}}</h6>
+                                <div class="form-group form-row justify-content-center">
+                                    <label for="username" class="col-4 col-form-label">Username: </label>
+                                    <div class="col-8">
+                                        <input type="text" readonly class="form-control-plaintext" id="username" name="username" value="{{ member.username }}">
+                                    </div>
                                 </div>
-                            </div>
+                                <div class="form-group form-row justify-content-center">
+                                    <label for="email" class="col-4 col-form-label">Email: </label>
+                                    <div class="col-8">
+                                        <input type="text" readonly class="form-control-plaintext" id="email" name="email" value="{{ member.email }}">
+                                    </div>
+                                </div>
+                                <div class="form-group form-row justify-content-center">
+                                    <label for="telephone" class="col-4 col-form-label">Telephone: </label>
+                                    <div class="col-8">
+                                        <input type="text" class="form-control-plaintext" id="telephone" name="telephone" value="{{ member.telephone }}">
+                                    </div>
+                                </div>
+                                <div class="form-group form-row justify-content-center">
+                                {% if role == "member" %}
+                                    <label for="employer" class="col-4 col-form-label">Employer: </label>
+                                    <div class="col-8">
+                                        <input type="text" readonly class="form-control-plaintext" id="employer" name="employer" value="{{ member.employer }}">
+                                    </div>
+                                {% else %}
+                                    <label for="workplace" class="col-4 col-form-label">Workplace: </label>
+                                    <div class="col-8">
+                                        <input type="text" readonly class="form-control-plaintext" id="workplace" name="workplace" value="{{ member.workplace }}">
+                                    </div>                                
+                                {% endif %}
+                                </div>
+                                <div class="form-group form-row justify-content-center">
+                                    <label for="job_title" class="col-4 col-form-label">Job Title: </label>
+                                    <div class="col-8">
+                                        <input type="text" readonly class="form-control-plaintext" id="job_title" name="job_title" value="{{ member.job_title }}">
+                                    </div>
+                                </div>
+                            </form>
                         </div>
-                    {% endfor %}
+                    </section>           
+                </div>      
+            </div>
+    <!--Questions Container-->
+            <section class="container">
+                <div class="border" id="questions">
+        <!--Title-->
+                    <h4 class="heading font-heavy font-blue">{{ question_heading}}</h4>
+            <!--Lists open questions-->
+                    <div class="row">
+                        <div class="col">
+                        {% for question in open_questions %}
+                            <div class="card">
+                                <div class="card-header" id="heading{{question._id}}">
+                                    <div class="mb-0 row align-items-center">
+                                        <div class="col-sm-3">
+                                            <h5 class="font-heavy font-blue">{{question.question_type.capitalize()}}</h5>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <span>Start Date: {{question.start_date}}</span>
+                                        </div>
+                                        <div class="col-sm-3 member-list-btn">
+                                            <button class="btn blue-btn btn-link accordion-btn collapsed" data-toggle="collapse" data-target="#collapse{{question._id}}" aria-expanded="false" aria-controls="collapse{{question._id}}">
+                                            Summary
+                                            </button>
+                                        {% if role == "member" %}
+                                            <a class="blue-btn btn accordion-btn" href="{{ url_for('member_question_details', question_id=question._id) }}">Full details</a>
+                                        {% else %}
+                                            <a class="blue-btn btn accordion-btn" href="{{ url_for('staff_question_details', question_id=question._id) }}">Full details</a>
+                                        {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="collapse{{question._id}}" class="collapse" aria-labelledby="heading{{question._id}}" data-parent="#accordion{{question._id}}">
+                                    <div class="card-body">
+                                        <h6 class="font-blue"><span class="font-heavy">Member: </span>{{question.member_id}}</h6>
+                                        <h6 class="font-blue"><span class="font-heavy">RCN Lead: </span>{{question.staff_id}}</h6>
+                                        <h6>{{question.summary}}</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+    <!--Shows closed questions-->
+                        {% for question in closed_questions %}
+                            <div class="card">
+                                <div class="card-header" id="heading{{question._id}}">
+                                    <div class="mb-0 row align-items-center">
+                                        <div class="col-sm-3">
+                                            <h5 class="font-heavy font-blue">{{question.question_type.capitalize()}}</h5>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <span>Start Date: {{question.start_date}}</span>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <span>End Date: {{question.end_date}}</span>                                    
+                                        </div>
+                                        <div class="col-sm-3 member-list-btn">
+                                            <button class="btn blue-btn btn-link accordion-btn collapsed" data-toggle="collapse" data-target="#collapse{{question._id}}" aria-expanded="false" aria-controls="collapse{{question._id}}">
+                                            Summary
+                                            </button>
+                                        {% if role == "member" %}
+                                            <a class="blue-btn btn accordion-btn" href="{{ url_for('question_details', question_id=question._id) }}">Full details</a>
+                                        {% else %}
+                                            <a class="blue-btn btn accordion-btn" href="{{ url_for('staff_question_details', question_id=question._id) }}">Full details</a>
+                                        {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="collapse{{question._id}}" class="collapse" aria-labelledby="heading{{question._id}}" data-parent="#accordion{{question._id}}">
+                                    <div class="card-body">
+                                        <h6 class="font-blue">Member: {{question.member_id}}</h6>
+                                        <h6 class="font-blue">RCN Lead: {{question.staff_id}}</h6>
+                                        <h6>{{question.summary}}</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                        </div>
                     </div>
                 </div>
-            </div>
-        </section> 
-    </div>
-</div>  
+            </section> 
+        </div>
+    </div>  
 {% endblock %}

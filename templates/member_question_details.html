@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="main font">
 <!--Breacrumbs-->
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
@@ -16,7 +15,7 @@
                         <div class="border">
     <!--RCN Lead Details-->
                             <h4 class="heading font-heavy font-blue">Your RCN Lead</h4>
-                            {% if question.staff_id == 'unassigned'%}
+                        {% if question.staff_id == 'unassigned'%}
         <!--Generic contact details and message show if RCN Lead hasn't yet been assigned-->
                             <p class="font-blue">The contact details for your RCN Lead will appear here once the appropriate person has been assigned. In the meantime, please contact RCN Direct using the contact details below.</p>
                             <form>
@@ -34,7 +33,7 @@
                                 </div>                        
                             </form>
         <!--Details show when RCN Lead has been assigned-->
-                            {% else %}
+                        {% else %}
                             <form>
                                 <div class="form-group form-row justify-content-center">
                                     <label for="name" class="col-4 col-form-label">Name: </label>
@@ -67,7 +66,7 @@
                                     </div>
                                 </div>
                             </form>
-                            {% endif %}
+                        {% endif %}
                             <div>
                                 <h6><a class="blue-btn btn background-blue" href="{{ url_for('new_contact', question_id=question._id) }}" role="button">Contact your RCN Lead</a></h6>                         
                             </div>
@@ -161,5 +160,5 @@
             </section> 
         </div>
     </div>
-</div>
+
 {% endblock %}

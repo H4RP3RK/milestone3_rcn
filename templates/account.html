@@ -31,88 +31,88 @@
     <!--Email input--> 
                             <div class="form-group form-row justify-content-center align-items-center">                                    
                                 {{ form.email.label(class="col-sm-4 form-control-label") }}
-                                {% if form.email.errors %}
+                            {% if form.email.errors %}
                                 {{ form.email(class="form-control is-invalid")}}
                                 <div class="invalid-feedback">  
-                                    {% for error in form.email.errors %}
+                                {% for error in form.email.errors %}
                                     <span>{{ error }}</span>
-                                    {% endfor %}
+                                {% endfor %}
                                 </div>
-                                {% else %}
+                            {% else %}
                                 <div class="col-sm-4">
                                     {{ form.email(class="form-control")}}                                        
                                 </div>
-                                {% endif %}
+                            {% endif %}
                             </div>
     <!--Telephone input--> 
                             <div class="form-group form-row justify-content-center align-items-center">                                    
                                 {{ form.telephone.label(class="col-sm-4 form-control-label") }}
-                                {% if form.telephone.errors %}
+                            {% if form.telephone.errors %}
                                 {{ form.telephone(class="form-control is-invalid")}}
                                 <div class="invalid-feedback">  
-                                    {% for error in form.telephone.errors %}
+                                {% for error in form.telephone.errors %}
                                     <span>{{ error }}</span>
-                                    {% endfor %}
+                                {% endfor %}
                                 </div>
-                                {% else %}
+                            {% else %}
                                 <div class="col-sm-4">
                                     {{ form.telephone(class="form-control", type="number")}}                                        
                                 </div>
-                                {% endif %}
+                            {% endif %}
                             </div>
     <!--If user role is member, show Employer input--> 
-                            {% if role == "member" %}
+                        {% if role == "member" %}
                             <div class="form-group form-row justify-content-center align-items-center">                                    
                                 {{ form.employer.label(class="col-sm-4 form-control-label") }}
-                                {% if form.employer.errors %}
+                            {% if form.employer.errors %}
                                 {{ form.employer(class="form-control is-invalid")}}
                                 <div class="invalid-feedback">  
-                                    {% for error in form.employer.errors %}
+                                {% for error in form.employer.errors %}
                                     <span>{{ error }}</span>
-                                    {% endfor %}
+                                {% endfor %}
                                 </div>
-                                {% else %}
+                            {% else %}
                                 <div class="col-sm-4">
                                     {{ form.employer(class="form-control")}}                                        
                                 </div>
-                                {% endif %}
+                            {% endif %}
                             </div>
     <!--Else if role is staff, show Workplace input--> 
-                            {% elif role == "staff" %}
+                        {% elif role == "staff" %}
                             <div class="form-group form-row justify-content-center align-items-center">                                    
                                 {{ workplace_form.workplace.label(class="col-sm-4 form-control-label") }}
-                                {% if workplace_form.workplace.errors %}
+                            {% if workplace_form.workplace.errors %}
                                 {{ workplace_form.workplace(class="form-control is-invalid")}}
                                 <div class="invalid-feedback">  
-                                    {% for error in workplace_form.workplace.errors %}
-                                        <span>{{ error }}</span>
-                                    {% endfor %}
+                                {% for error in workplace_form.workplace.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
                                 </div>
-                                {% else %}
+                            {% else %}
                                 <div class="col-sm-4">
                                     {{ workplace_form.workplace(class="form-control")}}                                        
                                 </div>
-                                {% endif %}
+                            {% endif %}
                             </div>
     <!--If user role is neither member or staff, show error message-->
-                            {% else %}
+                        {% else %}
                             <p>Account error, role unassigned. Please log out and back in again.</p>
-                            {% endif %}
+                        {% endif %}
     <!--Job Title input-->
                             <div class="form-group form-row justify-content-center align-items-center">                                    
                                 {{ form.job_title.label(class="col-sm-4 form-control-label") }}
-                                {% if form.job_title.errors %}
+                            {% if form.job_title.errors %}
                                 {{ form.job_title(class="form-control is-invalid")}}
                                 <div class="invalid-feedback">  
-                                    {% for error in form.job_title.errors %}
-                                        <span>{{ error }}</span>
-                                    {% endfor %}
+                                {% for error in form.job_title.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
                                 </div>
-                                {% else %}
+                            {% else %}
                                 <div class="col-sm-4">
                                     {{ form.job_title(class="form-control")}}                                        
                                 </div>
-                                {% endif %}
+                            {% endif %}
                             </div>
     <!--Update button-->
                             <div class="form-group form-row justify-content-center">

@@ -14,7 +14,7 @@
             <div class="main opaque-white"> 
                 <div class="container">
                     <div class="row">
-        <!--Task options-->
+<!--Task options-->
                         <section class="col-12">
                             <div class="border">
                                 <h4 class="heading font-heavy font-blue">What would you like to do?</h4>
@@ -22,14 +22,14 @@
                                 <a class="blue-btn btn background-blue accordion-btn" href="{{ url_for('staff_new_contact', question_id=question._id) }}" role="button">Add Contact</a>
                                 <button type="button" class="btn blue-btn accordion-btn" data-toggle="modal" data-target="#{{question._id}}Modal">Assign Question</button>
                                 <button class="blue-btn btn background-blue accordion-btn" onclick="scrollContacts()" role="button">Browse Contacts</button>  
-                                {% if question.end_date %}   
+                            {% if question.end_date %}   
                                 <a class="blue-btn btn background-blue accordion-btn" href="{{ url_for('reopen_question', question_id=question._id)}}" role="button">Reopen Question</a>
-                                {% else %}  
+                            {% else %}  
                                 <button type="button" class="btn blue-btn background-blue accordion-btn" data-toggle="modal" data-target="#{{question._id}}CloseModal">Close Question</button> 
-                                {% endif %} 
+                            {% endif %} 
                             </div>
                         </section>  
-        <!--Question--> 
+<!--Question--> 
                         <section class="col-md-6 blue-link">
                             <div class="border">
                                 <h4 class="heading font-heavy font-blue">Question Details</h4>
@@ -67,8 +67,7 @@
                                 </form>
                             </div>
                         </section>    
-
-        <!--Member Account Details--> 
+<!--Member Account Details--> 
                         <section class="col-md-6 blue-link">
                             <div class="border">
                                 <h4 class="heading font-heavy font-blue">Member's Account Details</h4>
@@ -114,17 +113,15 @@
                         </section>           
                     </div>      
                 </div>
-        <!--Member Questions-->
+<!--Member Questions-->
                 <section class="container">
                     <div class="border" id="contacts">
                         <h4 class="heading font-heavy font-blue">Contacts</h4>
-                        
                     </div>
                 </section> 
             </div> 
         </div>
     </div>
-
 <!--Modal - Assign Question-->
     <div class="modal fade" id="{{question._id}}Modal" tabindex="-1" role="dialog" aria-labelledby="{{question._id}}ModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -157,7 +154,6 @@
             </div>
         </div>
     </div>
-
 <!--Modal - Close Question-->
     <div class="modal fade" id="{{question._id}}CloseModal" tabindex="-1" role="dialog" aria-labelledby="{{question._id}}CloseModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -182,5 +178,4 @@
             </div>
         </div>
     </div>
-
 {% endblock %}
