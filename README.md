@@ -298,6 +298,8 @@ Testing details can be found here in [testing.md](testing.md)
 ---
 ## Deployment 
 
+Please user the master branch for deployment of the project.
+
 To deploy this page to GitHub Pages from its [GitHub repository](https://github.com/H4RP3RK/milestone_2_rpoas), the following steps were taken: 
 
 1. From the menu items near the top of the page, select **Settings**.
