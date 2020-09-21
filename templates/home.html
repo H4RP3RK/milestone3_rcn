@@ -83,21 +83,19 @@
     <!--Tabs for open and closed questions-->
                 <nav>
                     <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                        <a class="nav-item nav-link active" id="nav-open-tab" data-toggle="tab" href="#nav-open" role="tab" aria-controls="nav-open" aria-selected="true">Current</a>
-                        <a class="nav-item nav-link" id="nav-closed-tab" data-toggle="tab" href="#nav-closed" role="tab" aria-controls="nav-closed" aria-selected="false">Closed</a>
+                        <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Open</a>
+                        <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Closed</a>
                     </div>
                 </nav>
-    <!--Current Questions tab content-->
                 <div class="tab-content" id="nav-tabContent">
-                    <div class="tab-pane fade show active" id="nav-open" role="tabpanel" aria-labelledby="nav-open-tab">
-        <!--Lists open questions-->
+                    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                         <div class="row">
-                        {% if open_questions %}
-                            <div class="col">
+                            <div class="col" id="accordion">
+                        {% if open_questions %}    
                             {% for question in open_questions %}
                                 <div class="card">
                                     <div class="card-header" id="heading{{question._id}}">
-                                        <div class="mb-0 row align-items-center">
+                                        <div class="mb-0 row align-items center">
                                             <div class="col-sm-3">
                                                 <h5 class="font-heavy font-blue">{{question.question_type.capitalize()}}</h5>
                                             </div>
@@ -106,13 +104,8 @@
                                             </div>
                                             <div class="col-sm-3 member-list-btn">
                                                 <button class="btn blue-btn btn-link accordion-btn collapsed" data-toggle="collapse" data-target="#collapse{{question._id}}" aria-expanded="false" aria-controls="collapse{{question._id}}">
-                                                Summary
+                                                    Summary
                                                 </button>
-                                            {% if role == "member" %}
-                                                <a class="blue-btn btn accordion-btn" href="{{ url_for('member_question_details', question_id=question._id) }}">Full details</a>
-                                            {% else %}
-                                                <a class="blue-btn btn accordion-btn" href="{{ url_for('staff_question_details', question_id=question._id) }}">Full details</a>
-                                            {% endif %}
                                             </div>
                                         </div>
                                     </div>
@@ -123,63 +116,15 @@
                                     </div>
                                 </div>
                             {% endfor %}
-                            </div>
-        <!--Shows message if there are no questions-->
                         {% else %}
-                            <div class="col">
-                                <p>{{ open_question_message }}</p>
+                        {% endif %}
                             </div>
                         </div>
-                        {% endif %}              
                     </div>
-    <!--Closed Questions tab content-->
-                    <div class="tab-pane fade" id="nav-closed" role="tabpanel" aria-labelledby="nav-closed-tab">
-        <!--Shows closed questions-->
-                        <div class="row">                    
-                        {% if closed_questions %}
-                            <div class="col">
-                            {% for question in closed_questions %}
-                                <div class="card">
-                                    <div class="card-header" id="heading{{question._id}}">
-                                        <div class="mb-0 row align-items-center">
-                                            <div class="col-sm-3">
-                                                <h5 class="font-heavy font-blue">{{question.question_type.capitalize()}}</h5>
-                                            </div>
-                                            <div class="col-sm-3">
-                                                <span>Start Date: {{question.start_date}}</span>
-                                            </div>
-                                            <div class="col-sm-3">
-                                                <span>End Date: {{question.end_date}}</span>                                    
-                                            </div>
-                                            <div class="col-sm-3">
-                                                <button class="btn blue-btn btn-link accordion-btn collapsed" data-toggle="collapse" data-target="#collapse{{question._id}}" aria-expanded="false" aria-controls="collapse{{question._id}}">
-                                                Summary
-                                                </button>
-                                            {% if role == "member" %}
-                                                <a class="blue-btn btn accordion-btn" href="{{ url_for('question_details', question_id=question._id) }}">Full details</a>
-                                            {% else %}
-                                                <a class="blue-btn btn accordion-btn" href="{{ url_for('staff_question_details', question_id=question._id) }}">Full details</a>
-                                            {% endif %}
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div id="collapse{{question._id}}" class="collapse" aria-labelledby="heading{{question._id}}" data-parent="#accordion{{question._id}}">
-                                        <div class="card-body">
-                                            <h6>{{question.summary}}</h6>
-                                        </div>
-                                    </div>
-                                </div>
-                            {% endfor %}
-                            </div>
-        <!--If member has not asked any questions, show message-->
-                        {% else %}
-                            <div class="col">
-                                <p>You don't have any closed questions</p>
-                            </div>
-                        {% endif %}             
-                        </div>
+                    <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                    ...
                     </div>
-                </div>
+                </div> 
             </div>
         </section> 
     </div>
