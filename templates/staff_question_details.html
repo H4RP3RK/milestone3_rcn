@@ -10,157 +10,119 @@
                 <li class="breadcrumb-item active" aria-current="page">Question Details</li>
             </ol>
         </nav>
-        <div class="container">
-            <div class="row">
-<!--Task options-->
-                <section class="col-12">
-                    <div class="border">
-                        <h4 class="heading font-heavy font-blue">What would you like to do?</h4>
-                        <a class="blue-btn btn background-blue accordion-btn" href="{{ url_for('new_contact', question_id=question._id)}}" role="button">Contact Member</a>                         
-                        <a class="blue-btn btn background-blue accordion-btn" href="{{ url_for('staff_new_contact', question_id=question._id) }}" role="button">Add Contact</a>
-                        <button type="button" class="btn blue-btn accordion-btn" data-toggle="modal" data-target="#{{question._id}}Modal">Assign Question</button>
-                        <button class="blue-btn btn background-blue accordion-btn" onclick="scrollContacts()" role="button">Browse Contacts</button>  
-                        {% if question.end_date %}   
-                        <a class="blue-btn btn background-blue accordion-btn" href="{{ url_for('reopen_question', question_id=question._id)}}" role="button">Reopen Question</a>
-                        {% else %}  
-                        <button type="button" class="btn blue-btn background-blue accordion-btn" data-toggle="modal" data-target="#{{question._id}}CloseModal">Close Question</button> 
-                        {% endif %} 
-                    </div>
-                </section>  
-<!--Question--> 
-                <section class="col-md-6 blue-link">
-                    <div class="border">
-                        <h4 class="heading font-heavy font-blue">Question Details</h4>
-                        <form>
-                            <div class="form-group form-row justify-content-center">
-                                <label for="question_type" class="col-4 col-form-label">Question Type: </label>
-                                <div class="col-8">
-                                    <input type="text" readonly class="form-control-plaintext" id="question_type" name="question_type" value="{{ question.question_type.capitalize() }}">
-                                </div>
+        <div class="main background-picture question-details-background">
+            <div class="main opaque-white"> 
+                <div class="container">
+                    <div class="row">
+        <!--Task options-->
+                        <section class="col-12">
+                            <div class="border">
+                                <h4 class="heading font-heavy font-blue">What would you like to do?</h4>
+                                <a class="blue-btn btn background-blue accordion-btn" href="{{ url_for('new_contact', question_id=question._id)}}" role="button">Contact Member</a>                         
+                                <a class="blue-btn btn background-blue accordion-btn" href="{{ url_for('staff_new_contact', question_id=question._id) }}" role="button">Add Contact</a>
+                                <button type="button" class="btn blue-btn accordion-btn" data-toggle="modal" data-target="#{{question._id}}Modal">Assign Question</button>
+                                <button class="blue-btn btn background-blue accordion-btn" onclick="scrollContacts()" role="button">Browse Contacts</button>  
+                                {% if question.end_date %}   
+                                <a class="blue-btn btn background-blue accordion-btn" href="{{ url_for('reopen_question', question_id=question._id)}}" role="button">Reopen Question</a>
+                                {% else %}  
+                                <button type="button" class="btn blue-btn background-blue accordion-btn" data-toggle="modal" data-target="#{{question._id}}CloseModal">Close Question</button> 
+                                {% endif %} 
                             </div>
-                            <div class="form-group form-row justify-content-center">
-                                <label for="staff_id" class="col-4 col-form-label">RCN Lead: </label>
-                                <div class="col-8">
-                                    <input type="text" readonly class="form-control-plaintext" id="staff_id" name="staff_id" value="{{ question.staff_id }}">
-                                </div>
+                        </section>  
+        <!--Question--> 
+                        <section class="col-md-6 blue-link">
+                            <div class="border">
+                                <h4 class="heading font-heavy font-blue">Question Details</h4>
+                                <form>
+                                    <div class="form-group form-row justify-content-center">
+                                        <label for="question_type" class="col-4 col-form-label">Question Type: </label>
+                                        <div class="col-8">
+                                            <input type="text" readonly class="form-control-plaintext" id="question_type" name="question_type" value="{{ question.question_type.capitalize() }}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group form-row justify-content-center">
+                                        <label for="staff_id" class="col-4 col-form-label">RCN Lead: </label>
+                                        <div class="col-8">
+                                            <input type="text" readonly class="form-control-plaintext" id="staff_id" name="staff_id" value="{{ question.staff_id }}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group form-row justify-content-center">
+                                        <label for="start_date" class="col-4 col-form-label">Start Date: </label>
+                                        <div class="col-8">
+                                            <input type="text" readonly class="form-control-plaintext" id="start_date" name="start_date" value="{{ question.start_date }}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group form-row justify-content-center">
+                                        <label for="end_date" class="col-4 col-form-label">End Date: </label>
+                                        <div class="col-8">
+                                            <input type="text" class="form-control-plaintext" id="end_date" name="end_date" value="{{ question.end_date }}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group form-row justify-content-center">
+                                        <label for="summary" class="col-4 col-form-label">Summary: </label>
+                                        <div class="col-8">
+                                            <textarea type="text" readonly class="form-control-plaintext" id="summary" name="summary" rows="3">{{ question.summary }}</textarea>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
-                            <div class="form-group form-row justify-content-center">
-                                <label for="start_date" class="col-4 col-form-label">Start Date: </label>
-                                <div class="col-8">
-                                    <input type="text" readonly class="form-control-plaintext" id="start_date" name="start_date" value="{{ question.start_date }}">
-                                </div>
-                            </div>
-                            <div class="form-group form-row justify-content-center">
-                                <label for="end_date" class="col-4 col-form-label">End Date: </label>
-                                <div class="col-8">
-                                    <input type="text" class="form-control-plaintext" id="end_date" name="end_date" value="{{ question.end_date }}">
-                                </div>
-                            </div>
-                            <div class="form-group form-row justify-content-center">
-                                <label for="summary" class="col-4 col-form-label">Summary: </label>
-                                <div class="col-8">
-                                    <textarea type="text" readonly class="form-control-plaintext" id="summary" name="summary" rows="3">{{ question.summary }}</textarea>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </section>    
+                        </section>    
 
-<!--Member Account Details--> 
-                <section class="col-md-6 blue-link">
-                    <div class="border">
-                        <h4 class="heading font-heavy font-blue">Member's Account Details</h4>
-                        <form>
-                            <div class="form-group form-row justify-content-center">
-                                <label for="name" class="col-4 col-form-label">Name: </label>
-                                <div class="col-8">
-                                    <input type="text" readonly class="form-control-plaintext" id="name" name="name" value="{{ member.first_name}} {{ member.last_name }}">
-                                </div>
-                            </div>
-                            <div class="form-group form-row justify-content-center">
-                                <label for="username" class="col-4 col-form-label">Username: </label>
-                                <div class="col-8">
-                                    <input type="text" readonly class="form-control-plaintext" id="username" name="username" value="{{ member.username }}">
-                                </div>
-                            </div>
-                            <div class="form-group form-row justify-content-center">
-                                <label for="email" class="col-4 col-form-label">Email: </label>
-                                <div class="col-8">
-                                    <input type="text" readonly class="form-control-plaintext" id="email" name="email" value="{{ member.email }}">
-                                </div>
-                            </div>
-                            <div class="form-group form-row justify-content-center">
-                                <label for="telephone" class="col-4 col-form-label">Telephone: </label>
-                                <div class="col-8">
-                                    <input type="text" class="form-control-plaintext" id="telephone" name="telephone" value="{{ member.telephone }}">
-                                </div>
-                            </div>
-                            <div class="form-group form-row justify-content-center">
-                                <label for="employer" class="col-4 col-form-label">Employer: </label>
-                                <div class="col-8">
-                                    <input type="text" readonly class="form-control-plaintext" id="employer" name="employer" value="{{ member.employer }}">
-                                </div>
-                            </div>
-                            <div class="form-group form-row justify-content-center">
-                                <label for="job_title" class="col-4 col-form-label">Job Title: </label>
-                                <div class="col-8">
-                                    <input type="text" readonly class="form-control-plaintext" id="job_title" name="job_title" value="{{ member.job_title }}">
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </section>           
-            </div>      
-        </div>
-<!--Member Questions-->
-        <section class="container">
-            <div class="border" id="contacts">
-                <h4 class="heading font-heavy font-blue">Contacts</h4>
-                <div class="row">
-                {% if contacts %}
-                    <div class="col" id="accordion">
-                    {% for contact in contacts %}
-                        <div class="card">
-                            <div class="card-header" id="heading{{contact._id}}">
-                                <div class="mb-0 row align-items-center">
-                                    <div class="col-sm-3">
-                                        <span>{{contact.date}}</span>
+        <!--Member Account Details--> 
+                        <section class="col-md-6 blue-link">
+                            <div class="border">
+                                <h4 class="heading font-heavy font-blue">Member's Account Details</h4>
+                                <form>
+                                    <div class="form-group form-row justify-content-center">
+                                        <label for="name" class="col-4 col-form-label">Name: </label>
+                                        <div class="col-8">
+                                            <input type="text" readonly class="form-control-plaintext" id="name" name="name" value="{{ member.first_name}} {{ member.last_name }}">
+                                        </div>
                                     </div>
-                                    <div class="col-sm-3">
-                                        From: {{contact.from}}
+                                    <div class="form-group form-row justify-content-center">
+                                        <label for="username" class="col-4 col-form-label">Username: </label>
+                                        <div class="col-8">
+                                            <input type="text" readonly class="form-control-plaintext" id="username" name="username" value="{{ member.username }}">
+                                        </div>
                                     </div>
-                                    <div class="col-sm-3">
-                                        To: {{contact.to}}
+                                    <div class="form-group form-row justify-content-center">
+                                        <label for="email" class="col-4 col-form-label">Email: </label>
+                                        <div class="col-8">
+                                            <input type="text" readonly class="form-control-plaintext" id="email" name="email" value="{{ member.email }}">
+                                        </div>
                                     </div>
-                                    <div class="col-sm-3 member-list-btn">
-                                        <button class="btn blue-btn btn-link accordion-btn collapsed" data-toggle="collapse" data-target="#collapse{{contact._id}}" aria-expanded="false" aria-controls="collapse{{contact._id}}">
-                                        Details
-                                        </button>
-                                        {% if contact.recorded_by == session['username'] %}
-                                        <a class="blue-btn btn background-blue" href="{{ url_for('staff_edit_contact', contact_id=contact._id) }}" role="button"><i class="fas fa-edit"></i></a>
-                                        <a class="blue-btn btn background-blue" href="{{ url_for('delete_contact', contact_id=contact._id, question_id=question._id) }}" role="button"><i class="fas fa-trash-alt"></i></a>
-                                        {% else %}
-                                        {% endif %}
+                                    <div class="form-group form-row justify-content-center">
+                                        <label for="telephone" class="col-4 col-form-label">Telephone: </label>
+                                        <div class="col-8">
+                                            <input type="text" class="form-control-plaintext" id="telephone" name="telephone" value="{{ member.telephone }}">
+                                        </div>
                                     </div>
-                                </div>
+                                    <div class="form-group form-row justify-content-center">
+                                        <label for="employer" class="col-4 col-form-label">Employer: </label>
+                                        <div class="col-8">
+                                            <input type="text" readonly class="form-control-plaintext" id="employer" name="employer" value="{{ member.employer }}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group form-row justify-content-center">
+                                        <label for="job_title" class="col-4 col-form-label">Job Title: </label>
+                                        <div class="col-8">
+                                            <input type="text" readonly class="form-control-plaintext" id="job_title" name="job_title" value="{{ member.job_title }}">
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
-                            <div id="collapse{{contact._id}}" class="collapse" aria-labelledby="heading{{contact._id}}" data-parent="#accordion{{contact._id}}">
-                                <div class="card-body">
-                                    <h5 class="font-heavy font-blue">{{contact.contact_type}} contact</h5>
-                                    {{contact.summary}}
-                                </div>
-                            </div>
-                        </div>
-                    {% endfor %}
-                    </div>
-                {% else %}
-                    <div class="col">
-                        <p>There are no contacts for this case yet. If you contact your RCN Lead or they contact you, details will appear here.</p>
-                    </div>
-                {% endif %}
+                        </section>           
+                    </div>      
                 </div>
-            </div>
-        </section> 
+        <!--Member Questions-->
+                <section class="container">
+                    <div class="border" id="contacts">
+                        <h4 class="heading font-heavy font-blue">Contacts</h4>
+                        
+                    </div>
+                </section> 
+            </div> 
+        </div>
     </div>
 
 <!--Modal - Assign Question-->

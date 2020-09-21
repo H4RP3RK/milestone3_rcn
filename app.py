@@ -19,8 +19,6 @@ mongo = PyMongo(app)
 bcrypt = Bcrypt(app)
 
 # PAGES SHARED BY MEMBERS AND STAFF
-
-
 # Login - site opens on login page as site only intended for existing RCN members and RCN staff
 @app.route('/', methods=['GET', 'POST'])
 def shared_login():
@@ -423,6 +421,7 @@ def delete_contact(question_id, contact_id):
     return redirect(url_for(f"{user['role']}_question_details", contact=contact, question_id=question['_id']))
 
 
+# Provides staff with a full list of member user accounts. Searchable using JS
 @app.route('/member_list')
 def member_list():
     user = mongo.db.users.find_one({'username': session['username']})
@@ -430,6 +429,7 @@ def member_list():
     return render_template('member_list.html', members=members, role=user['role'])
 
 
+# Provides staff with details of member, include account details and their questions
 @app.route('/member_details/<member_id>')
 def member_details(member_id):
     user = mongo.db.users.find_one({'username': session['username']})
