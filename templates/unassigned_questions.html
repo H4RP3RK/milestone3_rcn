@@ -52,7 +52,7 @@
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
-                                        <form action="" method="POST">  
+                                        <form action="{{ url_for('assign_lead', question_id=question_id) }}" method="POST">  
                                             <input type="hidden" id="question_id" name="question_id" value="{{question._id}}">
                                             <div class="modal-body">
                                                 <div class="form-group form-row justify-content-center">
