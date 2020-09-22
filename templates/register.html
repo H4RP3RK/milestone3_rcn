@@ -25,7 +25,7 @@
                 <div class="main row align-items-center">
                     <div class="col">
 <!--Signup Form-->
-                        <form action="" method="POST">  
+                        <form action="{{ url_for('register', role=role) }}" method="POST">  
                             {{ form.hidden_tag() }}
                             <div class="form-row">
     <!--first name input-->
