@@ -20,7 +20,7 @@ function search() {
 
     memberNames.forEach((name) => {
         nameId = name.innerText;
-        memberCard = document.querySelector(".member")
+        memberCard = document.querySelector(".member");
 
         if (nameId.toLowerCase().includes(inputName)) {
             console.log(inputName);
@@ -31,11 +31,11 @@ function search() {
             console.log(`Does not match ${nameId}`);
             name.parentElement.style.display = "none";
         }
-    })
+    });
 }
 
 /*--Bootstrap Tabs--*/
 $('#myTab a').on('click', function (e) {
-  e.preventDefault()
-  $(this).tab('show')
+  e.preventDefault();
+  $(this).tab('show');
 });
